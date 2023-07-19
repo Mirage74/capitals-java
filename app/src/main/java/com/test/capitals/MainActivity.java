@@ -70,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
+        //System.out.println("lineRes 111: " + lineRes);
         lineRes = cutGetStr(lineRes);
-        System.out.println("lineRes : " + lineRes);
+        //System.out.println("lineRes 59: " + lineRes);
         return lineRes;
     }
 
@@ -84,12 +84,12 @@ public class MainActivity extends AppCompatActivity {
         return s;
     }
 
-    private void parseString(List<countryDescribe> countryList, String sIn) {
+    private void parseString(List<CountryDescribe> countryList, String sIn) {
         boolean isFinished = false;
         int cnt = 0, i, j;
-        String s, sTemp, cntName, capName, imgName;
+        String s, cntName, capName, imgName;
         int id, diffLvl;
-        countryDescribe cD;
+        CountryDescribe cD;
         s = sIn;
         while (!isFinished) {
             i = s.indexOf("{");
@@ -102,13 +102,13 @@ public class MainActivity extends AppCompatActivity {
                 i = s.indexOf("countryName");
                 i += 14;
                 j = s.indexOf(",");
-                cntName = s.substring(i, j - 1);
+                cntName = s.substring(i, j - 1).trim();
 
                 s = s.substring(j + 1);
                 i = s.indexOf("capitalName");
                 i += 14;
                 j = s.indexOf(",");
-                capName = s.substring(i, j - 1);
+                capName = s.substring(i, j - 1).trim();
 
                 s = s.substring(j + 1);
                 i = s.indexOf("diffLvl");
@@ -120,10 +120,10 @@ public class MainActivity extends AppCompatActivity {
                 i = s.indexOf("imageName");
                 i += 12;
                 j = s.indexOf(".jpg") + 4;
-                imgName = s.substring(i, j);
+                imgName = s.substring(i, j).trim();
 
 
-                cD = new countryDescribe(id, cntName, capName, diffLvl, imgName);
+                cD = new CountryDescribe(id, cntName, capName, diffLvl, imgName);
                 countryList.add(cD);
 //                }
                 i = s.indexOf("{");
@@ -141,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
+        System.out.println("country list 59 " + countryList.get(59));
     }
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,32 +156,42 @@ public class MainActivity extends AppCompatActivity {
 
         }
         String lineRes = getCountryList();
-        ArrayList<countryDescribe> countryList = new ArrayList<>();
+        ArrayList<CountryDescribe> countryList = new ArrayList<>();
         parseString(countryList, lineRes);
         System.out.println("countryList.get(3) : " + countryList.get(3));
 
         Intent intent;
+        saveUser(NOT_LOGGED_USER);
         userName = loadDataUser();
-        System.out.println("userName : " + userName);
+        System.out.println("userName mainactivity : " + userName);
         if (userName != null && userName.equals(NOT_LOGGED_USER)) {
             intent = new Intent("android.intent.action.not-logged-user");
             intent.putExtra(EXTRAS_COUNTY_LIST, countryList);
             startActivity(intent);
         } else if (userName != null && !userName.equals(NOT_LOGGED_USER)) {
-            intent = new Intent("android.intent.action.logged-user");
+            intent = new Intent("android.intent.action.logged-user-capitals");
+            intent.putExtra(EXTRAS_COUNTY_LIST, countryList);
             startActivity(intent);
         } else {
             Toast.makeText(this, "Error userName", Toast.LENGTH_SHORT).show();
         }
     }
 
+    public void saveUser(String userName) {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(USER_NAME, userName);
+        editor.apply();
+        Toast.makeText(this, "User saved", Toast.LENGTH_SHORT).show();
+    }
+
 }
 
-class countryDescribe implements Serializable {
+class CountryDescribe implements Serializable  {
 
     int id;
 
-    public countryDescribe() {
+    public CountryDescribe() {
     }
 
     String countryName;
@@ -205,7 +216,7 @@ class countryDescribe implements Serializable {
         this.imageName = imageName;
     }
 
-    public countryDescribe(int id, String countryName, String capitalName, int diffLvl, String imageName) {
+    public CountryDescribe(int id, String countryName, String capitalName, int diffLvl, String imageName) {
         this.id = id;
         this.countryName = countryName;
         this.capitalName = capitalName;

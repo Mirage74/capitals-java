@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Capitals</string>
+    <string name="username">username</string>
+    <string name="login">Login</string>
+    <string name="password">password</string>
+    <string name="visible_password_on_off">Visible password on/off</string>
+    <string name="login_uppercase">LOGIN</string>
+    <string name="register">register</string>
+    <string name="info">info</string>
+    <string name="start_test">start test</string>
+    <string name="your_score">your score</string>
+    <string name="back_uppercase">BACK</string>
+    <string name="register_uppercase">REGISTER</string>
+    <string name="register_1_upper">Register</string>
+    <string name="about">about</string>
+    <string name="aboutText1">App is developed in 2023 by</string>
+    <string name="aboutText2">Aliaksandr Babrouski</string>
+    <string name="aboutText3">balexvicx@gmail.com</string>
 </resources>
