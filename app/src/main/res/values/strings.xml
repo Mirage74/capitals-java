@@ -22,4 +22,8 @@
     <string name="easy">Easy</string>
     <string name="medium">Medium</string>
     <string name="hard">Hard</string>
+    <string name="capital">Capital</string>
+    <string name="country_name">country_name</string>
+    <string name="question_number">question_number</string>
+    <string name="capital1">capital1</string>
 </resources>

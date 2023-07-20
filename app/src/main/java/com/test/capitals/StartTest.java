@@ -3,6 +3,7 @@ package com.test.capitals;
 import static com.test.capitals.MainActivity.EXTRAS_COUNTRY_CURRENT;
 import static com.test.capitals.MainActivity.EXTRAS_COUNTRY_CURRENT_PCT_EASY;
 import static com.test.capitals.MainActivity.EXTRAS_COUNTY_LIST;
+import static com.test.capitals.MainActivity.EXTRAS_DIFFICULT_LVL;
 import static com.test.capitals.MainActivity.EXTRAS_USER_TEST_CURRENT_INFO;
 import static com.test.capitals.MainActivity.NOT_LOGGED_USER;
 import static com.test.capitals.MainActivity.SHARED_PREFS;
@@ -52,10 +53,13 @@ public class StartTest extends AppCompatActivity {
                 ArrayList<CountryDescribe> countryListCut = filterCountryByDiffLvl(countryList, 2);
                 System.out.println("countryListCut size: " + countryListCut.size());
                 Intent intentRunTest = new Intent("android.intent.action.core-test-capitals");
+                intentRunTest.putExtra(EXTRAS_COUNTY_LIST, countryList);
                 intentRunTest.putExtra(EXTRAS_COUNTRY_CURRENT, countryListCut);
-                intentRunTest.putExtra(EXTRAS_COUNTRY_CURRENT_PCT_EASY, 0);
+                //intentRunTest.putExtra(EXTRAS_COUNTRY_CURRENT_PCT_EASY, 0);
                 ArrayList<Object> testState = new ArrayList<>();
                 intentRunTest.putExtra(EXTRAS_USER_TEST_CURRENT_INFO, testState);
+                intentRunTest.putExtra(EXTRAS_DIFFICULT_LVL, 0);
+
                 startActivity(intentRunTest);
             } else if (v.getId() == R.id.info) {
 
