@@ -17,6 +17,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
     public static final String USER_NAME = "userName";
     public static final String NOT_LOGGED_USER = "notLoggedUser";
     public static final String EXTRAS_COUNTY_LIST = "country-list";
+    public static final String EXTRAS_COUNTRY_CURRENT = "country-current";
+    public static final String EXTRAS_COUNTRY_CURRENT_PCT_EASY = "pct-easy";
+    public static final String EXTRAS_USER_TEST_CURRENT_INFO = "test-core-info";
+
 
     String userName;
 
@@ -141,12 +146,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
-        System.out.println("country list 59 " + countryList.get(59));
+        //System.out.println("country list 59 " + countryList.get(59));
     }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
         if (SDK_INT > 8) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
@@ -158,17 +162,23 @@ public class MainActivity extends AppCompatActivity {
         String lineRes = getCountryList();
         ArrayList<CountryDescribe> countryList = new ArrayList<>();
         parseString(countryList, lineRes);
-        System.out.println("countryList.get(3) : " + countryList.get(3));
+        //System.out.println("countryList.get(3) : " + countryList.get(3));
 
         Intent intent;
-        saveUser(NOT_LOGGED_USER);
+        //saveUser(NOT_LOGGED_USER);
         userName = loadDataUser();
-        System.out.println("userName mainactivity : " + userName);
+
+//        System.out.println("userName : " + userName.getClass());
+//        System.out.println("NOT_LOGGED_USER : " + NOT_LOGGED_USER.getClass());
+//        if (!userName.equals(NOT_LOGGED_USER)) {
+//            System.out.println("not equal");
+//        }
         if (userName != null && userName.equals(NOT_LOGGED_USER)) {
             intent = new Intent("android.intent.action.not-logged-user");
             intent.putExtra(EXTRAS_COUNTY_LIST, countryList);
             startActivity(intent);
-        } else if (userName != null && !userName.equals(NOT_LOGGED_USER)) {
+
+        } else if ( (userName != null) && (!userName.equals(NOT_LOGGED_USER)))  {
             intent = new Intent("android.intent.action.logged-user-capitals");
             intent.putExtra(EXTRAS_COUNTY_LIST, countryList);
             startActivity(intent);
@@ -187,9 +197,12 @@ public class MainActivity extends AppCompatActivity {
 
 }
 
-class CountryDescribe implements Serializable  {
+class CountryDescribe implements Serializable {
 
     int id;
+    String capitalName;
+    int diffLvl;
+    String imageName;
 
     public CountryDescribe() {
     }
@@ -255,9 +268,7 @@ class CountryDescribe implements Serializable  {
         return imageName;
     }
 
-    String capitalName;
-    int diffLvl;
-    String imageName;
+
 
 
 }

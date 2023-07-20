@@ -39,6 +39,7 @@ public class LoginUser extends AppCompatActivity {
     String name1, pass1;
     ImageView eye;
     boolean state = false;
+    User userInstance;
 
 
     @Override
@@ -105,14 +106,14 @@ public class LoginUser extends AppCompatActivity {
             Toast failed_login = Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT);
             Toast success_login = Toast.makeText(this, "Login success", Toast.LENGTH_SHORT);
             String getLoginResponse = postLoginUser(name1, pass1);
-            String user = getUserNameFromBackendResponse(getLoginResponse);
-            if (user.equals(getLoginResponse)) {
-                System.out.println("User login failed : " + user);
+            if (getLoginResponse.indexOf("CODE LOGIN_USER_02") == 1) {
+                System.out.println("User login failed : " + name1);
                 failed_login.show();
             } else {
-                System.out.println("user : " + user);
+                userInstance = parseBackendResponse(getLoginResponse);
+                System.out.println("user : " + userInstance.DISPLAYNAME);
                 success_login.show();
-                saveUser(user);
+                saveUser(userInstance.DISPLAYNAME);
                 Intent intent = new Intent("android.intent.action.logged-user-capitals");
                 intent.putExtra(EXTRAS_COUNTY_LIST, countryList);
                 System.out.println("login user, countryList : " + countryList);
@@ -173,18 +174,33 @@ public class LoginUser extends AppCompatActivity {
         return response.toString();
     }
 
-    private String getUserNameFromBackendResponse(String sIn) {
-        String s = "";
-        if (sIn.indexOf("CODE LOGIN_USER_02") == 1) {
-            return (sIn);
-        } else {
+    private User parseBackendResponse(String sIn) {
+        String dispName, typeLogin, lastRes;
+        int i, j, k, bestScore;
 
-            int i = sIn.indexOf(":");
-            int j = sIn.indexOf("}");
-            s = sIn.substring(i + 2, j - 1);
-            s = s.substring(0, 1).toUpperCase() + s.substring(1);
-            return s;
-        }
+        i = sIn.indexOf("DISPLAYNAME");
+        j = sIn.indexOf(":", i + 1);
+        k = sIn.indexOf(",", j + 1);
+        dispName = sIn.substring(j + 2, k - 1);
+        dispName = dispName.substring(0, 1).toUpperCase() + dispName.substring(1);
+
+        i = sIn.indexOf("TYPELOGIN");
+        j = sIn.indexOf(":", i + 1);
+        k = sIn.indexOf(",", j + 1);
+        typeLogin = sIn.substring(j + 2, k - 1);
+
+        i = sIn.indexOf("LAST_RES");
+        j = sIn.indexOf(":", i + 1);
+        k = sIn.indexOf(",", j + 1);
+        lastRes = sIn.substring(j + 2, k - 1);
+
+        i = sIn.indexOf("BESTSCORE");
+        j = sIn.indexOf(":", i + 1);
+        k = sIn.indexOf("}", j + 2);
+        String s = sIn.substring(j + 1, k);
+        bestScore = Integer.parseInt(sIn.substring(j + 1, k));
+
+        return new User(dispName, typeLogin, lastRes, bestScore);
     }
 
     public void toggle() {
@@ -211,5 +227,31 @@ public class LoginUser extends AppCompatActivity {
         editor.putString(USER_NAME, userName);
         editor.apply();
         Toast.makeText(this, "User saved", Toast.LENGTH_SHORT).show();
+    }
+}
+
+class User {
+    String DISPLAYNAME;
+    String TYPELOGIN;
+    String LAST_RES;
+    int BESTSCORE;
+
+
+    public User(String DISPLAYNAME, String TYPELOGIN, String LAST_RES, int BESTSCORE) {
+        this.DISPLAYNAME = DISPLAYNAME;
+        this.TYPELOGIN = TYPELOGIN;
+        this.LAST_RES = LAST_RES;
+        this.BESTSCORE = BESTSCORE;
+
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "DISPLAYNAME='" + DISPLAYNAME + '\'' +
+                ", TYPELOGIN='" + TYPELOGIN + '\'' +
+                ", LAST_RES='" + LAST_RES + '\'' +
+                ", BESTSCORE=" + BESTSCORE +
+                '}';
     }
 }

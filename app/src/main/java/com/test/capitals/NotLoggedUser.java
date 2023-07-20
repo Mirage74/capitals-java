@@ -53,7 +53,6 @@ public class NotLoggedUser extends AppCompatActivity {
 
             } else if (v.getId() == R.id.about) {
                 Intent intentAbout = new Intent("android.intent.action.about-capitals");
-                intentAbout.putExtra(EXTRAS_COUNTY_LIST, countryList);
                 startActivity(intentAbout);
 
             }

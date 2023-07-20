@@ -16,4 +16,10 @@
     <string name="aboutText1">App is developed in 2023 by</string>
     <string name="aboutText2">Aliaksandr Babrouski</string>
     <string name="aboutText3">balexvicx@gmail.com</string>
+    <string name="rules_test">rules test</string>
+    <string name="logout">logout</string>
+    <string name="please_choose_level">Please, choose level</string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
 </resources>

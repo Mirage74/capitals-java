@@ -63,6 +63,22 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".StartTest"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.start-test-capitals" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".CoreTest"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.core-test-capitals" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

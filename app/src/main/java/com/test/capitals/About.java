@@ -22,19 +22,11 @@ public class About extends AppCompatActivity {
         setContentView(R.layout.about);
         Intent intent = getIntent();
         buttonBack = findViewById(R.id.back);
-        final ArrayList<CountryDescribe> countryList;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            countryList = intent.getParcelableArrayListExtra(EXTRAS_COUNTY_LIST, CountryDescribe.class);
-        } else {
-            countryList = (ArrayList<CountryDescribe>) intent.getSerializableExtra(EXTRAS_COUNTY_LIST);
-        }
         View.OnClickListener onClickListener = v -> {
             if (v.getId() == R.id.back) {
                 Intent intentBack = new Intent("android.intent.action-capitals.MAIN");
                 startActivity(intentBack);
-
             }
-
         };
 
         buttonBack.setOnClickListener(onClickListener);

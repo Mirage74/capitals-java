@@ -15,6 +15,7 @@
         android:layout_marginTop="70dp"
         android:layout_weight="1"
         android:layout_gravity="center"
+        android:textSize="25sp"
         android:text="@string/login" />
 
 
@@ -24,6 +25,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginTop="100dp"
+        android:textSize="25sp"
         android:text="@string/register" />
 
     <Button
@@ -32,6 +34,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginTop="100dp"
+        android:textSize="25sp"
         android:text="@string/info" />
 
     <Button
@@ -40,6 +43,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginTop="100dp"
+        android:textSize="25sp"
         android:text="@string/about" />
 
 
