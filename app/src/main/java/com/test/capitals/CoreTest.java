@@ -14,6 +14,8 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +26,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.squareup.picasso.Picasso;
@@ -50,6 +53,9 @@ public class CoreTest extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.core_test);
+
+        ImageView iw3 = findViewById(R.id.ivBG);
+
         Resources resources = getResources();
         userName = loadDataUser();
         buttonCap1 = findViewById(R.id.caital1);
@@ -62,7 +68,7 @@ public class CoreTest extends AppCompatActivity {
         textViewCountryName = findViewById(R.id.country_name);
         testViewQuestionNumber = findViewById(R.id.question_number);
 
-        imageView = findViewById(R.id.image);
+        //imageView = findViewById(R.id.image);
         Intent intent = getIntent();
         //pctEasy = intent.getIntExtra(EXTRAS_COUNTRY_CURRENT_PCT_EASY, 0);
         diffLvl = intent.getIntExtra(EXTRAS_DIFFICULT_LVL, 0);
@@ -111,9 +117,11 @@ public class CoreTest extends AppCompatActivity {
         buttonCap3.setText(countryList.get(int_random).capitalName);
         int_random = rand.nextInt(countryList.size());
         buttonCap4.setText(countryList.get(int_random).capitalName);
-        Picasso.get().load(GET_IMAGE_URL + testCountry.imageName).into(imageView);
+        //Picasso.get().load(GET_IMAGE_URL + testCountry.imageName).into(iw3);
+        //iw3.setImageAlpha(0);
+        Picasso.get().load("https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c21hcnRwaG9uZXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80").into(iw3);
 
-
+        //iw3.setImageDrawable(imageView.getDrawable());
         System.out.println("countryListCut : " + countryListCut);
         System.out.println("pctEasy : " + pctEasy);
         System.out.println("testState : " + testState);
