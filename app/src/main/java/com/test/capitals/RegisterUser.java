@@ -1,5 +1,6 @@
 package com.test.capitals;
 
+import static com.test.capitals.MainActivity.BACKEND_API;
 import static com.test.capitals.MainActivity.EXTRAS_COUNTY_LIST;
 import static com.test.capitals.MainActivity.SHARED_PREFS;
 import static com.test.capitals.MainActivity.USER_NAME;
@@ -31,7 +32,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class RegisterUser extends AppCompatActivity {
-    private static final String POST_CREATE_USER = "http://10.0.2.2:4000/api/createUser";
+    private static final String POST_CREATE_USER = BACKEND_API + "/createUser";
     private static final String POST_BEGIN_RESPONSE = "CODE REG_USER_01";
     String userName;
     EditText name, pass;

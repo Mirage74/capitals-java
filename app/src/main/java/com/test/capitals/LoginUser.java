@@ -1,5 +1,6 @@
 package com.test.capitals;
 
+import static com.test.capitals.MainActivity.BACKEND_API;
 import static com.test.capitals.MainActivity.EXTRAS_COUNTY_LIST;
 import static com.test.capitals.MainActivity.NOT_LOGGED_USER;
 import static com.test.capitals.MainActivity.SHARED_PREFS;
@@ -32,7 +33,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class LoginUser extends AppCompatActivity {
-    private static final String POST_LOGIN_USER = "http://10.0.2.2:4000/api/login";
+    private static final String POST_LOGIN_USER = BACKEND_API + "/login";
     String userName;
     EditText name, pass;
     Button buttonLogin, buttonBack;

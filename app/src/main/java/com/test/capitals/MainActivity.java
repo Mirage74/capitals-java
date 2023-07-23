@@ -30,10 +30,13 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRAS_USER_TEST_CURRENT_INFO = "test-core-info";
     public static final String EXTRAS_DIFFICULT_LVL = "diff-lvl";
 
+    public static final String BACKEND_URL = "http://10.0.2.2:4000";
+    public static final String BACKEND_API = BACKEND_URL + "/api";
+
 
     String userName;
 
-    private static final String GET_URL = "http://10.0.2.2:4000/api/get";
+    //private static final String GET_URL = "http://10.0.2.2:4000/api/get";
 
 
     private String loadDataUser() {
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         String lineRes = "";
         URL url;
         try {
-            url = new URL(GET_URL);
+            url = new URL(BACKEND_API + "/get");
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
 

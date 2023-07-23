@@ -19,8 +19,8 @@
             android:layout_height="fill_parent"
             android:layout_centerInParent="true"
             android:adjustViewBounds="true"
-            android:alpha="0.2"
-            android:scaleType="fitXY"
+            android:alpha="0.5"
+            android:scaleType="centerCrop"
             android:src="@drawable/unsplash"
             tools:ignore="MissingConstraints" />
 

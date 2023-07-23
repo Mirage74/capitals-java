@@ -1,5 +1,7 @@
 package com.test.capitals;
 
+import static android.widget.ImageView.ScaleType.CENTER_CROP;
+import static com.test.capitals.MainActivity.BACKEND_API;
 import static com.test.capitals.MainActivity.EXTRAS_COUNTRY_CURRENT;
 import static com.test.capitals.MainActivity.EXTRAS_COUNTRY_CURRENT_PCT_EASY;
 import static com.test.capitals.MainActivity.EXTRAS_COUNTY_LIST;
@@ -47,7 +49,7 @@ public class CoreTest extends AppCompatActivity {
     TextView textViewUsername, textViewCountryName, testViewQuestionNumber;
     int allQuestions, scoreEasy, scoreMedium, scoreHard, pctEasy, diffLvl;
     int timeBestScoreSec, timeMediumScoreSec, timeMaxSec, maxEasyPct;
-    private static final String GET_IMAGE_URL = "http://10.0.2.2:4000/";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,9 +119,10 @@ public class CoreTest extends AppCompatActivity {
         buttonCap3.setText(countryList.get(int_random).capitalName);
         int_random = rand.nextInt(countryList.size());
         buttonCap4.setText(countryList.get(int_random).capitalName);
-        //Picasso.get().load(GET_IMAGE_URL + testCountry.imageName).into(iw3);
-        //iw3.setImageAlpha(0);
-        Picasso.get().load("https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c21hcnRwaG9uZXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80").into(iw3);
+        Picasso.get().load(BACKEND_API + testCountry.imageName).into(iw3);
+
+
+        //Picasso.get().load("https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c21hcnRwaG9uZXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80").into(iw3);
 
         //iw3.setImageDrawable(imageView.getDrawable());
         System.out.println("countryListCut : " + countryListCut);
