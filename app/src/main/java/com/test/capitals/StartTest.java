@@ -52,10 +52,9 @@ public class StartTest extends AppCompatActivity {
             if (v.getId() == R.id.easy) {
                 ArrayList<CountryDescribe> countryListCut = filterCountryByDiffLvl(countryList, 2);
                 System.out.println("countryListCut size: " + countryListCut.size());
-                Intent intentRunTest = new Intent("android.intent.action.core-test-capitals");
+                Intent intentRunTest = new Intent(this, CoreTest.class);
                 intentRunTest.putExtra(EXTRAS_COUNTY_LIST, countryList);
                 intentRunTest.putExtra(EXTRAS_COUNTRY_CURRENT, countryListCut);
-                //intentRunTest.putExtra(EXTRAS_COUNTRY_CURRENT_PCT_EASY, 0);
                 ArrayList<Object> testState = new ArrayList<>();
                 intentRunTest.putExtra(EXTRAS_USER_TEST_CURRENT_INFO, testState);
                 intentRunTest.putExtra(EXTRAS_DIFFICULT_LVL, 0);
@@ -75,7 +74,7 @@ public class StartTest extends AppCompatActivity {
     }
 
     private ArrayList filterCountryByDiffLvl(ArrayList<CountryDescribe> countryList, int diffLvl) {
-        return (ArrayList)countryList.stream().filter(e -> e.diffLvl < diffLvl).collect(Collectors.toList());
+        return (ArrayList)countryList.stream().filter(e -> e.diffLvl <= diffLvl).collect(Collectors.toList());
     }
     private String loadDataUser() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);

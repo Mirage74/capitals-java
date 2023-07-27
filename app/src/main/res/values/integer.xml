@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="test_questions">15</integer>
-    <integer name="min_pct_hard">50</integer>
     <integer name="max_time_test_sec">10</integer>
     <integer name="time_score_best">4</integer>
     <integer name="time_score_medium">7</integer>

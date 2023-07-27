@@ -7,22 +7,10 @@
     tools:context=".CoreTest">
 
 
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/ivBG"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_centerInParent="true"
-            android:adjustViewBounds="true"
-            android:alpha="0.5"
-            android:scaleType="centerCrop"
-            android:src="@drawable/unsplash"
-            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/username"
@@ -30,12 +18,48 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="16dp"
             android:text="@string/username"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             app:layout_constrainedWidth="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
            />
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivImageCapital"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginHorizontal="100dp"
+        app:strokeWidth="5dp"
+        app:strokeColor="@android:color/holo_green_light"
+        android:adjustViewBounds="true"
+        android:alpha="1"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+        app:layout_constraintTop_toBottomOf="@+id/username"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/country_name"
+        android:src="@drawable/unsplash"
+        />
+
+
+    <TextView
+        android:id="@+id/question_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/question_number"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivImageCapital"
+        app:layout_constraintBottom_toTopOf="@id/country_name"
+        android:layout_marginTop="10dp"
+        app:layout_constraintHorizontal_bias="0.5"
+        />
 
         <TextView
             android:id="@+id/country_name"
@@ -47,78 +71,67 @@
             app:layout_constrainedWidth="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/username"
-            app:layout_constraintBottom_toTopOf="@id/question_number"
+            app:layout_constraintTop_toBottomOf="@id/question_number"
+            app:layout_constraintBottom_toTopOf="@id/capital1"
             app:layout_constraintHorizontal_bias="0.5"
             />
 
 
 
-        <TextView
-            android:id="@+id/question_number"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/capital1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/question_number"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline2"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/capital"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
             app:layout_constraintTop_toBottomOf="@id/country_name"
-            app:layout_constraintBottom_toTopOf="@id/country_name"
-            android:layout_marginTop="10dp"
-            app:layout_constraintHorizontal_bias="0.5"
-            />
-
-        <Button
-            android:id="@+id/caital1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="@string/capital"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-            app:layout_constraintTop_toBottomOf="@id/question_number"
+            app:layout_constraintBottom_toTopOf="@id/capital2"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="10dp"
-            />
-
-        <Button
-            android:id="@+id/caital2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="@string/capital"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-            app:layout_constraintTop_toBottomOf="@id/question_number"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="80dp"
             />
 
         <Button
-            android:id="@+id/caital3"
-            android:layout_width="wrap_content"
+            android:id="@+id/capital2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:text="@string/capital"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-            app:layout_constraintTop_toBottomOf="@id/caital1"
+            app:layout_constraintTop_toBottomOf="@id/capital1"
+            app:layout_constraintBottom_toTopOf="@id/capital3"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="80dp"
             />
 
         <Button
-            android:id="@+id/caital4"
-            android:layout_width="wrap_content"
+            android:id="@+id/capital3"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:text="@string/capital"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-            app:layout_constraintTop_toBottomOf="@id/caital2"
+            app:layout_constraintTop_toBottomOf="@id/capital2"
+            app:layout_constraintBottom_toTopOf="@id/capital4"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="80dp"
+
+            />
+
+        <Button
+            android:id="@+id/capital4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/capital"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+            app:layout_constraintTop_toBottomOf="@id/capital3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="80dp"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

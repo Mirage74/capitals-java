@@ -79,7 +79,7 @@ public class RegisterUser extends AppCompatActivity {
             } else if (v.getId() == R.id.toggle_view2) {
                 toggle();
             } else if (v.getId() == R.id.back) {
-                Intent intentBack = new Intent("android.intent.action.not-logged-user");
+                Intent intentBack = new Intent(this, NotLoggedUser.class);
                 intentBack.putExtra(EXTRAS_COUNTY_LIST, countryList);
                 startActivity(intentBack);
             }
@@ -120,7 +120,7 @@ public class RegisterUser extends AppCompatActivity {
                     System.out.println("user register : " + user);
                     success_registration.show();
                     saveUser(user);
-                    Intent intent = new Intent("android.intent.action.logged-user-capitals");
+                    Intent intent = new Intent(this, LoggedUser.class);
                     intent.putExtra(EXTRAS_COUNTY_LIST, countryList);
                     System.out.println("login user, countryList : " + countryList);
                     startActivity(intent);

@@ -178,12 +178,12 @@ public class MainActivity extends AppCompatActivity {
 //            System.out.println("not equal");
 //        }
         if (userName != null && userName.equals(NOT_LOGGED_USER)) {
-            intent = new Intent("android.intent.action.not-logged-user");
+            intent = new Intent(this, NotLoggedUser.class);
             intent.putExtra(EXTRAS_COUNTY_LIST, countryList);
             startActivity(intent);
 
         } else if ( (userName != null) && (!userName.equals(NOT_LOGGED_USER)))  {
-            intent = new Intent("android.intent.action.logged-user-capitals");
+            intent = new Intent(this, LoggedUser.class);
             intent.putExtra(EXTRAS_COUNTY_LIST, countryList);
             startActivity(intent);
         } else {

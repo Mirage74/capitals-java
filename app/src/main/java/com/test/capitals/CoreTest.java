@@ -2,6 +2,7 @@ package com.test.capitals;
 
 import static android.widget.ImageView.ScaleType.CENTER_CROP;
 import static com.test.capitals.MainActivity.BACKEND_API;
+import static com.test.capitals.MainActivity.BACKEND_URL;
 import static com.test.capitals.MainActivity.EXTRAS_COUNTRY_CURRENT;
 import static com.test.capitals.MainActivity.EXTRAS_COUNTRY_CURRENT_PCT_EASY;
 import static com.test.capitals.MainActivity.EXTRAS_COUNTY_LIST;
@@ -17,7 +18,9 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
@@ -33,14 +37,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+
+import kotlin.jvm.internal.Intrinsics;
 
 public class CoreTest extends AppCompatActivity {
-    ArrayList<CountryDescribe> countryList, countryListCut, countryListNew;
+    ArrayList<CountryDescribe> countryList, countryListCut, countryListNew, countryListNew1, countryListNew2;
     ArrayList<Object> testState;
     Button buttonCap1, buttonCap2, buttonCap3, buttonCap4;
     ImageView imageView;
@@ -48,7 +59,8 @@ public class CoreTest extends AppCompatActivity {
     CountryDescribe testCountry;
     TextView textViewUsername, textViewCountryName, testViewQuestionNumber;
     int allQuestions, scoreEasy, scoreMedium, scoreHard, pctEasy, diffLvl;
-    int timeBestScoreSec, timeMediumScoreSec, timeMaxSec, maxEasyPct;
+    int timeBestScoreSec, timeMediumScoreSec, timeMaxSec, rightAnswerNum;
+    String[] answerVariants = new String[4];
 
 
     @Override
@@ -56,14 +68,16 @@ public class CoreTest extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.core_test);
 
-        ImageView iw3 = findViewById(R.id.ivBG);
+        ImageView ivImageCapital = findViewById(R.id.ivImageCapital);
+
+
 
         Resources resources = getResources();
         userName = loadDataUser();
-        buttonCap1 = findViewById(R.id.caital1);
-        buttonCap2 = findViewById(R.id.caital2);
-        buttonCap3 = findViewById(R.id.caital3);
-        buttonCap4 = findViewById(R.id.caital4);
+        buttonCap1 = findViewById(R.id.capital1);
+        buttonCap2 = findViewById(R.id.capital2);
+        buttonCap3 = findViewById(R.id.capital3);
+        buttonCap4 = findViewById(R.id.capital4);
 
         textViewUsername = findViewById(R.id.username);
         textViewUsername.setText(userName);
@@ -102,36 +116,105 @@ public class CoreTest extends AppCompatActivity {
         timeBestScoreSec = resources.getInteger(R.integer.time_score_best);
         timeMediumScoreSec = resources.getInteger(R.integer.time_score_medium);
         timeMaxSec = resources.getInteger(R.integer.max_time_test_sec);
-        maxEasyPct = resources.getInteger(R.integer.min_pct_hard);
+
 
         Random rand = new Random();
-        int int_random = rand.nextInt(countryListCut.size());
+        int int_random;
+
+
+        int_random = rand.nextInt(countryListCut.size());
         testCountry = countryListCut.get(int_random);
         System.out.println("testCountry : " + testCountry);
         textViewCountryName.setText(testCountry.countryName);
         String s = testState.size() + 1 + " / " + allQuestions;
         testViewQuestionNumber.setText(s);
-        int_random = rand.nextInt(countryList.size());
-        buttonCap1.setText(countryList.get(int_random).capitalName);
-        int_random = rand.nextInt(countryList.size());
-        buttonCap2.setText(countryList.get(int_random).capitalName);
-        int_random = rand.nextInt(countryList.size());
-        buttonCap3.setText(countryList.get(int_random).capitalName);
-        int_random = rand.nextInt(countryList.size());
-        buttonCap4.setText(countryList.get(int_random).capitalName);
-        Picasso.get().load(BACKEND_API + testCountry.imageName).into(iw3);
+        countryListCut.remove(int_random);
+        System.out.println("countryListCut.size() : " + countryListCut.size());
 
 
-        //Picasso.get().load("https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c21hcnRwaG9uZXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80").into(iw3);
+        countryListNew = new ArrayList<>();
+        countryListNew = (ArrayList)countryList.clone();
+        rightAnswerNum = rand.nextInt(3);
+        answerVariants[rightAnswerNum] = testCountry.capitalName;
+        System.out.println("rightAnswerNum : " + rightAnswerNum);
 
-        //iw3.setImageDrawable(imageView.getDrawable());
-        System.out.println("countryListCut : " + countryListCut);
-        System.out.println("pctEasy : " + pctEasy);
-        System.out.println("testState : " + testState);
+        countryListNew = (ArrayList)countryList.stream().filter(e -> e.id != testCountry.id).collect(Collectors.toList());
+
+//        countryListNew.remove(0);
+//        System.out.println("countryListNew 0 : " + countryListNew.get(0));
+//        System.out.println("countryListCut 0 : " + countryListCut.get(0));
+//        System.out.println("countryList 0 : " + countryList.get(0));
+//
+//        System.out.println("countryListNew len0 : " + countryListNew.size());
+//        System.out.println("countryListCut len0 : " + countryListCut.size());
+//        System.out.println("countryList len0 : " + countryList.size());
+        boolean found = false;
+        int i = 0;
+        int rand1 = rand.nextInt(countryListNew.size());
+        while (!found) {
+            if (answerVariants[i] == null) {
+                answerVariants[i] = countryListNew.get(rand1).capitalName;
+                found = true;
+            } else {
+                i++;
+            }
+        }
+        countryListNew1 = new ArrayList<>();
+        countryListNew1 = (ArrayList)countryListNew.stream().filter(e -> e.id != countryListNew.get(rand1).id).collect(Collectors.toList());
+
+        found = false;
+        i = 0;
+        int rand2 = rand.nextInt(countryListNew1.size());
+        while (!found) {
+            if (answerVariants[i] == null) {
+                answerVariants[i] = countryListNew.get(rand2).capitalName;
+                found = true;
+            } else {
+                i++;
+            }
+        }
+        countryListNew2 = new ArrayList<>();
+        countryListNew2 = (ArrayList)countryListNew1.stream().filter(e -> e.id != countryListNew1.get(rand2).id).collect(Collectors.toList());
+
+        found = false;
+        i = 0;
+        int rand3 = rand.nextInt(countryListNew2.size());
+        while (!found) {
+            if (answerVariants[i] == null) {
+                answerVariants[i] = countryListNew.get(rand3).capitalName;
+                found = true;
+            } else {
+                i++;
+            }
+        }
+
+        System.out.println("answerVariants : " + Arrays.toString(answerVariants));
+        System.out.println("countryListNew len0 : " + countryListNew.size());
+        System.out.println("countryListNew1 len0 : " + countryListNew1.size());
+        System.out.println("countryListNew2 len0 : " + countryListNew2.size());
+        System.out.println("countryListCut len0 : " + countryListCut.size());
+        System.out.println("countryList len0 : " + countryList.size());
+
+
+        buttonCap1.setText(answerVariants[0]);
+        int_random = rand.nextInt(countryList.size());
+        buttonCap2.setText(answerVariants[1]);
+        int_random = rand.nextInt(countryList.size());
+        buttonCap3.setText(answerVariants[2]);
+        int_random = rand.nextInt(countryList.size());
+        buttonCap4.setText(answerVariants[3]);
+        Picasso.get().load(BACKEND_URL + "/" + testCountry.imageName).into(ivImageCapital);
+
+
+
+
+
     }
     private String loadDataUser() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         return sharedPreferences.getString(USER_NAME, NOT_LOGGED_USER);
     }
+
+
 }
 

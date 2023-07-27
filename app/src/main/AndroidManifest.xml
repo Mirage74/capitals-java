@@ -17,67 +17,23 @@
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action-capitals.MAIN" />
-
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".NotLoggedUser"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.not-logged-user" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+        <activity android:name=".NotLoggedUser">
         </activity>
-        <activity android:name=".LoginUser"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.login-capitals" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+        <activity android:name=".LoginUser">
         </activity>
-        <activity android:name=".LoggedUser"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.logged-user-capitals" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+        <activity android:name=".LoggedUser">
         </activity>
-        <activity android:name=".RegisterUser"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.register-user-capitals" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+        <activity android:name=".RegisterUser">
         </activity>
-        <activity android:name=".About"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.about-capitals" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+        <activity android:name=".About">
         </activity>
-        <activity android:name=".StartTest"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.start-test-capitals" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+        <activity android:name=".StartTest">
         </activity>
-        <activity android:name=".CoreTest"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.core-test-capitals" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+        <activity android:name=".CoreTest">
         </activity>
     </application>
 

@@ -24,7 +24,7 @@ public class About extends AppCompatActivity {
         buttonBack = findViewById(R.id.back);
         View.OnClickListener onClickListener = v -> {
             if (v.getId() == R.id.back) {
-                Intent intentBack = new Intent("android.intent.action-capitals.MAIN");
+                Intent intentBack = new Intent(this, MainActivity.class);
                 startActivity(intentBack);
             }
         };

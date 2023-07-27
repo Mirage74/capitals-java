@@ -84,7 +84,7 @@ public class LoginUser extends AppCompatActivity {
             } else if (v.getId() == R.id.toggle_view1) {
                 toggle();
             } else if (v.getId() == R.id.back) {
-                Intent intentBack = new Intent("android.intent.action.not-logged-user");
+                Intent intentBack = new Intent(this, NotLoggedUser.class);
                 intentBack.putExtra(EXTRAS_COUNTY_LIST, countryList);
                 startActivity(intentBack);
             }
@@ -115,7 +115,7 @@ public class LoginUser extends AppCompatActivity {
                 System.out.println("user : " + userInstance.DISPLAYNAME);
                 success_login.show();
                 saveUser(userInstance.DISPLAYNAME);
-                Intent intent = new Intent("android.intent.action.logged-user-capitals");
+                Intent intent = new Intent(this, LoggedUser.class);
                 intent.putExtra(EXTRAS_COUNTY_LIST, countryList);
                 System.out.println("login user, countryList : " + countryList);
                 startActivity(intent);

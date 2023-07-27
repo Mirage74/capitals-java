@@ -42,17 +42,17 @@ public class NotLoggedUser extends AppCompatActivity {
 
         View.OnClickListener onClickListener = v -> {
             if (v.getId() == R.id.login) {
-                Intent intentLogin = new Intent("android.intent.action.login-capitals");
+                Intent intentLogin = new Intent(this, LoginUser.class);
                 intentLogin.putExtra(EXTRAS_COUNTY_LIST, countryList);
                 startActivity(intentLogin);
             } else if (v.getId() == R.id.register) {
-                Intent intentReg = new Intent("android.intent.action.register-user-capitals");
+                Intent intentReg = new Intent(this, RegisterUser.class);
                 intentReg.putExtra(EXTRAS_COUNTY_LIST, countryList);
                 startActivity(intentReg);
             } else if (v.getId() == R.id.info) {
 
             } else if (v.getId() == R.id.about) {
-                Intent intentAbout = new Intent("android.intent.action.about-capitals");
+                Intent intentAbout = new Intent(this, About.class);
                 startActivity(intentAbout);
 
             }

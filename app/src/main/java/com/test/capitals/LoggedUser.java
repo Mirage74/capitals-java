@@ -44,18 +44,18 @@ public class LoggedUser extends AppCompatActivity {
 
         View.OnClickListener onClickListener = v -> {
             if (v.getId() == R.id.start_test) {
-                Intent intentStartTest = new Intent("android.intent.action.start-test-capitals");
+                Intent intentStartTest = new Intent(this, StartTest.class);
                 intentStartTest.putExtra(EXTRAS_COUNTY_LIST, countryList);
                 startActivity(intentStartTest);
             } else if (v.getId() == R.id.info) {
 
             } else if (v.getId() == R.id.about) {
-                Intent intentAbout = new Intent("android.intent.action.about-capitals");
+                Intent intentAbout = new Intent(this, About.class);
                 intentAbout.putExtra(EXTRAS_COUNTY_LIST, countryList);
                 startActivity(intentAbout);
             } else if (v.getId() == R.id.logout) {
                 saveUser(NOT_LOGGED_USER);
-                Intent intentBack = new Intent("android.intent.action-capitals.MAIN");
+                Intent intentBack = new Intent(this, MainActivity.class);
                 startActivity(intentBack);
             }
         };
