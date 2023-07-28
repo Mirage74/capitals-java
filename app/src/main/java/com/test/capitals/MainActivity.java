@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String NOT_LOGGED_USER = "notLoggedUser";
     public static final String EXTRAS_COUNTY_LIST = "country-list";
     public static final String EXTRAS_COUNTRY_CURRENT = "country-current";
-    public static final String EXTRAS_COUNTRY_CURRENT_PCT_EASY = "pct-easy";
+    public static final String EXTRAS_COUNTRY_CURRENT_ALL = "country-current-all";
     public static final String EXTRAS_USER_TEST_CURRENT_INFO = "test-core-info";
     public static final String EXTRAS_DIFFICULT_LVL = "diff-lvl";
 

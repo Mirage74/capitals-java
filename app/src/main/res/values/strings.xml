@@ -27,4 +27,5 @@
     <string name="question_number">question_number</string>
     <string name="capital1">capital1</string>
     <string name="background_core">background core</string>
+    <string name="max_sec">10</string>
 </resources>

@@ -7,9 +7,9 @@
     tools:context=".CoreTest">
 
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
 
         <TextView
@@ -20,46 +20,58 @@
             android:text="@string/username"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             app:layout_constrainedWidth="true"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-           />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/ivImageCapital"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginHorizontal="100dp"
-        app:strokeWidth="5dp"
-        app:strokeColor="@android:color/holo_green_light"
-        android:adjustViewBounds="true"
-        android:alpha="1"
-        android:scaleType="centerCrop"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-        app:layout_constraintTop_toBottomOf="@+id/username"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/country_name"
-        android:src="@drawable/unsplash"
-        />
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivImageCapital"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginHorizontal="100dp"
+            android:layout_marginBottom="10dp"
+            android:adjustViewBounds="true"
+            android:alpha="1"
+            android:scaleType="centerCrop"
+            android:src="@drawable/unsplash"
+            app:layout_constraintBottom_toTopOf="@+id/country_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/username"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+            app:strokeColor="@android:color/holo_green_light"
+            app:strokeWidth="5dp" />
 
 
-    <TextView
-        android:id="@+id/question_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/question_number"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivImageCapital"
-        app:layout_constraintBottom_toTopOf="@id/country_name"
-        android:layout_marginTop="10dp"
-        app:layout_constraintHorizontal_bias="0.5"
-        />
+        <TextView
+            android:id="@+id/question_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/question_number"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toTopOf="@id/country_name"
+            app:layout_constraintEnd_toStartOf="@id/sec_rest"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivImageCapital" />
+
+
+        <TextView
+            android:id="@+id/sec_rest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/max_sec"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toTopOf="@id/country_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toEndOf="@id/question_number"
+            app:layout_constraintTop_toBottomOf="@id/ivImageCapital" />
 
         <TextView
             android:id="@+id/country_name"
@@ -67,57 +79,53 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:text="@string/country_name"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline2"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
             app:layout_constrainedWidth="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/question_number"
             app:layout_constraintBottom_toTopOf="@id/capital1"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            />
-
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/question_number" />
 
 
         <Button
             android:id="@+id/capital1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="80dp"
+            android:layout_marginTop="30dp"
             android:text="@string/capital"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-            app:layout_constraintTop_toBottomOf="@id/country_name"
             app:layout_constraintBottom_toTopOf="@id/capital2"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="30dp"
-            android:layout_marginHorizontal="80dp"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/country_name" />
 
         <Button
             android:id="@+id/capital2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="80dp"
+            android:layout_marginTop="20dp"
             android:text="@string/capital"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-            app:layout_constraintTop_toBottomOf="@id/capital1"
             app:layout_constraintBottom_toTopOf="@id/capital3"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="30dp"
-            android:layout_marginHorizontal="80dp"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/capital1" />
 
         <Button
             android:id="@+id/capital3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="80dp"
+            android:layout_marginTop="20dp"
             android:text="@string/capital"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-            app:layout_constraintTop_toBottomOf="@id/capital2"
             app:layout_constraintBottom_toTopOf="@id/capital4"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="30dp"
-            android:layout_marginHorizontal="80dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/capital2"
 
             />
 
@@ -125,14 +133,13 @@
             android:id="@+id/capital4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="80dp"
+            android:layout_marginTop="20dp"
             android:text="@string/capital"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-            app:layout_constraintTop_toBottomOf="@id/capital3"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="30dp"
-            android:layout_marginHorizontal="80dp"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/capital3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

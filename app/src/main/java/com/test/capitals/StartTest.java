@@ -1,12 +1,12 @@
 package com.test.capitals;
 
 import static com.test.capitals.MainActivity.EXTRAS_COUNTRY_CURRENT;
-import static com.test.capitals.MainActivity.EXTRAS_COUNTRY_CURRENT_PCT_EASY;
 import static com.test.capitals.MainActivity.EXTRAS_COUNTY_LIST;
 import static com.test.capitals.MainActivity.EXTRAS_DIFFICULT_LVL;
 import static com.test.capitals.MainActivity.EXTRAS_USER_TEST_CURRENT_INFO;
 import static com.test.capitals.MainActivity.NOT_LOGGED_USER;
 import static com.test.capitals.MainActivity.SHARED_PREFS;
+import static com.test.capitals.MainActivity.EXTRAS_COUNTRY_CURRENT_ALL;
 import static com.test.capitals.MainActivity.USER_NAME;
 
 import android.content.Intent;
@@ -55,6 +55,7 @@ public class StartTest extends AppCompatActivity {
                 Intent intentRunTest = new Intent(this, CoreTest.class);
                 intentRunTest.putExtra(EXTRAS_COUNTY_LIST, countryList);
                 intentRunTest.putExtra(EXTRAS_COUNTRY_CURRENT, countryListCut);
+                intentRunTest.putExtra(EXTRAS_COUNTRY_CURRENT_ALL, countryListCut);
                 ArrayList<Object> testState = new ArrayList<>();
                 intentRunTest.putExtra(EXTRAS_USER_TEST_CURRENT_INFO, testState);
                 intentRunTest.putExtra(EXTRAS_DIFFICULT_LVL, 0);
