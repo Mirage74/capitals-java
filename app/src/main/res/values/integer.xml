@@ -2,8 +2,8 @@
 <resources>
     <integer name="test_questions">15</integer>
     <integer name="max_time_test_sec">10</integer>
-    <integer name="time_score_best">4</integer>
-    <integer name="time_score_medium">7</integer>
+    <integer name="time_score_best">7</integer>
+    <integer name="time_score_medium">4</integer>
     <integer name="easy_points_min">1</integer>
     <integer name="easy_points_medium">2</integer>
     <integer name="easy_points_max">3</integer>

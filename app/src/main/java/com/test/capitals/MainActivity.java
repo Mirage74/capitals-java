@@ -4,34 +4,40 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Comparator;
+import com.google.gson.Gson;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static final String SHARED_PREFS = "shared_prefds";
     public static final String USER_NAME = "userName";
+    public static final String LAST_RESULT = "last-result";
+    public static final String BEST_SCORE = "best-score";
     public static final String NOT_LOGGED_USER = "notLoggedUser";
     public static final String EXTRAS_COUNTY_LIST = "country-list";
     public static final String EXTRAS_COUNTRY_CURRENT = "country-current";
-    public static final String EXTRAS_COUNTRY_CURRENT_ALL = "country-current-all";
-    public static final String EXTRAS_USER_TEST_CURRENT_INFO = "test-core-info";
     public static final String EXTRAS_DIFFICULT_LVL = "diff-lvl";
-
     public static final String BACKEND_URL = "http://10.0.2.2:4000";
     public static final String BACKEND_API = BACKEND_URL + "/api";
+    public static final String POST_USER_SCORE = BACKEND_API + "/userScore";
 
 
     String userName;
@@ -181,8 +187,12 @@ public class MainActivity extends AppCompatActivity {
             intent = new Intent(this, NotLoggedUser.class);
             intent.putExtra(EXTRAS_COUNTY_LIST, countryList);
             startActivity(intent);
-
         } else if ( (userName != null) && (!userName.equals(NOT_LOGGED_USER)))  {
+            try {
+                Log.i("caps",  "postGetUserScore(userName) : " + postGetUserScore(userName));
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
             intent = new Intent(this, LoggedUser.class);
             intent.putExtra(EXTRAS_COUNTY_LIST, countryList);
             startActivity(intent);
@@ -191,15 +201,87 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void saveUser(String userName) {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(USER_NAME, userName);
-        editor.apply();
-        Toast.makeText(this, "User saved", Toast.LENGTH_SHORT).show();
+    private String postGetUserScore(String userName) throws JSONException {
+        StringBuilder response = new StringBuilder();
+        String jsonInputString = "{\"username\" : \"" + userName + "\"}";
+        //Log.i("caps",  "postGetUserScore jsonInputString : " + jsonInputString);
+        URL url;
+        try {
+            url = new URL(POST_USER_SCORE);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+
+        }
+        HttpURLConnection con;
+        try {
+            con = (HttpURLConnection) url.openConnection();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Content-Type", "application/json");
+            con.setRequestProperty("Accept", "application/json");
+            con.setDoOutput(true);
+        } catch (ProtocolException e) {
+            throw new RuntimeException(e);
+        }
+
+        try (OutputStream os = con.getOutputStream()) {
+            byte[] input = jsonInputString.getBytes("utf-8");
+            os.write(input, 0, input.length);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try (BufferedReader br = new BufferedReader(
+
+                new InputStreamReader(con.getInputStream(), "utf-8"))) {
+            String responseLine = null;
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine.trim());
+            }
+            System.out.println(response.toString());
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String parsedResp = response.toString();
+        parsedResp = parsedResp.substring(parsedResp.indexOf(":") + 1, parsedResp.length() - 1);
+//        JSONObject responceObj = new JSONObject(parsedResp);
+
+        Gson g = new Gson();
+        UserScore userScore = g.fromJson(parsedResp, UserScore.class);
+        Log.i("caps",  "userScore : " + userScore);
+        updateUserScore(userScore.LAST_RES, userScore.BESTSCORE);
+
+        return response.toString();
     }
 
+    public void updateUserScore(String lastRes, int bestScore) {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(LAST_RESULT, lastRes);
+        editor.putInt(BEST_SCORE, bestScore);
+        editor.apply();
+        Toast.makeText(this, "User data updated", Toast.LENGTH_SHORT).show();
+    }
+
+
+//    public void saveUser(String userName) {
+//        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putString(USER_NAME, userName);
+//        editor.apply();
+//        Toast.makeText(this, "User saved", Toast.LENGTH_SHORT).show();
+//    }
+
 }
+
+
 
 class CountryDescribe implements Serializable {
 
@@ -208,8 +290,6 @@ class CountryDescribe implements Serializable {
     int diffLvl;
     String imageName;
 
-    public CountryDescribe() {
-    }
 
     String countryName;
 
@@ -256,23 +336,25 @@ class CountryDescribe implements Serializable {
         return id;
     }
 
-    public String getCountryName() {
-        return countryName;
+}
+
+class UserScore {
+    String DISPLAYNAME;
+    String LAST_RES;
+    int BESTSCORE;
+
+    @Override
+    public String toString() {
+        return "UserScore{" +
+                "DISPLAYNAME='" + DISPLAYNAME + '\'' +
+                ", LAST_RES='" + LAST_RES + '\'' +
+                ", BESTSCORE=" + BESTSCORE +
+                '}';
     }
 
-    public String getCapitalName() {
-        return capitalName;
+    public UserScore(String DISPLAYNAME, String LAST_RES, int BESTSCORE) {
+        this.DISPLAYNAME = DISPLAYNAME;
+        this.LAST_RES = LAST_RES;
+        this.BESTSCORE = BESTSCORE;
     }
-
-    public int getDiffLvl() {
-        return diffLvl;
-    }
-
-    public String getImageName() {
-        return imageName;
-    }
-
-
-
-
 }

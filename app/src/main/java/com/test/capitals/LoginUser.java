@@ -5,6 +5,8 @@ import static com.test.capitals.MainActivity.EXTRAS_COUNTY_LIST;
 import static com.test.capitals.MainActivity.NOT_LOGGED_USER;
 import static com.test.capitals.MainActivity.SHARED_PREFS;
 import static com.test.capitals.MainActivity.USER_NAME;
+import static com.test.capitals.MainActivity.LAST_RESULT;
+import static com.test.capitals.MainActivity.BEST_SCORE;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +15,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -112,9 +115,9 @@ public class LoginUser extends AppCompatActivity {
                 failed_login.show();
             } else {
                 userInstance = parseBackendResponse(getLoginResponse);
-                System.out.println("user : " + userInstance.DISPLAYNAME);
+                //Log.i("caps",  "user : " + userInstance);
                 success_login.show();
-                saveUser(userInstance.DISPLAYNAME);
+                saveUser(userInstance);
                 Intent intent = new Intent(this, LoggedUser.class);
                 intent.putExtra(EXTRAS_COUNTY_LIST, countryList);
                 System.out.println("login user, countryList : " + countryList);
@@ -127,7 +130,7 @@ public class LoginUser extends AppCompatActivity {
     private String postLoginUser(String login, String password) {
         StringBuilder response = new StringBuilder();
         String jsonInputString = "{\"login\" : \"" + login + "\"" + ", \"password\" : \"" + password + "\"}";
-        //System.out.println("jsonInputString : " + jsonInputString);
+        Log.i("caps",  "postLoginUser jsonInputString : " + jsonInputString);
         URL url;
         try {
             url = new URL(POST_LOGIN_USER);
@@ -222,10 +225,12 @@ public class LoginUser extends AppCompatActivity {
         return sharedPreferences.getString(USER_NAME, NOT_LOGGED_USER);
     }
 
-    public void saveUser(String userName) {
+    public void saveUser(User user) {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(USER_NAME, userName);
+        editor.putString(USER_NAME, user.DISPLAYNAME);
+        editor.putString(LAST_RESULT, user.LAST_RES);
+        editor.putInt(BEST_SCORE, user.BESTSCORE);
         editor.apply();
         Toast.makeText(this, "User saved", Toast.LENGTH_SHORT).show();
     }

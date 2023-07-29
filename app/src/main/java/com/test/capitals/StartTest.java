@@ -3,10 +3,8 @@ package com.test.capitals;
 import static com.test.capitals.MainActivity.EXTRAS_COUNTRY_CURRENT;
 import static com.test.capitals.MainActivity.EXTRAS_COUNTY_LIST;
 import static com.test.capitals.MainActivity.EXTRAS_DIFFICULT_LVL;
-import static com.test.capitals.MainActivity.EXTRAS_USER_TEST_CURRENT_INFO;
 import static com.test.capitals.MainActivity.NOT_LOGGED_USER;
 import static com.test.capitals.MainActivity.SHARED_PREFS;
-import static com.test.capitals.MainActivity.EXTRAS_COUNTRY_CURRENT_ALL;
 import static com.test.capitals.MainActivity.USER_NAME;
 
 import android.content.Intent;
@@ -50,21 +48,29 @@ public class StartTest extends AppCompatActivity {
 
         View.OnClickListener onClickListener = v -> {
             if (v.getId() == R.id.easy) {
-                ArrayList<CountryDescribe> countryListCut = filterCountryByDiffLvl(countryList, 2);
-                System.out.println("countryListCut size: " + countryListCut.size());
+                ArrayList<CountryDescribe> countryListCut = new ArrayList<>();
+                countryListCut = filterCountryByDiffLvl(countryList, 0);
                 Intent intentRunTest = new Intent(this, CoreTest.class);
                 intentRunTest.putExtra(EXTRAS_COUNTY_LIST, countryList);
                 intentRunTest.putExtra(EXTRAS_COUNTRY_CURRENT, countryListCut);
-                intentRunTest.putExtra(EXTRAS_COUNTRY_CURRENT_ALL, countryListCut);
-                ArrayList<Object> testState = new ArrayList<>();
-                intentRunTest.putExtra(EXTRAS_USER_TEST_CURRENT_INFO, testState);
                 intentRunTest.putExtra(EXTRAS_DIFFICULT_LVL, 0);
-
                 startActivity(intentRunTest);
-            } else if (v.getId() == R.id.info) {
-
-            } else if (v.getId() == R.id.about) {
-
+            } else if (v.getId() == R.id.medium) {
+                ArrayList<CountryDescribe> countryListCut = new ArrayList<>();
+                countryListCut = filterCountryByDiffLvl(countryList, 1);
+                Intent intentRunTest = new Intent(this, CoreTest.class);
+                intentRunTest.putExtra(EXTRAS_COUNTY_LIST, countryList);
+                intentRunTest.putExtra(EXTRAS_COUNTRY_CURRENT, countryListCut);
+                intentRunTest.putExtra(EXTRAS_DIFFICULT_LVL, 1);
+                startActivity(intentRunTest);
+            } else if (v.getId() == R.id.hard) {
+                ArrayList<CountryDescribe> countryListCut = new ArrayList<>();
+                countryListCut = filterCountryByDiffLvl(countryList, 2);
+                Intent intentRunTest = new Intent(this, CoreTest.class);
+                intentRunTest.putExtra(EXTRAS_COUNTY_LIST, countryList);
+                intentRunTest.putExtra(EXTRAS_COUNTRY_CURRENT, countryListCut);
+                intentRunTest.putExtra(EXTRAS_DIFFICULT_LVL, 2);
+                startActivity(intentRunTest);
             }
         };
 
