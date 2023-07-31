@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -51,6 +52,7 @@ public class StartTest extends AppCompatActivity {
                 ArrayList<CountryDescribe> countryListCut = new ArrayList<>();
                 countryListCut = filterCountryByDiffLvl(countryList, 0);
                 Intent intentRunTest = new Intent(this, CoreTest.class);
+                //Log.i("caps",  "Start activity countryList put : " + countryList);
                 intentRunTest.putExtra(EXTRAS_COUNTY_LIST, countryList);
                 intentRunTest.putExtra(EXTRAS_COUNTRY_CURRENT, countryListCut);
                 intentRunTest.putExtra(EXTRAS_DIFFICULT_LVL, 0);

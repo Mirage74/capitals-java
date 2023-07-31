@@ -130,7 +130,7 @@ public class LoginUser extends AppCompatActivity {
     private String postLoginUser(String login, String password) {
         StringBuilder response = new StringBuilder();
         String jsonInputString = "{\"login\" : \"" + login + "\"" + ", \"password\" : \"" + password + "\"}";
-        Log.i("caps",  "postLoginUser jsonInputString : " + jsonInputString);
+        //Log.i("caps",  "postLoginUser jsonInputString : " + jsonInputString);
         URL url;
         try {
             url = new URL(POST_LOGIN_USER);

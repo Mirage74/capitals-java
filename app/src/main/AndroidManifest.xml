@@ -35,6 +35,8 @@
         </activity>
         <activity android:name=".CoreTest">
         </activity>
+        <activity android:name=".ScoreMain">
+        </activity>
     </application>
 
 </manifest>

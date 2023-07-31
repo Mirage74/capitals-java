@@ -1,10 +1,13 @@
 package com.test.capitals;
 
+import static com.test.capitals.CoreTest.NO_ANSWER_TIME_EXPIRED;
 import static com.test.capitals.MainActivity.BACKEND_API;
 import static com.test.capitals.MainActivity.BACKEND_URL;
+import static com.test.capitals.MainActivity.BEST_SCORE_FIELD_NAME_DB;
 import static com.test.capitals.MainActivity.EXTRAS_COUNTRY_CURRENT;
 import static com.test.capitals.MainActivity.EXTRAS_COUNTY_LIST;
 import static com.test.capitals.MainActivity.EXTRAS_DIFFICULT_LVL;
+import static com.test.capitals.MainActivity.LASTRES_FIELD_NAME_DB;
 import static com.test.capitals.MainActivity.NOT_LOGGED_USER;
 import static com.test.capitals.MainActivity.SHARED_PREFS;
 import static com.test.capitals.MainActivity.USER_NAME;
@@ -14,7 +17,10 @@ import static com.test.capitals.MainActivity.BEST_SCORE;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,8 +30,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.squareup.picasso.Picasso;
 
@@ -49,14 +57,13 @@ import java.util.stream.Collectors;
 public class CoreTest extends AppCompatActivity {
     private static final String POST_UPDATE_USER = BACKEND_API + "/updateUser";
     public static final String NO_ANSWER_TIME_EXPIRED = "NoAnswer";
-    public static final String BEST_SCORE_FIELD_NAME_DB = "BESTSCORE";
-    public static final String LASTRES_FIELD_NAME_DB = "LAST_RES";
+
     static boolean timeExpire = false;
 
     ArrayList<CountryDescribe> countryList, countryListCut, countryListExactDiffLevel, countryListTemp;
     ArrayList<UserAnswer> testState = new ArrayList<>();
     Button buttonCap1, buttonCap2, buttonCap3, buttonCap4;
-    String userName, lastQuestResult;
+    String userName;
     int bestScore;
     CountryDescribe testCountry;
     ImageView ivImageCapital;
@@ -106,10 +113,22 @@ public class CoreTest extends AppCompatActivity {
             for (int i = 0; i < testState.size(); i++) {
                 arrStr = arrStr + testState.get(i).serializeToString();
             }
-            Log.i("caps",  "arrStr len : " + arrStr.length());
-            Log.i("caps",  "sumScore : " + sumScore);
-            String resUpd = postUpdateUserScore(arrStr.toString(), sumScore);
-            Log.i("caps",  "resUpd : " + resUpd);
+
+            String resUpd = postUpdateUserScore(arrStr, sumScore);
+
+//            Log.i("caps",  "arrStr len : " + arrStr.length());
+//            Log.i("caps",  "sumScore : " + sumScore);
+//            Log.i("caps",  "resUpd : " + resUpd);
+
+            //Log.i("caps",  "coretest loadLastResult before " + loadLastResult());
+            updateUserScore(arrStr, sumScore);
+
+            Intent intent = new Intent(this, ScoreMain.class);
+            //Log.i("caps",  "coretest activity countryList put : " + countryList);
+            intent.putExtra(EXTRAS_COUNTY_LIST, countryList);
+            startActivity(intent);
+
+            //Log.i("caps",  "coretest loadLastResult after" + loadLastResult());
 
 
 //            Log.i("caps",  "score : " + testState.stream().map(e -> e.score).mapToInt(Integer::intValue).sum());
@@ -196,15 +215,18 @@ public class CoreTest extends AppCompatActivity {
 
         Resources resources = getResources();
         userName = loadDataUser();
-        lastQuestResult = loadLastResult();
+        //lastQuestResult = loadLastResult();
         bestScore = loadBestScore();
-        Log.i("caps",  "lastQuestResult : " + lastQuestResult);
+        //Log.i("caps",  "lastQuestResult : " + lastQuestResult);
         Log.i("caps",  "bestScore : " + bestScore);
 
         buttonCap1 = findViewById(R.id.capital1);
         buttonCap2 = findViewById(R.id.capital2);
         buttonCap3 = findViewById(R.id.capital3);
         buttonCap4 = findViewById(R.id.capital4);
+        //Drawable color = buttonCap1.getBackground();
+
+
 
         textViewUsername = findViewById(R.id.username);
         textViewUsername.setText(userName);
@@ -383,6 +405,14 @@ public class CoreTest extends AppCompatActivity {
             }
         }
     }
+    public void updateUserScore(String lastRes, int bestScore) {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(LAST_RESULT, lastRes);
+        editor.putInt(BEST_SCORE, bestScore);
+        editor.apply();
+        //Toast.makeText(this, "User data updated", Toast.LENGTH_SHORT).show();
+    }
 }
 
 
@@ -390,19 +420,41 @@ class UserAnswer {
     int id, answerNum, score;
     String userAnswer;
     ArrayList<CountryDescribe> countryList;
+    String countryName, capitalName;
 
     @Override
     public String toString() {
         return "UserAnswer{" +
                 "id=" + id +
-                "answerNum=" + answerNum +
+                ", answerNum=" + answerNum +
                 ", score=" + score +
                 ", userAnswer='" + userAnswer + '\'' +
                 '}';
     }
     public String serializeToString() {
-        int idUserAnswer  = countryList.stream().filter(e -> e.capitalName.equals(this.userAnswer)).findFirst().get().id;
+        int idUserAnswer = 0;
+        if (!this.userAnswer.equals(NO_ANSWER_TIME_EXPIRED)) {
+            idUserAnswer = countryList.stream().filter(e -> e.capitalName.equals(this.userAnswer)).findFirst().get().id;
+        }
         return "{" + id + "/" + answerNum + "/" + idUserAnswer  + "/" + score + "}";
+    }
+
+    public UserAnswer(String s, ArrayList<CountryDescribe> countryList) {
+        String temp = s;
+        this.id = Integer.parseInt(s.substring(temp.indexOf("{") + 1, temp.indexOf("/")));
+        temp = temp.substring(temp.indexOf("/") + 1);
+        this.answerNum = Integer.parseInt(temp.substring(0, temp.indexOf("/")));
+        temp = temp.substring(temp.indexOf("/") + 1);
+        int idAnswer = Integer.parseInt(temp.substring(0, temp.indexOf("/")));
+        if (idAnswer == 0) {
+            this.userAnswer = NO_ANSWER_TIME_EXPIRED;
+        } else {
+            this.userAnswer = countryList.stream().filter(e -> e.id == idAnswer).findFirst().get().capitalName;
+        }
+        temp = temp.substring(temp.indexOf("/") + 1);
+        this.score= Integer.parseInt(temp.substring(0, temp.indexOf("}")));
+        this.countryName = countryList.stream().filter(e -> e.id == this.id).findFirst().get().countryName;
+        this.capitalName = countryList.stream().filter(e -> e.id == this.id).findFirst().get().capitalName;
     }
 
     public UserAnswer(int id, int answerNum, String userAnswer, int score, ArrayList<CountryDescribe> countryList) {
@@ -411,5 +463,6 @@ class UserAnswer {
         this.userAnswer = userAnswer;
         this.score = score;
         this.countryList = countryList;
+        this.capitalName = countryList.stream().filter(e -> e.id == this.id).findFirst().get().capitalName;
     }
 }

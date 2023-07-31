@@ -18,12 +18,19 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
+
+//import com.google.gson.FieldNamingStrategy;
 import com.google.gson.Gson;
+//import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String BACKEND_URL = "http://10.0.2.2:4000";
     public static final String BACKEND_API = BACKEND_URL + "/api";
     public static final String POST_USER_SCORE = BACKEND_API + "/userScore";
+    public static final String BEST_SCORE_FIELD_NAME_DB = "BESTSCORE";
+    public static final String LASTRES_FIELD_NAME_DB = "LAST_RES";
 
 
     String userName;
@@ -85,79 +94,69 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        //System.out.println("lineRes 111: " + lineRes);
-        lineRes = cutGetStr(lineRes);
-        //System.out.println("lineRes 59: " + lineRes);
+        int i = lineRes.indexOf("[");
+        int j = lineRes.indexOf("]");
+        lineRes = lineRes.substring(i, j + 1);
         return lineRes;
     }
 
-    private String cutGetStr(String sIn) {
-        String s = "";
-        int i = sIn.indexOf("[");
-        int j = sIn.indexOf("]");
-        s = sIn.substring(i, j);
-        return s;
-    }
-
-    private void parseString(List<CountryDescribe> countryList, String sIn) {
-        boolean isFinished = false;
-        int cnt = 0, i, j;
-        String s, cntName, capName, imgName;
-        int id, diffLvl;
-        CountryDescribe cD;
-        s = sIn;
-        while (!isFinished) {
-            i = s.indexOf("{");
-            if (i > -1) {
-                i += 6;
-                j = s.indexOf(",");
-                id = Integer.parseInt(s.substring(i, j));
-
-                s = s.substring(j + 1);
-                i = s.indexOf("countryName");
-                i += 14;
-                j = s.indexOf(",");
-                cntName = s.substring(i, j - 1).trim();
-
-                s = s.substring(j + 1);
-                i = s.indexOf("capitalName");
-                i += 14;
-                j = s.indexOf(",");
-                capName = s.substring(i, j - 1).trim();
-
-                s = s.substring(j + 1);
-                i = s.indexOf("diffLvl");
-                i += 9;
-                j = s.indexOf(",");
-                diffLvl = Integer.parseInt(s.substring(i, j));
-
-                s = s.substring(j + 1);
-                i = s.indexOf("imageName");
-                i += 12;
-                j = s.indexOf(".jpg") + 4;
-                imgName = s.substring(i, j).trim();
-
-
-                cD = new CountryDescribe(id, cntName, capName, diffLvl, imgName);
-                countryList.add(cD);
+//    private void parseString(List<CountryDescribe> countryList, String sIn) {
+//        boolean isFinished = false;
+//        int cnt = 0, i, j;
+//        String s, cntName, capName, imgName;
+//        int id, diffLvl;
+//        CountryDescribe cD;
+//        s = sIn;
+//        while (!isFinished) {
+//            i = s.indexOf("{");
+//            if (i > -1) {
+//                i += 6;
+//                j = s.indexOf(",");
+//                id = Integer.parseInt(s.substring(i, j));
+//
+//                s = s.substring(j + 1);
+//                i = s.indexOf("countryName");
+//                i += 14;
+//                j = s.indexOf(",");
+//                cntName = s.substring(i, j - 1).trim();
+//
+//                s = s.substring(j + 1);
+//                i = s.indexOf("capitalName");
+//                i += 14;
+//                j = s.indexOf(",");
+//                capName = s.substring(i, j - 1).trim();
+//
+//                s = s.substring(j + 1);
+//                i = s.indexOf("diffLvl");
+//                i += 9;
+//                j = s.indexOf(",");
+//                diffLvl = Integer.parseInt(s.substring(i, j));
+//
+//                s = s.substring(j + 1);
+//                i = s.indexOf("imageName");
+//                i += 12;
+//                j = s.indexOf(".jpg") + 4;
+//                imgName = s.substring(i, j).trim();
+//
+//
+//                cD = new CountryDescribe(id, cntName, capName, diffLvl, imgName);
+//                countryList.add(cD);
+//                i = s.indexOf("{");
+//                if (i > 10) {
+//                    s = s.substring(i);
 //                }
-                i = s.indexOf("{");
-                if (i > 10) {
-                    s = s.substring(i);
-                }
-
-                if (i < 0 || s.length() < 10) {
-                    isFinished = true;
-                }
-
-            } else {
-                isFinished = true;
-            }
-
-
-        }
-        //System.out.println("country list 59 " + countryList.get(59));
-    }
+//
+//                if (i < 0 || s.length() < 10) {
+//                    isFinished = true;
+//                }
+//
+//            } else {
+//                isFinished = true;
+//            }
+//
+//
+//        }
+//    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,7 +170,15 @@ public class MainActivity extends AppCompatActivity {
         }
         String lineRes = getCountryList();
         ArrayList<CountryDescribe> countryList = new ArrayList<>();
-        parseString(countryList, lineRes);
+
+
+       Gson g = new Gson();
+       Type userListType = new TypeToken<ArrayList<CountryDescribe>>(){}.getType();
+
+       countryList = g.fromJson(lineRes, userListType);
+//        Log.i("caps",  "countryList : " + countryList);
+
+        //parseString(countryList, lineRes);
         //System.out.println("countryList.get(3) : " + countryList.get(3));
 
         Intent intent;
@@ -189,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         } else if ( (userName != null) && (!userName.equals(NOT_LOGGED_USER)))  {
             try {
-                Log.i("caps",  "postGetUserScore(userName) : " + postGetUserScore(userName));
+                Log.i("caps",  "postGetUserScore(userName) 1 : " + postGetUserScore(userName));
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
@@ -201,6 +208,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+//    public static Gson getGson() {
+//        FieldNamingStrategy customPolicy = new FieldNamingStrategy() {
+//
+//            public String translateName(Field field) {
+//                String name = field.getName();
+//
+//                return name.substring(1);
+//            }
+//        };
+//
+//        GsonBuilder gsonBuilder = new GsonBuilder();
+//
+//        gsonBuilder.setFieldNamingStrategy(customPolicy);
+//
+//        return gsonBuilder.create();
+//    }
     private String postGetUserScore(String userName) throws JSONException {
         StringBuilder response = new StringBuilder();
         String jsonInputString = "{\"username\" : \"" + userName + "\"}";
@@ -286,12 +309,12 @@ public class MainActivity extends AppCompatActivity {
 class CountryDescribe implements Serializable {
 
     int id;
+    String countryName;
     String capitalName;
     int diffLvl;
     String imageName;
 
 
-    String countryName;
 
     public void setId(int id) {
         this.id = id;

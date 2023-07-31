@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="coreBG">#1F1C1B1F</color>
+    <color name="stroke">#996750A4</color>
+    <color name="scoreRight">#4CAF50</color>
+    <color name="scoreNull">#F44336</color>
 </resources>
