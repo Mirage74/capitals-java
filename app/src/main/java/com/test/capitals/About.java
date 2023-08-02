@@ -20,7 +20,7 @@ public class About extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about);
-        Intent intent = getIntent();
+        //Intent intent = getIntent();
         buttonBack = findViewById(R.id.back);
         View.OnClickListener onClickListener = v -> {
             if (v.getId() == R.id.back) {

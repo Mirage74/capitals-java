@@ -30,4 +30,7 @@
     <string name="max_sec">10</string>
     <string name="quizNum">quiz number</string>
     <string name="scorepoints">scorePoints</string>
+    <string name="scoreRight">#4CAF50</string>
+    <string name="scoreNull">#85F44336</string>
+    <string name="check">check</string>
 </resources>

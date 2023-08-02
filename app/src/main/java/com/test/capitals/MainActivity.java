@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String POST_USER_SCORE = BACKEND_API + "/userScore";
     public static final String BEST_SCORE_FIELD_NAME_DB = "BESTSCORE";
     public static final String LASTRES_FIELD_NAME_DB = "LAST_RES";
+    public static final String USER_ANSWER = "user-answer";
 
 
     String userName;

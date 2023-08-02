@@ -41,6 +41,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -405,22 +406,25 @@ public class CoreTest extends AppCompatActivity {
             }
         }
     }
-    public void updateUserScore(String lastRes, int bestScore) {
+    public void updateUserScore(String lastRes, int bestScoreNew) {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(LAST_RESULT, lastRes);
-        editor.putInt(BEST_SCORE, bestScore);
+        if (bestScoreNew > bestScore) {
+            editor.putInt(BEST_SCORE, bestScoreNew);
+        }
         editor.apply();
         //Toast.makeText(this, "User data updated", Toast.LENGTH_SHORT).show();
     }
 }
 
 
-class UserAnswer {
+class UserAnswer  implements Serializable {
     int id, answerNum, score;
     String userAnswer;
     ArrayList<CountryDescribe> countryList;
     String countryName, capitalName;
+
 
     @Override
     public String toString() {
