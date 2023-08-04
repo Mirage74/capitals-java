@@ -115,7 +115,7 @@ public class CoreTest extends AppCompatActivity {
                 arrStr = arrStr + testState.get(i).serializeToString();
             }
 
-            String resUpd = postUpdateUserScore(arrStr, sumScore);
+            postUpdateUserScore(arrStr, sumScore);
 
 //            Log.i("caps",  "arrStr len : " + arrStr.length());
 //            Log.i("caps",  "sumScore : " + sumScore);
@@ -139,6 +139,35 @@ public class CoreTest extends AppCompatActivity {
 
         }
 
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.i("caps",  "CoreTest onStart, countryList  : " + countryList);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        Log.i("caps",  "CoreTest onResume, countryList  : " + countryList);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.i("caps",  "CoreTest onPause, countryList  : " + countryList);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.i("caps",  "CoreTest onStop, countryList  : " + countryList);    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.i("caps",  "CoreTest onDestroy, countryList  : " + countryList);
     }
 
     private void runFrameQuest(int questNum) {
@@ -209,6 +238,9 @@ public class CoreTest extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.i("caps",  "CoreTest onCreate, countryList  : " + countryList);
+
         setContentView(R.layout.core_test);
 
         ivImageCapital = findViewById(R.id.ivImageCapital);
@@ -309,10 +341,12 @@ public class CoreTest extends AppCompatActivity {
 
     }
 
-    private String postUpdateUserScore(String quiz, int score) {
+
+
+    private void postUpdateUserScore(String quiz, int score) {
         StringBuilder response = new StringBuilder();
         String jsonInputString = "{\"login\" : \"" + userName + "\"" + ", \"" + BEST_SCORE_FIELD_NAME_DB +  "\" : " + "\"" + score +  "\", \"" +  LASTRES_FIELD_NAME_DB  + "\" : \"" + quiz + "\"}";
-        Log.i("caps",  "postUpdateUserScore jsonInputString : " + jsonInputString);
+        //Log.i("caps",  "postUpdateUserScore jsonInputString : " + jsonInputString);
         URL url;
         try {
             url = new URL(POST_UPDATE_USER);
@@ -356,7 +390,7 @@ public class CoreTest extends AppCompatActivity {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return response.toString();
+        //return response.toString();
     }
 
     private String loadDataUser() {
@@ -432,9 +466,13 @@ class UserAnswer  implements Serializable {
                 "id=" + id +
                 ", answerNum=" + answerNum +
                 ", score=" + score +
+                ", countryName='" + countryName + '\'' +
+                ", capitalName='" + capitalName + '\'' +
                 ", userAnswer='" + userAnswer + '\'' +
+                ", countryList=" + countryList +
                 '}';
     }
+
     public String serializeToString() {
         int idUserAnswer = 0;
         if (!this.userAnswer.equals(NO_ANSWER_TIME_EXPIRED)) {
@@ -450,6 +488,8 @@ class UserAnswer  implements Serializable {
         this.answerNum = Integer.parseInt(temp.substring(0, temp.indexOf("/")));
         temp = temp.substring(temp.indexOf("/") + 1);
         int idAnswer = Integer.parseInt(temp.substring(0, temp.indexOf("/")));
+
+        //Log.i("caps",  "CoreTest, 465, idAnswer : " + idAnswer);
         if (idAnswer == 0) {
             this.userAnswer = NO_ANSWER_TIME_EXPIRED;
         } else {

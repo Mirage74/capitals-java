@@ -39,6 +39,10 @@ public class ScoreMain extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.i("caps",  "ScoreMain onCreate, testState  : " + testState);
+        Log.i("caps",  "ScoreMain onCreate, countryList  : " + countryList);
+
         setContentView(R.layout.score_main);
         buttonBack = findViewById(R.id.back);
         View.OnClickListener onClickListener = v -> {
@@ -46,10 +50,11 @@ public class ScoreMain extends AppCompatActivity {
                 Intent intentBack = new Intent(this, MainActivity.class);
                 startActivity(intentBack);
             } else {
-                Log.i("caps",  "ID textView Check : " + v.getId());
                 Intent intent = new Intent(this, CheckWrongAnswer.class);
-                UserAnswer ua = testState.get(v.getId());
+                UserAnswer ua = testState.get((int)v.getId() - 1);
+                //UserAnswer ua = testState.get(v.getId() - 1);
                 intent.putExtra(USER_ANSWER, ua);
+                intent.putExtra(EXTRAS_COUNTY_LIST, countryList);
                 startActivity(intent);
             }
         };
@@ -64,9 +69,12 @@ public class ScoreMain extends AppCompatActivity {
             countryList = (ArrayList<CountryDescribe>) intent.getSerializableExtra(EXTRAS_COUNTY_LIST);
         }
 
-
+        Log.i("caps",  "ScoreMain, 66, countryList : " + countryList);
+        Log.i("caps",  "ScoreMain, 66, lastQuestResult : " + lastQuestResult);
         parseToUserAnswer(lastQuestResult);
+        Log.i("caps",  "ScoreMain onCreate 66  testState : " + testState);
         currScore = testState.stream().mapToInt(e -> e.score).sum();
+
 
         tableLayout = findViewById(R.id.layoutScoreTable);
         tvScore = findViewById(R.id.scoreText);
@@ -181,11 +189,50 @@ public class ScoreMain extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.i("caps",  "ScoreMain onStart, testState  : " + testState);
+        Log.i("caps",  "ScoreMain onStart, countryList  : " + countryList);
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        Log.i("caps",  "ScoreMain onResume, testState  : " + testState);
+        Log.i("caps",  "ScoreMain onResume, countryList  : " + countryList);
+
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        Log.i("caps",  "ScoreMain onPause, testState  : " + testState);
+        Log.i("caps",  "ScoreMain onPause, countryList  : " + countryList);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.i("caps",  "ScoreMain onStop, testState  : " + testState);
+        Log.i("caps",  "ScoreMain onStop, countryList  : " + countryList);
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.i("caps",  "ScoreMain onDestroy, testState  : " + testState);
+        Log.i("caps",  "ScoreMain onDestroy, countryList  : " + countryList);
+    }
+
     private void parseToUserAnswer(String jsonAnswer) {
         String s = jsonAnswer;
         while (s.length() > 5) {
             int i = s.indexOf("}");
             String temp = s.substring(0, i + 1);
+//            Log.i("caps",  "ScoreMain, 232, temp : " + temp);
+//            Log.i("caps",  "ScoreMain, 232, countryList : " + countryList);
             testState.add(new UserAnswer(temp, countryList));
             s = s.substring(i + 1);
         }

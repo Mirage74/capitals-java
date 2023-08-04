@@ -197,7 +197,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         } else if ( (userName != null) && (!userName.equals(NOT_LOGGED_USER)))  {
             try {
-                Log.i("caps",  "postGetUserScore(userName) 1 : " + postGetUserScore(userName));
+                //Log.i("caps",  "postGetUserScore(userName) 1 : " + postGetUserScore(userName));
+                postGetUserScore(userName);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
@@ -209,23 +210,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    public static Gson getGson() {
-//        FieldNamingStrategy customPolicy = new FieldNamingStrategy() {
-//
-//            public String translateName(Field field) {
-//                String name = field.getName();
-//
-//                return name.substring(1);
-//            }
-//        };
-//
-//        GsonBuilder gsonBuilder = new GsonBuilder();
-//
-//        gsonBuilder.setFieldNamingStrategy(customPolicy);
-//
-//        return gsonBuilder.create();
-//    }
-    private String postGetUserScore(String userName) throws JSONException {
+
+    private void postGetUserScore(String userName) throws JSONException {
         StringBuilder response = new StringBuilder();
         String jsonInputString = "{\"username\" : \"" + userName + "\"}";
         //Log.i("caps",  "postGetUserScore jsonInputString : " + jsonInputString);
@@ -282,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i("caps",  "userScore : " + userScore);
         updateUserScore(userScore.LAST_RES, userScore.BESTSCORE);
 
-        return response.toString();
+        //return response.toString();
     }
 
     public void updateUserScore(String lastRes, int bestScore) {
