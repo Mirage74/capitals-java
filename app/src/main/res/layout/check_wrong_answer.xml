@@ -13,13 +13,36 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="120dp"
         android:text="@string/login"
-        android:textSize="30sp" />
+        android:textSize="@dimen/wrong_answer_text_size" />
+
+    <TextView
+        android:id="@+id/rightAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="180dp"
+        android:text="@string/login"
+        android:textColor="@color/rightAnswer"
+        android:textSize="@dimen/wrong_answer_text_size" />
+
+    <TextView
+        android:id="@+id/yourAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="240dp"
+        android:text="@string/login"
+        android:textColor="@color/yourAnswer"
+        android:textSize="@dimen/wrong_answer_text_size" />
+
 
     <Button
         android:id="@+id/back"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="380dp"
         android:layout_marginHorizontal="50dp"
         android:layout_gravity="center"
         android:text="@string/back_uppercase"

@@ -28,6 +28,9 @@ public class StartTest extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Log.i("alc",  "StartTest onCreate");
+
         setContentView(R.layout.start_test);
         buttonEasy = findViewById(R.id.easy);
         buttonMedium = findViewById(R.id.medium);
@@ -80,6 +83,43 @@ public class StartTest extends AppCompatActivity {
         buttonMedium.setOnClickListener(onClickListener);
         buttonHard.setOnClickListener(onClickListener);
 
+    }
+
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        //Log.i("alc",  "StartTest onStart");
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        //Log.i("alc",  "StartTest onRestart");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        //Log.i("alc",  "StartTest onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //Log.i("alc",  "StartTest onPause");
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        //Log.i("alc",  "StartTest onStop");
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        //Log.i("alc",  "StartTest onDestroy");
     }
 
     private ArrayList filterCountryByDiffLvl(ArrayList<CountryDescribe> countryList, int diffLvl) {

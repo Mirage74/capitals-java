@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="test_questions">15</integer>
+    <integer name="max_time_test_sec">15</integer>
+    <integer name="time_score_best">10</integer>
+    <integer name="time_score_medium">5</integer>
+    <integer name="easy_points_min">1</integer>
+    <integer name="easy_points_medium">2</integer>
+    <integer name="easy_points_max">3</integer>
+    <integer name="medium_points_min">2</integer>
+    <integer name="medium_points_medium">4</integer>
+    <integer name="medium_points_max">6</integer>
+    <integer name="hard_points_min">3</integer>
+    <integer name="hard_points_medium">6</integer>
+    <integer name="hard_points_max">10</integer>
+    <integer name = "buttonCheckTextSize">10</integer>
+    <integer name = "buttonCheckCornerRadius">30</integer>
+
+    <integer name = "buttonCoreTextSizeNormal">24</integer>
+    <integer name = "buttonCoreTextChangeToSmallLength">14</integer>
+    <integer name = "buttonCoreTextSizeSmall">18</integer>
+    <integer name = "buttonCoreTextChangeToTinyLength">19</integer>
+    <integer name = "buttonCoreTextSizeTiny">16</integer>
+
+    <integer name = "tvCountryTextSizeNormal">30</integer>
+    <integer name = "tvCountryTextChangeToSmallLength">19</integer>
+    <integer name = "tvCountryTextSizeSmall">25</integer>
+    <integer name = "tvCountryTextChangeToTinyLength">23</integer>
+    <integer name = "tvCountryTextSizeTiny">20</integer>
+</resources>

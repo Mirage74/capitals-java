@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,6 +25,9 @@ public class LoggedUser extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Log.i("alc",  "LoggedUser onCreate");
+
         setContentView(R.layout.logged_user);
         buttonStartTest = findViewById(R.id.start_test);
         buttonInfo = findViewById(R.id.info);
@@ -65,6 +69,43 @@ public class LoggedUser extends AppCompatActivity {
         buttonAbout.setOnClickListener(onClickListener);
         buttonLogout.setOnClickListener(onClickListener);
     }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        //Log.i("alc",  "LoggedUser onStart");
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        //Log.i("alc",  "LoggedUser onRestart");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        //Log.i("alc",  "LoggedUser onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //Log.i("alc",  "LoggedUser onPause");
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        //Log.i("alc",  "LoggedUser onStop");
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        //Log.i("alc",  "LoggedUser onDestroy");
+    }
+
 
     public void saveUser(String userName) {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);

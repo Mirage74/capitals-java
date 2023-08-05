@@ -49,6 +49,9 @@ public class LoginUser extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Log.i("alc",  "LoginUser onCreate");
+
         setContentView(R.layout.login);
         Intent intent = getIntent();
         final ArrayList<CountryDescribe> countryList;
@@ -97,6 +100,43 @@ public class LoginUser extends AppCompatActivity {
         buttonBack.setOnClickListener(onClickListener);
         eye.setOnClickListener(onClickListener);
     }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        //Log.i("alc",  "LoginUser onStart");
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        //Log.i("alc",  "LoginUser onRestart");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        //Log.i("alc",  "LoginUser onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //Log.i("alc",  "LoginUser onPause");
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        //Log.i("alc",  "LoginUser onStop");
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        //Log.i("alc",  "LoginUser onDestroy");
+    }
+
 
     public void login(ArrayList<CountryDescribe> countryList) {
         name1 = name.getText().toString();

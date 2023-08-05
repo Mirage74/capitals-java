@@ -144,30 +144,37 @@ public class CoreTest extends AppCompatActivity {
     @Override
     public void onStart(){
         super.onStart();
-        Log.i("caps",  "CoreTest onStart, countryList  : " + countryList);
+        //Log.i("alc",  "CoreTest onStart, countryList  : " + countryList);
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        //Log.i("alc",  "CoreTest onRestart, countryList  : " + countryList);
     }
 
     @Override
     public void onResume(){
         super.onResume();
-        Log.i("caps",  "CoreTest onResume, countryList  : " + countryList);
+        //Log.i("alc",  "CoreTest onResume, countryList  : " + countryList);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.i("caps",  "CoreTest onPause, countryList  : " + countryList);
+        //Log.i("alc",  "CoreTest onPause, countryList  : " + countryList);
     }
 
     @Override
     public void onStop(){
         super.onStop();
-        Log.i("caps",  "CoreTest onStop, countryList  : " + countryList);    }
+        //Log.i("alc",  "CoreTest onStop, countryList  : " + countryList);
+    }
 
     @Override
     public void onDestroy(){
         super.onDestroy();
-        Log.i("caps",  "CoreTest onDestroy, countryList  : " + countryList);
+        //Log.i("alc",  "CoreTest onDestroy, countryList  : " + countryList);
     }
 
     private void runFrameQuest(int questNum) {
@@ -176,7 +183,17 @@ public class CoreTest extends AppCompatActivity {
         if (questNum % 2 == 1) {
             int_random = rand.nextInt(countryListExactDiffLevel.size());
             testCountry = countryListExactDiffLevel.get(int_random);
-            //Log.i("caps",  "Level Hard : " + testCountry);
+
+            textViewCountryName.setTextSize(getResources().getInteger(R.integer.tvCountryTextSizeNormal));
+            if (testCountry.countryName.length() > getResources().getInteger(R.integer.tvCountryTextChangeToSmallLength)) {
+                if (testCountry.countryName.length() > getResources().getInteger(R.integer.tvCountryTextChangeToTinyLength)) {
+                    textViewCountryName.setTextSize(getResources().getInteger(R.integer.tvCountryTextSizeTiny));
+                } else {
+                        textViewCountryName.setTextSize(getResources().getInteger(R.integer.tvCountryTextSizeSmall));
+                }
+            }
+
+
             textViewCountryName.setText(testCountry.countryName);
             String s = testState.size() + 1 + " / " + allQuestions;
             testViewQuestionNumber.setText(s);
@@ -189,7 +206,18 @@ public class CoreTest extends AppCompatActivity {
         } else {
             int_random = rand.nextInt(countryListCut.size());
             testCountry = countryListCut.get(int_random);
-            //Log.i("caps",  "Level All : " + testCountry);
+
+            textViewCountryName.setTextSize(getResources().getInteger(R.integer.tvCountryTextSizeNormal));
+
+            if (testCountry.countryName.length() > getResources().getInteger(R.integer.tvCountryTextChangeToSmallLength)) {
+                if (testCountry.countryName.length() > getResources().getInteger(R.integer.tvCountryTextChangeToTinyLength)) {
+                    textViewCountryName.setTextSize(getResources().getInteger(R.integer.tvCountryTextSizeTiny));
+                } else {
+                        textViewCountryName.setTextSize(getResources().getInteger(R.integer.tvCountryTextSizeSmall));
+                }
+            }
+
+
             textViewCountryName.setText(testCountry.countryName);
             String s = testState.size() + 1 + " / " + allQuestions;
             testViewQuestionNumber.setText(s);
@@ -197,16 +225,9 @@ public class CoreTest extends AppCompatActivity {
             ArrayList<CountryDescribe> cL = new ArrayList<>();
             cL = (ArrayList) countryListExactDiffLevel.stream().filter(e -> e.id != testCountry.id).collect(Collectors.toList());
             countryListExactDiffLevel = (ArrayList) cL.clone();
-//            Log.i("caps",  "cl : " + cL);
-//            Log.i("caps",  "countryListCut : " + countryListCut);
             countryListTemp = new ArrayList<>();
             countryListTemp = (ArrayList) countryList.clone();
         }
-
-//        Log.i("caps",  "countryList len : " + countryList.size());
-//        Log.i("caps",  "countryListExactDiffLevel len : " + countryListExactDiffLevel.size());
-//        Log.i("caps",  "countryListCut len : " + countryListCut.size());
-
 
         rightAnswerNum = rand.nextInt(3);
         for (int i = 0; i < 4; i++) {
@@ -220,8 +241,7 @@ public class CoreTest extends AppCompatActivity {
         FillAnswer();
         FillAnswer();
 
-//        System.out.println("answerVariants : " + Arrays.toString(answerVariants));
-
+        fitTextButton();
         buttonCap1.setText(answerVariants[0]);
         buttonCap2.setText(answerVariants[1]);
         buttonCap3.setText(answerVariants[2]);
@@ -234,12 +254,49 @@ public class CoreTest extends AppCompatActivity {
 
     }
 
+    private void fitTextButton() {
+        buttonCap1.setTextSize(getResources().getInteger(R.integer.buttonCoreTextSizeNormal));
+        buttonCap2.setTextSize(getResources().getInteger(R.integer.buttonCoreTextSizeNormal));
+        buttonCap3.setTextSize(getResources().getInteger(R.integer.buttonCoreTextSizeNormal));
+        buttonCap4.setTextSize(getResources().getInteger(R.integer.buttonCoreTextSizeNormal));
+        if (answerVariants[0].length() > getResources().getInteger(R.integer.buttonCoreTextChangeToSmallLength)) {
+            if (answerVariants[0].length() > getResources().getInteger(R.integer.buttonCoreTextChangeToTinyLength)) {
+                buttonCap1.setTextSize(getResources().getInteger(R.integer.buttonCoreTextSizeTiny));
+            } else {
+                buttonCap1.setTextSize(getResources().getInteger(R.integer.buttonCoreTextSizeSmall));
+            }
+        }
+        if (answerVariants[1].length() > getResources().getInteger(R.integer.buttonCoreTextChangeToSmallLength)) {
+            if (answerVariants[1].length() > getResources().getInteger(R.integer.buttonCoreTextChangeToTinyLength)) {
+                buttonCap2.setTextSize(getResources().getInteger(R.integer.buttonCoreTextSizeTiny));
+            } else {
+                buttonCap2.setTextSize(getResources().getInteger(R.integer.buttonCoreTextSizeSmall));
+
+            }
+        }
+        if (answerVariants[2].length() > getResources().getInteger(R.integer.buttonCoreTextChangeToSmallLength)) {
+            if (answerVariants[2].length() > getResources().getInteger(R.integer.buttonCoreTextChangeToTinyLength)) {
+                buttonCap3.setTextSize(getResources().getInteger(R.integer.buttonCoreTextSizeTiny));
+            } else {
+                buttonCap3.setTextSize(getResources().getInteger(R.integer.buttonCoreTextSizeSmall));
+
+            }
+        }
+        if (answerVariants[3].length() > getResources().getInteger(R.integer.buttonCoreTextChangeToSmallLength)) {
+            if (answerVariants[3].length() > getResources().getInteger(R.integer.buttonCoreTextChangeToTinyLength)) {
+                buttonCap4.setTextSize(getResources().getInteger(R.integer.buttonCoreTextSizeTiny));
+            } else {
+                buttonCap4.setTextSize(getResources().getInteger(R.integer.buttonCoreTextSizeSmall));
+            }
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.i("caps",  "CoreTest onCreate, countryList  : " + countryList);
+        //Log.i("alc",  "CoreTest onCreate, countryList  : " + countryList);
 
         setContentView(R.layout.core_test);
 
@@ -251,7 +308,7 @@ public class CoreTest extends AppCompatActivity {
         //lastQuestResult = loadLastResult();
         bestScore = loadBestScore();
         //Log.i("caps",  "lastQuestResult : " + lastQuestResult);
-        Log.i("caps",  "bestScore : " + bestScore);
+        //Log.i("caps",  "bestScore : " + bestScore);
 
         buttonCap1 = findViewById(R.id.capital1);
         buttonCap2 = findViewById(R.id.capital2);

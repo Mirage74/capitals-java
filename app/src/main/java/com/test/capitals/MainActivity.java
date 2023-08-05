@@ -161,6 +161,9 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Log.i("alc",  "MainActivity onCreate");
+
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
         if (SDK_INT > 8) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
@@ -208,6 +211,42 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Error userName", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        //Log.i("alc",  "MainActivity onStart");
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        //Log.i("alc",  "MainActivity onRestart");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        //Log.i("alc",  "MainActivity onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //Log.i("alc",  "MainActivity onPause");
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        //Log.i("alc",  "MainActivity onStop");
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        //Log.i("alc",  "MainActivity onDestroy");
     }
 
 
@@ -265,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
 
         Gson g = new Gson();
         UserScore userScore = g.fromJson(parsedResp, UserScore.class);
-        Log.i("caps",  "userScore : " + userScore);
+        //Log.i("caps",  "userScore : " + userScore);
         updateUserScore(userScore.LAST_RES, userScore.BESTSCORE);
 
         //return response.toString();

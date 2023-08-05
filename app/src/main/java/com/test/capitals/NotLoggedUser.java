@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -25,6 +26,9 @@ public class NotLoggedUser extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Log.i("alc",  "NotLoggedUser onCreate");
+
         setContentView(R.layout.not_logged_user);
         buttonLogin = findViewById(R.id.login);
         buttonRegister = findViewById(R.id.register);
@@ -65,6 +69,42 @@ public class NotLoggedUser extends AppCompatActivity {
         userName = loadDataUser();
         //System.out.println("userName not log " + userName);
 
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        //Log.i("alc",  "NotLoggedUser onStart");
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        //Log.i("alc",  "NotLoggedUser onRestart");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        //Log.i("alc",  "NotLoggedUser onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //Log.i("alc",  "NotLoggedUser onPause");
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        //Log.i("alc",  "NotLoggedUser onStop");
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        //Log.i("alc",  "NotLoggedUser onDestroy");
     }
 
 

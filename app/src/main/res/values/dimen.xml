@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name = "font_size_small">20sp</dimen>
+    <dimen name = "font_size_small">18sp</dimen>
+    <dimen name = "wrong_answer_text_size">30sp</dimen>
+    <dimen name = "buttonCoreTextSizeNormal">25sp</dimen>
+    <dimen name = "tvCountryTextSizeNormal">30sp</dimen>
 </resources>
