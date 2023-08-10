@@ -1,23 +1,23 @@
 <resources>
     <string name="app_name">Capitals</string>
-    <string name="username">username</string>
+    <string name="username">Username</string>
     <string name="login">Login</string>
-    <string name="password">password</string>
+    <string name="password">Password</string>
     <string name="visible_password_on_off">Visible password on/off</string>
     <string name="login_uppercase">LOGIN</string>
-    <string name="register">register</string>
-    <string name="info">info</string>
-    <string name="start_test">start test</string>
+    <string name="register">Register</string>
+    <string name="info">Info</string>
+    <string name="start_test">Start</string>
     <string name="your_score">your score</string>
     <string name="back_uppercase">BACK</string>
     <string name="register_uppercase">REGISTER</string>
     <string name="register_1_upper">Register</string>
-    <string name="about">about</string>
+    <string name="about">About</string>
     <string name="aboutText1">App is developed in 2023 by</string>
     <string name="aboutText2">Aliaksandr Babrouski</string>
     <string name="aboutText3">balexvicx@gmail.com</string>
     <string name="rules_test">rules test</string>
-    <string name="logout">logout</string>
+    <string name="logout">Logout</string>
     <string name="please_choose_level">Please, choose level</string>
     <string name="easy">Easy</string>
     <string name="medium">Medium</string>
@@ -34,4 +34,6 @@
     <string name="scoreNull">#85F44336</string>
     <string name="check">check</string>
     <string name="congratulation">Congratulation</string>
+    <string name="git_code">https://github.com/Mirage74/capitals-java</string>
+    <string name="git_backend">https://github.com/Mirage74/cap-srv</string>
 </resources>

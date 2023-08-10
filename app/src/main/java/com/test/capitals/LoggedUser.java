@@ -42,7 +42,7 @@ public class LoggedUser extends AppCompatActivity {
         }
         userName = loadDataUser();
         TextView textView = findViewById(R.id.username);
-        String text = "Hello, " + userName + " !";
+        String text = "Hello, " + userName + "!";
         textView.setText(text);
 
 

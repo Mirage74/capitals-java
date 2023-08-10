@@ -104,7 +104,7 @@ public class NotLoggedUser extends AppCompatActivity {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        //Log.i("alc",  "NotLoggedUser onDestroy");
+        Log.i("alc",  "NotLoggedUser onDestroy");
     }
 
 

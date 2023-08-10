@@ -13,14 +13,21 @@ import static com.test.capitals.MainActivity.SHARED_PREFS;
 import static com.test.capitals.MainActivity.USER_NAME;
 import static com.test.capitals.MainActivity.LAST_RESULT;
 import static com.test.capitals.MainActivity.BEST_SCORE;
+import static com.test.capitals.MainActivity.CORE_STATE;
+import static com.test.capitals.MainActivity.CORE_NEW;
+import static com.test.capitals.MainActivity.CORE_LAST_QUESTION_ID;
+import static com.test.capitals.MainActivity.CORE_SEC_REST;
+import static com.test.capitals.MainActivity.CORE_AV1;
+import static com.test.capitals.MainActivity.CORE_AV2;
+import static com.test.capitals.MainActivity.CORE_AV3;
+import static com.test.capitals.MainActivity.CORE_AV4;
+import static com.test.capitals.MainActivity.CORE_RA;
+
 
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,10 +37,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.squareup.picasso.Picasso;
 
@@ -60,9 +66,10 @@ public class CoreTest extends AppCompatActivity {
     public static final String NO_ANSWER_TIME_EXPIRED = "NoAnswer";
 
     static boolean timeExpire = false;
+    Boolean isNewTest = true;
 
     ArrayList<CountryDescribe> countryList, countryListCut, countryListExactDiffLevel, countryListTemp;
-    ArrayList<UserAnswer> testState = new ArrayList<>();
+    ArrayList<UserAnswer> testState = new ArrayList<>();;
     Button buttonCap1, buttonCap2, buttonCap3, buttonCap4;
     String userName;
     int bestScore;
@@ -75,7 +82,7 @@ public class CoreTest extends AppCompatActivity {
     }
 
     TextView textViewSec;
-    int allQuestions, scoreEasy, scoreMedium, scoreHard, diffLvl, sumScore = 0;
+    int allQuestions, scoreEasy, scoreMedium, scoreHard, diffLvl, sumScore = 0, lastQuestionId, lastSecRest;
     int timeBestScoreSec, timeMediumScoreSec, timeMaxSec, currTime, rightAnswerNum;
     String[] answerVariants = new String[4];
     Random rand = new Random();
@@ -108,81 +115,49 @@ public class CoreTest extends AppCompatActivity {
         testState.add(userAnswer);
         //Log.i("caps",  "N, userAnswer : " + userAnswer.serializeToString());
         if ( testState.size() < allQuestions) {
-            runFrameQuest(testState.size() + 1);
+            runFrameQuest(testState.size() + 1, 0);
         } else {
             String arrStr = "";
             for (int i = 0; i < testState.size(); i++) {
-                arrStr = arrStr + testState.get(i).serializeToString();
+                arrStr = arrStr + testState.get(i).serializeToString(countryList);
             }
 
             postUpdateUserScore(arrStr, sumScore);
-
-//            Log.i("caps",  "arrStr len : " + arrStr.length());
-//            Log.i("caps",  "sumScore : " + sumScore);
-//            Log.i("caps",  "resUpd : " + resUpd);
-
-            //Log.i("caps",  "coretest loadLastResult before " + loadLastResult());
             updateUserScore(arrStr, sumScore);
-
             Intent intent = new Intent(this, ScoreMain.class);
-            //Log.i("caps",  "coretest activity countryList put : " + countryList);
             intent.putExtra(EXTRAS_COUNTY_LIST, countryList);
             startActivity(intent);
-
-            //Log.i("caps",  "coretest loadLastResult after" + loadLastResult());
-
-
-//            Log.i("caps",  "score : " + testState.stream().map(e -> e.score).mapToInt(Integer::intValue).sum());
-//            Log.i("caps",  "countryList len finish : " + countryList.size());
-//            Log.i("caps",  "countryListExactDiffLevel len finish  : " + countryListExactDiffLevel.size());
-//            Log.i("caps",  "countryListCut len finish : " + countryListCut.size());
-
         }
-
     }
 
-    @Override
-    public void onStart(){
-        super.onStart();
-        //Log.i("alc",  "CoreTest onStart, countryList  : " + countryList);
-    }
 
-    @Override
-    public void onRestart(){
-        super.onRestart();
-        //Log.i("alc",  "CoreTest onRestart, countryList  : " + countryList);
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        //Log.i("alc",  "CoreTest onResume, countryList  : " + countryList);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        //Log.i("alc",  "CoreTest onPause, countryList  : " + countryList);
-    }
-
-    @Override
-    public void onStop(){
-        super.onStop();
-        //Log.i("alc",  "CoreTest onStop, countryList  : " + countryList);
-    }
 
     @Override
     public void onDestroy(){
+        if ( testState != null && testState.size() > 0 && testState.size() < allQuestions)  {
+            saveTestState(testState);
+        }
+        timer.cancel();
         super.onDestroy();
-        //Log.i("alc",  "CoreTest onDestroy, countryList  : " + countryList);
     }
 
-    private void runFrameQuest(int questNum) {
-        int int_random;
+    private void runFrameQuest(int questNum, int lastQuestionId) {
+        int int_random = 0;
         timeExpire = false;
+        Log.i("alc",  "CoreTest lastQuestionId  : " + lastQuestionId);
+        Log.i("alc",  "CoreTest lastSecRest  : " + lastSecRest);
+        Log.i("alc",  "CoreTest countryListExactDiffLevel.size  : " + countryListExactDiffLevel.size());
+        Log.i("alc",  "CoreTest countryListCut.size  : " + countryListCut.size());
         if (questNum % 2 == 1) {
-            int_random = rand.nextInt(countryListExactDiffLevel.size());
-            testCountry = countryListExactDiffLevel.get(int_random);
+
+            if (lastQuestionId > 0) {
+                testCountry = countryList.stream().filter(e -> e.id == lastQuestionId).findFirst().get();
+                //int_random = countryListExactDiffLevel.indexOf(testCountry);
+            } else {
+                int_random = rand.nextInt(countryListExactDiffLevel.size());
+                testCountry = countryListExactDiffLevel.get(int_random);
+            }
+
 
             textViewCountryName.setTextSize(getResources().getInteger(R.integer.tvCountryTextSizeNormal));
             if (testCountry.countryName.length() > getResources().getInteger(R.integer.tvCountryTextChangeToSmallLength)) {
@@ -197,15 +172,23 @@ public class CoreTest extends AppCompatActivity {
             textViewCountryName.setText(testCountry.countryName);
             String s = testState.size() + 1 + " / " + allQuestions;
             testViewQuestionNumber.setText(s);
-            countryListExactDiffLevel.remove(int_random);
+            if (lastQuestionId == 0) {
+                countryListExactDiffLevel.remove(int_random);
+            }
             ArrayList<CountryDescribe> cL = new ArrayList<>();
             cL = (ArrayList) countryListCut.stream().filter(e -> e.id != testCountry.id).collect(Collectors.toList());
             countryListCut = (ArrayList) cL.clone();
             countryListTemp = new ArrayList<>();
             countryListTemp = (ArrayList) countryList.clone();
         } else {
-            int_random = rand.nextInt(countryListCut.size());
-            testCountry = countryListCut.get(int_random);
+            if (lastQuestionId > 0) {
+                testCountry = countryListCut.stream().filter(e -> e.id == lastQuestionId).findFirst().get();
+
+                int_random = countryListCut.indexOf(testCountry);
+            } else {
+                int_random = rand.nextInt(countryListCut.size());
+                testCountry = countryListCut.get(int_random);
+            }
 
             textViewCountryName.setTextSize(getResources().getInteger(R.integer.tvCountryTextSizeNormal));
 
@@ -221,25 +204,34 @@ public class CoreTest extends AppCompatActivity {
             textViewCountryName.setText(testCountry.countryName);
             String s = testState.size() + 1 + " / " + allQuestions;
             testViewQuestionNumber.setText(s);
-            countryListCut.remove(int_random);
+            if (lastQuestionId == 0) {
+                countryListCut.remove(int_random);
+            }
             ArrayList<CountryDescribe> cL = new ArrayList<>();
             cL = (ArrayList) countryListExactDiffLevel.stream().filter(e -> e.id != testCountry.id).collect(Collectors.toList());
             countryListExactDiffLevel = (ArrayList) cL.clone();
             countryListTemp = new ArrayList<>();
             countryListTemp = (ArrayList) countryList.clone();
         }
+        if (lastQuestionId > 0) {
+            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+            answerVariants[0] = sharedPreferences.getString(CORE_AV1, "1");
+            answerVariants[1] = sharedPreferences.getString(CORE_AV2, "2");
+            answerVariants[2] = sharedPreferences.getString(CORE_AV3, "3");
+            answerVariants[3] = sharedPreferences.getString(CORE_AV4, "4");
+            rightAnswerNum = sharedPreferences.getInt(CORE_RA, 0);
+        } else {
+            rightAnswerNum = rand.nextInt(3);
+            for (int i = 0; i < 4; i++) {
+                answerVariants[i] = null;
+            }
+            answerVariants[rightAnswerNum] = testCountry.capitalName;
 
-        rightAnswerNum = rand.nextInt(3);
-        for (int i = 0; i < 4; i++) {
-            answerVariants[i] = null;
+            countryListTemp = (ArrayList) countryList.stream().filter(e -> e.id != testCountry.id).collect(Collectors.toList());
+            FillAnswer();
+            FillAnswer();
+            FillAnswer();
         }
-        answerVariants[rightAnswerNum] = testCountry.capitalName;
-        System.out.println("rightAnswerNum : " + rightAnswerNum);
-
-        countryListTemp = (ArrayList) countryList.stream().filter(e -> e.id != testCountry.id).collect(Collectors.toList());
-        FillAnswer();
-        FillAnswer();
-        FillAnswer();
 
         fitTextButton();
         buttonCap1.setText(answerVariants[0]);
@@ -247,7 +239,16 @@ public class CoreTest extends AppCompatActivity {
         buttonCap3.setText(answerVariants[2]);
         buttonCap4.setText(answerVariants[3]);
         Picasso.get().load(BACKEND_URL + "/" + testCountry.imageName).into(ivImageCapital);
-        currTime = timeMaxSec;
+        if (lastQuestionId > 0) {
+            if (lastSecRest > 1) {
+                currTime = lastSecRest;
+            } else {
+                currTime = 1;
+            }
+        } else {
+            currTime = timeMaxSec;
+        }
+
         timer = new Timer();
         TimerTask timerTask = new TimerTaskSecAnswer();
         timer.scheduleAtFixedRate(timerTask, 0, 1000);
@@ -299,6 +300,7 @@ public class CoreTest extends AppCompatActivity {
         //Log.i("alc",  "CoreTest onCreate, countryList  : " + countryList);
 
         setContentView(R.layout.core_test);
+        lastQuestionId = 0;
 
         ivImageCapital = findViewById(R.id.ivImageCapital);
 
@@ -328,6 +330,19 @@ public class CoreTest extends AppCompatActivity {
         Intent intent = getIntent();
         //pctEasy = intent.getIntExtra(EXTRAS_COUNTRY_CURRENT_PCT_EASY, 0);
         diffLvl = intent.getIntExtra(EXTRAS_DIFFICULT_LVL, 0);
+
+        int i = loadIsNewTest();
+        if (i == 0) {
+            isNewTest = false;
+            lastQuestionId = loadLastQuestionId();
+            lastSecRest = loadSecRest();
+
+        } else {
+            isNewTest = true;
+
+        }
+        //Log.i("alc",  "core isNewTest " + isNewTest);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             countryList = intent.getParcelableArrayListExtra(EXTRAS_COUNTY_LIST, CountryDescribe.class);
             countryListCut = intent.getParcelableArrayListExtra(EXTRAS_COUNTRY_CURRENT, CountryDescribe.class);
@@ -335,6 +350,12 @@ public class CoreTest extends AppCompatActivity {
             countryList = (ArrayList<CountryDescribe>) intent.getSerializableExtra(EXTRAS_COUNTY_LIST);
             countryListCut = (ArrayList<CountryDescribe>) intent.getSerializableExtra(EXTRAS_COUNTRY_CURRENT);
         }
+        //Log.i("alc",  " core teststate " + loadTestState(countryList));
+        if (!isNewTest) {
+            testState = loadTestState(countryList);
+        }
+
+
         ArrayList<CountryDescribe> cL = new ArrayList<>();
         cL = (ArrayList) countryListCut.stream().filter(e -> e.diffLvl == diffLvl).collect(Collectors.toList());
         countryListExactDiffLevel = (ArrayList) cL.clone();
@@ -393,11 +414,35 @@ public class CoreTest extends AppCompatActivity {
         buttonCap3.setOnClickListener(onClickListener);
         buttonCap4.setOnClickListener(onClickListener);
 
-        runFrameQuest(1);
+
+        runFrameQuest(testState.size() + 1, lastQuestionId);
 
 
     }
 
+    public ArrayList<UserAnswer> loadTestState(ArrayList<CountryDescribe> countryList) {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        String cS = sharedPreferences.getString(CORE_STATE, "");
+        return ScoreMain.parseStringToUserAnswerList(cS, countryList);
+    }
+
+    public int loadIsNewTest() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        int i = sharedPreferences.getInt(CORE_NEW, 1);
+        return i;
+    }
+
+    public int loadLastQuestionId() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        int i = sharedPreferences.getInt(CORE_LAST_QUESTION_ID, 0);
+        return i;
+    }
+
+    public int loadSecRest() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        int i = sharedPreferences.getInt(CORE_SEC_REST, 0);
+        return i;
+    }
 
 
     private void postUpdateUserScore(String quiz, int score) {
@@ -507,6 +552,25 @@ public class CoreTest extends AppCompatActivity {
         editor.apply();
         //Toast.makeText(this, "User data updated", Toast.LENGTH_SHORT).show();
     }
+
+    public void saveTestState(ArrayList<UserAnswer> testState) {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        String arrStr = "";
+        for (int i = 0; i < testState.size(); i++) {
+            arrStr = arrStr + testState.get(i).serializeToString(countryList);
+        }
+        editor.putString(CORE_STATE, arrStr);
+        editor.putInt(CORE_LAST_QUESTION_ID, testCountry.id);
+        editor.putInt(CORE_NEW, 0);
+        editor.putInt(CORE_SEC_REST, Integer.parseInt((String) textViewSec.getText()));
+        editor.putString(CORE_AV1, answerVariants[0]);
+        editor.putString(CORE_AV2, answerVariants[1]);
+        editor.putString(CORE_AV3, answerVariants[2]);
+        editor.putString(CORE_AV4, answerVariants[3]);
+        editor.putInt(CORE_RA, rightAnswerNum);
+        editor.apply();
+    }
 }
 
 
@@ -530,7 +594,7 @@ class UserAnswer  implements Serializable {
                 '}';
     }
 
-    public String serializeToString() {
+    public String serializeToString(ArrayList<CountryDescribe> countryList) {
         int idUserAnswer = 0;
         if (!this.userAnswer.equals(NO_ANSWER_TIME_EXPIRED)) {
             idUserAnswer = countryList.stream().filter(e -> e.capitalName.equals(this.userAnswer)).findFirst().get().id;

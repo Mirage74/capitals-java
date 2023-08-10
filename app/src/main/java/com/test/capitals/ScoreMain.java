@@ -14,7 +14,6 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -70,11 +69,7 @@ public class ScoreMain extends AppCompatActivity {
         } else {
             countryList = (ArrayList<CountryDescribe>) intent.getSerializableExtra(EXTRAS_COUNTY_LIST);
         }
-
-        //Log.i("caps",  "ScoreMain, 66, countryList : " + countryList);
-        //Log.i("caps",  "ScoreMain, 66, lastQuestResult : " + lastQuestResult);
-        parseToUserAnswer(lastQuestResult);
-        //Log.i("caps",  "ScoreMain onCreate 66  testState : " + testState);
+        testState = parseStringToUserAnswerList(lastQuestResult, countryList);
         currScore = testState.stream().mapToInt(e -> e.score).sum();
 
 
@@ -195,58 +190,16 @@ public class ScoreMain extends AppCompatActivity {
         return sharedPreferences.getString(USER_NAME, NOT_LOGGED_USER);
     }
 
-//    @Override
-//    public void onStart(){
-//        super.onStart();
-//        //Log.i("caps",  "ScoreMain onStart, testState  : " + testState);
-//        //Log.i("alc",  "ScoreMain onStart, countryList  : " + countryList);
-//    }
-//
-//    @Override
-//    public void onRestart(){
-//        super.onRestart();
-//        //Log.i("alc",  "ScoreMain onRestart, countryList  : " + countryList);
-//    }
-//
-//    @Override
-//    public void onResume(){
-//        super.onResume();
-//        //Log.i("caps",  "ScoreMain onResume, testState  : " + testState);
-//        //Log.i("alc",  "ScoreMain onResume, countryList  : " + countryList);
-//
-//    }
-//
-//    @Override
-//    public void onPause(){
-//        super.onPause();
-//        //Log.i("caps",  "ScoreMain onPause, testState  : " + testState);
-//        //Log.i("alc",  "ScoreMain onPause, countryList  : " + countryList);
-//    }
-//
-//    @Override
-//    public void onStop(){
-//        super.onStop();
-//        //Log.i("caps",  "ScoreMain onStop, testState  : " + testState);
-//        //Log.i("alc",  "ScoreMain onStop, countryList  : " + countryList);
-//    }
-//
-//    @Override
-//    public void onDestroy(){
-//        super.onDestroy();
-//        //Log.i("caps",  "ScoreMain onDestroy, testState  : " + testState);
-//        //Log.i("alc",  "ScoreMain onDestroy, countryList  : " + countryList);
-//    }
-
-    private void parseToUserAnswer(String jsonAnswer) {
+    public static ArrayList<UserAnswer> parseStringToUserAnswerList(String jsonAnswer, ArrayList<CountryDescribe> countryList) {
         String s = jsonAnswer;
+        ArrayList<UserAnswer> tS = new ArrayList<>();
         while (s.length() > 5) {
             int i = s.indexOf("}");
             String temp = s.substring(0, i + 1);
-//            Log.i("caps",  "ScoreMain, 232, temp : " + temp);
-//            Log.i("caps",  "ScoreMain, 232, countryList : " + countryList);
-            testState.add(new UserAnswer(temp, countryList));
+            tS.add(new UserAnswer(temp, countryList));
             s = s.substring(i + 1);
         }
+        return tS;
     }
     private int loadBestScore() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);

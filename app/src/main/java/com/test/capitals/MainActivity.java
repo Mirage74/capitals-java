@@ -42,12 +42,22 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRAS_COUNTY_LIST = "country-list";
     public static final String EXTRAS_COUNTRY_CURRENT = "country-current";
     public static final String EXTRAS_DIFFICULT_LVL = "diff-lvl";
-    public static final String BACKEND_URL = "http://10.0.2.2:4000";
+    //public static final String BACKEND_URL = "http://10.0.2.2:4000";
+    public static final String BACKEND_URL = "http://192.168.1.11:4000";
     public static final String BACKEND_API = BACKEND_URL + "/api";
     public static final String POST_USER_SCORE = BACKEND_API + "/userScore";
     public static final String BEST_SCORE_FIELD_NAME_DB = "BESTSCORE";
     public static final String LASTRES_FIELD_NAME_DB = "LAST_RES";
     public static final String USER_ANSWER = "user-answer";
+    public static final String CORE_STATE = "coreState";
+    public static final String CORE_NEW = "coreNew";
+    public static final String CORE_LAST_QUESTION_ID = "questionID";
+    public static final String CORE_SEC_REST = "secRest";
+    public static final String CORE_AV1 = "coreAV1";
+    public static final String CORE_AV2 = "coreAV2";
+    public static final String CORE_AV3 = "coreAV3";
+    public static final String CORE_AV4 = "coreAV4";
+    public static final String CORE_RA = "coreRA";
 
 
     String userName;

@@ -12,34 +12,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/lineSectionEnd1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintGuide_begin="360dp"
+            android:orientation="vertical"
+            />
 
         <TextView
             android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="16dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintHorizontal_bias="0.5"
             android:text="@string/username"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             app:layout_constrainedWidth="true"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/lineSectionEnd1"
+            app:layout_constraintBottom_toTopOf="@id/ivImageCapital"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivImageCapital"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="200dp"
-            android:layout_marginHorizontal="50dp"
             android:layout_marginBottom="10dp"
             android:adjustViewBounds="true"
+            app:layout_constraintHorizontal_bias="0.5"
             android:alpha="1"
             android:scaleType="centerCrop"
             android:src="@drawable/unsplash"
-            app:layout_constraintBottom_toTopOf="@+id/country_name"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/lineSectionEnd1"
             app:layout_constraintTop_toBottomOf="@+id/username"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
             app:strokeColor="@color/stroke"
             app:strokeWidth="5dp" />
@@ -49,30 +58,30 @@
             android:id="@+id/question_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
             android:text="@string/question_number"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             app:layout_constrainedWidth="true"
-            app:layout_constraintBottom_toTopOf="@id/country_name"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/lineSectionEnd1"
             app:layout_constraintEnd_toStartOf="@id/sec_rest"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivImageCapital" />
+            app:layout_constraintBottom_toTopOf="@id/country_name"/>
 
 
         <TextView
             android:id="@+id/sec_rest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
             android:text="@string/max_sec"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toTopOf="@id/country_name"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toEndOf="@id/question_number"
-            app:layout_constraintTop_toBottomOf="@id/ivImageCapital" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/country_name"
@@ -80,71 +89,70 @@
             android:layout_height="wrap_content"
             android:text="@string/country_name"
             android:textSize="@dimen/tvCountryTextSizeNormal"
-            android:layout_marginHorizontal="40dp"
             app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toStartOf="@id/lineSectionEnd1"
             app:layout_constraintBottom_toTopOf="@id/capital1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/question_number" />
 
 
         <Button
             android:id="@+id/capital1"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/btCoreWidth"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="80dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginStart="@dimen/btCoreMargins"
+            android:layout_marginTop="@dimen/btCoreMargins"
+            android:layout_marginBottom="@dimen/btCoreMargins"
+            android:layout_marginEnd="@dimen/btCoreMargins"
             android:text="@string/capital"
             android:textSize="@dimen/buttonCoreTextSizeNormal"
-            app:layout_constraintBottom_toTopOf="@id/capital2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/lineSectionEnd1"
+            app:layout_constraintBottom_toTopOf="@id/capital3"
+            app:layout_constraintEnd_toStartOf="@id/capital2"
             app:layout_constraintTop_toBottomOf="@id/country_name" />
 
         <Button
             android:id="@+id/capital2"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/btCoreWidth"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="80dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/capital"
-            android:textSize="@dimen/buttonCoreTextSizeNormal"
-            app:layout_constraintBottom_toTopOf="@id/capital3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/capital1" />
-
-        <Button
-            android:id="@+id/capital3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="80dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginEnd="@dimen/btCoreMargins"
+            android:layout_marginTop="@dimen/btCoreMargins"
+            android:layout_marginBottom="@dimen/btCoreMargins"
             android:text="@string/capital"
             android:textSize="@dimen/buttonCoreTextSizeNormal"
             app:layout_constraintBottom_toTopOf="@id/capital4"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/capital2"
+            app:layout_constraintStart_toEndOf="@id/capital1"
+            app:layout_constraintTop_toBottomOf="@id/country_name" />
 
-            />
-
-
-
+        <Button
+            android:id="@+id/capital3"
+            android:layout_width="@dimen/btCoreWidth"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/btCoreMargins"
+            android:layout_marginBottom="@dimen/btCoreMargins"
+            android:layout_marginEnd="@dimen/btCoreMargins"
+            android:text="@string/capital"
+            android:textSize="@dimen/buttonCoreTextSizeNormal"
+            app:layout_constraintStart_toStartOf="@id/lineSectionEnd1"
+            app:layout_constraintEnd_toStartOf="@id/capital4"
+            app:layout_constraintTop_toBottomOf="@id/capital1"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
 
         <Button
             android:id="@+id/capital4"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/btCoreWidth"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="80dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginEnd="@dimen/btCoreMargins"
+            android:layout_marginBottom="@dimen/btCoreMargins"
             android:text="@string/capital"
             android:textSize="@dimen/buttonCoreTextSizeNormal"
+            app:layout_constraintStart_toEndOf="@id/capital3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/capital3" />
+            app:layout_constraintTop_toBottomOf="@id/capital2"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

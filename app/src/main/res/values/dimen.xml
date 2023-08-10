@@ -4,4 +4,6 @@
     <dimen name = "wrong_answer_text_size">30sp</dimen>
     <dimen name = "buttonCoreTextSizeNormal">25sp</dimen>
     <dimen name = "tvCountryTextSizeNormal">30sp</dimen>
+    <dimen name = "btCoreWidth">150dp</dimen>
+    <dimen name = "btCoreMargins">40dp</dimen>
 </resources>
