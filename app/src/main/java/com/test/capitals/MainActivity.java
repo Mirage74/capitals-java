@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,13 +38,14 @@ public class MainActivity extends AppCompatActivity {
     public static final String SHARED_PREFS = "shared_prefds";
     public static final String USER_NAME = "userName";
     public static final String LAST_RESULT = "last-result";
+    public static final String BEST_RESULT = "best-result";
     public static final String BEST_SCORE = "best-score";
     public static final String NOT_LOGGED_USER = "notLoggedUser";
     public static final String EXTRAS_COUNTY_LIST = "country-list";
     public static final String EXTRAS_COUNTRY_CURRENT = "country-current";
     public static final String EXTRAS_DIFFICULT_LVL = "diff-lvl";
     //public static final String BACKEND_URL = "http://10.0.2.2:4000";
-    public static final String BACKEND_URL = "http://192.168.1.11:4000";
+    public static final String BACKEND_URL = "http://192.168.1.14:4000";
     public static final String BACKEND_API = BACKEND_URL + "/api";
     public static final String POST_USER_SCORE = BACKEND_API + "/userScore";
     public static final String BEST_SCORE_FIELD_NAME_DB = "BESTSCORE";
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     //private static final String GET_URL = "http://10.0.2.2:4000/api/get";
 
 
-    private String loadDataUser() {
+    public String loadDataUser() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         return sharedPreferences.getString(USER_NAME, NOT_LOGGED_USER);
     }
@@ -111,63 +113,6 @@ public class MainActivity extends AppCompatActivity {
         return lineRes;
     }
 
-//    private void parseString(List<CountryDescribe> countryList, String sIn) {
-//        boolean isFinished = false;
-//        int cnt = 0, i, j;
-//        String s, cntName, capName, imgName;
-//        int id, diffLvl;
-//        CountryDescribe cD;
-//        s = sIn;
-//        while (!isFinished) {
-//            i = s.indexOf("{");
-//            if (i > -1) {
-//                i += 6;
-//                j = s.indexOf(",");
-//                id = Integer.parseInt(s.substring(i, j));
-//
-//                s = s.substring(j + 1);
-//                i = s.indexOf("countryName");
-//                i += 14;
-//                j = s.indexOf(",");
-//                cntName = s.substring(i, j - 1).trim();
-//
-//                s = s.substring(j + 1);
-//                i = s.indexOf("capitalName");
-//                i += 14;
-//                j = s.indexOf(",");
-//                capName = s.substring(i, j - 1).trim();
-//
-//                s = s.substring(j + 1);
-//                i = s.indexOf("diffLvl");
-//                i += 9;
-//                j = s.indexOf(",");
-//                diffLvl = Integer.parseInt(s.substring(i, j));
-//
-//                s = s.substring(j + 1);
-//                i = s.indexOf("imageName");
-//                i += 12;
-//                j = s.indexOf(".jpg") + 4;
-//                imgName = s.substring(i, j).trim();
-//
-//
-//                cD = new CountryDescribe(id, cntName, capName, diffLvl, imgName);
-//                countryList.add(cD);
-//                i = s.indexOf("{");
-//                if (i > 10) {
-//                    s = s.substring(i);
-//                }
-//
-//                if (i < 0 || s.length() < 10) {
-//                    isFinished = true;
-//                }
-//
-//            } else {
-//                isFinished = true;
-//            }
-//
-//
-//        }
-//    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -186,35 +131,25 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<CountryDescribe> countryList = new ArrayList<>();
 
 
-       Gson g = new Gson();
-       Type userListType = new TypeToken<ArrayList<CountryDescribe>>(){}.getType();
+        Gson g = new Gson();
+        Type userListType = new TypeToken<ArrayList<CountryDescribe>>() {
+        }.getType();
 
-       countryList = g.fromJson(lineRes, userListType);
-//        Log.i("caps",  "countryList : " + countryList);
-
-        //parseString(countryList, lineRes);
-        //System.out.println("countryList.get(3) : " + countryList.get(3));
-
+        countryList = g.fromJson(lineRes, userListType);
         Intent intent;
         //saveUser(NOT_LOGGED_USER);
         userName = loadDataUser();
-
-//        System.out.println("userName : " + userName.getClass());
-//        System.out.println("NOT_LOGGED_USER : " + NOT_LOGGED_USER.getClass());
-//        if (!userName.equals(NOT_LOGGED_USER)) {
-//            System.out.println("not equal");
-//        }
         if (userName != null && userName.equals(NOT_LOGGED_USER)) {
             intent = new Intent(this, NotLoggedUser.class);
             intent.putExtra(EXTRAS_COUNTY_LIST, countryList);
             startActivity(intent);
-        } else if ( (userName != null) && (!userName.equals(NOT_LOGGED_USER)))  {
-            try {
-                //Log.i("caps",  "postGetUserScore(userName) 1 : " + postGetUserScore(userName));
-                postGetUserScore(userName);
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
+        } else if ((userName != null) && (!userName.equals(NOT_LOGGED_USER))) {
+//            try {
+//                //Log.i("caps",  "postGetUserScore(userName) 1 : " + postGetUserScore(userName));
+//                postGetUserScore(userName);
+//            } catch (JSONException e) {
+//                throw new RuntimeException(e);
+//            }
             intent = new Intent(this, LoggedUser.class);
             intent.putExtra(EXTRAS_COUNTY_LIST, countryList);
             startActivity(intent);
@@ -223,120 +158,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onStart(){
-        super.onStart();
-        //Log.i("alc",  "MainActivity onStart");
-    }
 
-    @Override
-    public void onRestart(){
-        super.onRestart();
-        //Log.i("alc",  "MainActivity onRestart");
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        //Log.i("alc",  "MainActivity onResume");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        //Log.i("alc",  "MainActivity onPause");
-    }
-
-    @Override
-    public void onStop(){
-        super.onStop();
-        //Log.i("alc",  "MainActivity onStop");
-    }
-
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        //Log.i("alc",  "MainActivity onDestroy");
-    }
-
-
-    private void postGetUserScore(String userName) throws JSONException {
-        StringBuilder response = new StringBuilder();
-        String jsonInputString = "{\"username\" : \"" + userName + "\"}";
-        //Log.i("caps",  "postGetUserScore jsonInputString : " + jsonInputString);
-        URL url;
-        try {
-            url = new URL(POST_USER_SCORE);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-
-        }
-        HttpURLConnection con;
-        try {
-            con = (HttpURLConnection) url.openConnection();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            con.setRequestMethod("POST");
-            con.setRequestProperty("Content-Type", "application/json");
-            con.setRequestProperty("Accept", "application/json");
-            con.setDoOutput(true);
-        } catch (ProtocolException e) {
-            throw new RuntimeException(e);
-        }
-
-        try (OutputStream os = con.getOutputStream()) {
-            byte[] input = jsonInputString.getBytes("utf-8");
-            os.write(input, 0, input.length);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        try (BufferedReader br = new BufferedReader(
-
-                new InputStreamReader(con.getInputStream(), "utf-8"))) {
-            String responseLine = null;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
-            }
-            System.out.println(response.toString());
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        String parsedResp = response.toString();
-        parsedResp = parsedResp.substring(parsedResp.indexOf(":") + 1, parsedResp.length() - 1);
-//        JSONObject responceObj = new JSONObject(parsedResp);
-
-        Gson g = new Gson();
-        UserScore userScore = g.fromJson(parsedResp, UserScore.class);
-        //Log.i("caps",  "userScore : " + userScore);
-        updateUserScore(userScore.LAST_RES, userScore.BESTSCORE);
-
-        //return response.toString();
-    }
-
-    public void updateUserScore(String lastRes, int bestScore) {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(LAST_RESULT, lastRes);
-        editor.putInt(BEST_SCORE, bestScore);
-        editor.apply();
-        Toast.makeText(this, "User data updated", Toast.LENGTH_SHORT).show();
-    }
-
-
-//    public void saveUser(String userName) {
-//        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putString(USER_NAME, userName);
-//        editor.apply();
-//        Toast.makeText(this, "User saved", Toast.LENGTH_SHORT).show();
-//    }
 
 }
 
@@ -351,26 +173,25 @@ class CountryDescribe implements Serializable {
     String imageName;
 
 
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
-    }
-
-    public void setCapitalName(String capitalName) {
-        this.capitalName = capitalName;
-    }
-
-    public void setDiffLvl(int diffLvl) {
-        this.diffLvl = diffLvl;
-    }
-
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
-    }
+//    public void setId(int id) {
+//        this.id = id;
+//    }
+//
+//    public void setCountryName(String countryName) {
+//        this.countryName = countryName;
+//    }
+//
+//    public void setCapitalName(String capitalName) {
+//        this.capitalName = capitalName;
+//    }
+//
+//    public void setDiffLvl(int diffLvl) {
+//        this.diffLvl = diffLvl;
+//    }
+//
+//    public void setImageName(String imageName) {
+//        this.imageName = imageName;
+//    }
 
     public CountryDescribe(int id, String countryName, String capitalName, int diffLvl, String imageName) {
         this.id = id;
@@ -400,6 +221,7 @@ class CountryDescribe implements Serializable {
 class UserScore {
     String DISPLAYNAME;
     String LAST_RES;
+    String BEST_RES;
     int BESTSCORE;
 
     @Override
@@ -407,13 +229,15 @@ class UserScore {
         return "UserScore{" +
                 "DISPLAYNAME='" + DISPLAYNAME + '\'' +
                 ", LAST_RES='" + LAST_RES + '\'' +
+                ", BEST_RES='" + BEST_RES + '\'' +
                 ", BESTSCORE=" + BESTSCORE +
                 '}';
     }
 
-    public UserScore(String DISPLAYNAME, String LAST_RES, int BESTSCORE) {
+    public UserScore(String DISPLAYNAME, String LAST_RES, String BEST_RES, int BESTSCORE) {
         this.DISPLAYNAME = DISPLAYNAME;
         this.LAST_RES = LAST_RES;
+        this.BEST_RES = BEST_RES;
         this.BESTSCORE = BESTSCORE;
     }
 }

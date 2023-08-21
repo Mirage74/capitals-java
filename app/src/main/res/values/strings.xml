@@ -36,4 +36,13 @@
     <string name="congratulation">Congratulation</string>
     <string name="git_code">https://github.com/Mirage74/capitals-java</string>
     <string name="git_backend">https://github.com/Mirage74/cap-srv</string>
+    <string name="last_score">Last score</string>
+    <string name="best_score">Best score</string>
+    <string name="back">Back</string>
+    <string name="capitals_list">Capitals list</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="view_best_result">View best result</string>
+    <string name="view_last_result">View last result</string>
+    <string name="view_score">View score</string>
 </resources>

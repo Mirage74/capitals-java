@@ -12,6 +12,7 @@ import static com.test.capitals.MainActivity.NOT_LOGGED_USER;
 import static com.test.capitals.MainActivity.SHARED_PREFS;
 import static com.test.capitals.MainActivity.USER_NAME;
 import static com.test.capitals.MainActivity.LAST_RESULT;
+import static com.test.capitals.MainActivity.BEST_RESULT;
 import static com.test.capitals.MainActivity.BEST_SCORE;
 import static com.test.capitals.MainActivity.CORE_STATE;
 import static com.test.capitals.MainActivity.CORE_NEW;
@@ -127,6 +128,7 @@ public class CoreTest extends AppCompatActivity {
             Intent intent = new Intent(this, ScoreMain.class);
             intent.putExtra(EXTRAS_COUNTY_LIST, countryList);
             startActivity(intent);
+            CoreTest.this.finish();
         }
     }
 
@@ -144,10 +146,10 @@ public class CoreTest extends AppCompatActivity {
     private void runFrameQuest(int questNum, int lastQuestionId) {
         int int_random = 0;
         timeExpire = false;
-        Log.i("alc",  "CoreTest lastQuestionId  : " + lastQuestionId);
-        Log.i("alc",  "CoreTest lastSecRest  : " + lastSecRest);
-        Log.i("alc",  "CoreTest countryListExactDiffLevel.size  : " + countryListExactDiffLevel.size());
-        Log.i("alc",  "CoreTest countryListCut.size  : " + countryListCut.size());
+//        Log.i("alc",  "CoreTest lastQuestionId  : " + lastQuestionId);
+//        Log.i("alc",  "CoreTest lastSecRest  : " + lastSecRest);
+//        Log.i("alc",  "CoreTest countryListExactDiffLevel.size  : " + countryListExactDiffLevel.size());
+//        Log.i("alc",  "CoreTest countryListCut.size  : " + countryListCut.size());
         if (questNum % 2 == 1) {
 
             if (lastQuestionId > 0) {
@@ -297,7 +299,7 @@ public class CoreTest extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Log.i("alc",  "CoreTest onCreate, countryList  : " + countryList);
+    //    Log.i("alc",  "CoreTest onCreate, countryList  : " + countryList);
 
         setContentView(R.layout.core_test);
         lastQuestionId = 0;
@@ -500,10 +502,10 @@ public class CoreTest extends AppCompatActivity {
         return sharedPreferences.getString(USER_NAME, NOT_LOGGED_USER);
     }
 
-    private String loadLastResult() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        return sharedPreferences.getString(LAST_RESULT, "0");
-    }
+//    private String loadLastResult() {
+//        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+//        return sharedPreferences.getString(LAST_RESULT, "0");
+//    }
 
     private int loadBestScore() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
@@ -548,6 +550,7 @@ public class CoreTest extends AppCompatActivity {
         editor.putString(LAST_RESULT, lastRes);
         if (bestScoreNew > bestScore) {
             editor.putInt(BEST_SCORE, bestScoreNew);
+            editor.putString(BEST_RESULT, lastRes);
         }
         editor.apply();
         //Toast.makeText(this, "User data updated", Toast.LENGTH_SHORT).show();
@@ -571,6 +574,33 @@ public class CoreTest extends AppCompatActivity {
         editor.putInt(CORE_RA, rightAnswerNum);
         editor.apply();
     }
+
+
+
+    public void onResume(Bundle savedInstanceState) {
+        super.onResume();
+        Log.i("alc",  "CoreTest onResume");
+    }
+
+    public void onStart(Bundle savedInstanceState) {
+        super.onStart();
+        Log.i("alc",  "CoreTest onStart");
+    }
+
+    public void onPause(Bundle savedInstanceState) {
+        super.onPause();
+        Log.i("alc",  "CoreTest onPause");
+    }
+
+    public void onStop(Bundle savedInstanceState) {
+        super.onStop();
+        Log.i("alc",  "CoreTest onStop");
+    }
+
+    public void onDestroy(Bundle savedInstanceState) {
+        super.onDestroy();
+        Log.i("alc",  "CoreTest onDestroy");
+    }
 }
 
 
@@ -593,6 +623,9 @@ class UserAnswer  implements Serializable {
                 ", countryList=" + countryList +
                 '}';
     }
+
+
+
 
     public String serializeToString(ArrayList<CountryDescribe> countryList) {
         int idUserAnswer = 0;

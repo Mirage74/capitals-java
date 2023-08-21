@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Capitals"
         android:usesCleartextTraffic="true"
+        android:enableOnBackInvokedCallback="true"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
@@ -38,6 +39,10 @@
         <activity android:name=".ScoreMain">
         </activity>
         <activity android:name=".CheckWrongAnswer">
+        </activity>
+        <activity android:name=".Info">
+        </activity>
+        <activity android:name=".CapitalsList">
         </activity>
     </application>
 

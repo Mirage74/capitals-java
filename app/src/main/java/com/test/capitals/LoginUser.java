@@ -1,6 +1,7 @@
 package com.test.capitals;
 
 import static com.test.capitals.MainActivity.BACKEND_API;
+import static com.test.capitals.MainActivity.BEST_RESULT;
 import static com.test.capitals.MainActivity.EXTRAS_COUNTY_LIST;
 import static com.test.capitals.MainActivity.NOT_LOGGED_USER;
 import static com.test.capitals.MainActivity.SHARED_PREFS;
@@ -82,7 +83,7 @@ public class LoginUser extends AppCompatActivity {
         }
 
         userName = loadDataUser();
-        System.out.println("userName before : " + userName);
+        //System.out.println("userName before : " + userName);
 
         View.OnClickListener onClickListener = v -> {
             if (v.getId() == R.id.login) {
@@ -219,7 +220,7 @@ public class LoginUser extends AppCompatActivity {
     }
 
     private User parseBackendResponse(String sIn) {
-        String dispName, typeLogin, lastRes;
+        String dispName, typeLogin, lastRes, bestRes;
         int i, j, k, bestScore;
 
         i = sIn.indexOf("DISPLAYNAME");
@@ -238,13 +239,18 @@ public class LoginUser extends AppCompatActivity {
         k = sIn.indexOf(",", j + 1);
         lastRes = sIn.substring(j + 2, k - 1);
 
+        i = sIn.indexOf("BEST_RES");
+        j = sIn.indexOf(":", i + 1);
+        k = sIn.indexOf(",", j + 1);
+        bestRes = sIn.substring(j + 2, k - 1);
+
         i = sIn.indexOf("BESTSCORE");
         j = sIn.indexOf(":", i + 1);
         k = sIn.indexOf("}", j + 2);
         String s = sIn.substring(j + 1, k);
         bestScore = Integer.parseInt(sIn.substring(j + 1, k));
 
-        return new User(dispName, typeLogin, lastRes, bestScore);
+        return new User(dispName, typeLogin, lastRes, bestRes, bestScore);
     }
 
     public void toggle() {
@@ -270,6 +276,7 @@ public class LoginUser extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(USER_NAME, user.DISPLAYNAME);
         editor.putString(LAST_RESULT, user.LAST_RES);
+        editor.putString(BEST_RESULT, user.BEST_RES);
         editor.putInt(BEST_SCORE, user.BESTSCORE);
         editor.apply();
         Toast.makeText(this, "User saved", Toast.LENGTH_SHORT).show();
@@ -280,13 +287,15 @@ class User {
     String DISPLAYNAME;
     String TYPELOGIN;
     String LAST_RES;
+    String BEST_RES;
     int BESTSCORE;
 
 
-    public User(String DISPLAYNAME, String TYPELOGIN, String LAST_RES, int BESTSCORE) {
+    public User(String DISPLAYNAME, String TYPELOGIN, String LAST_RES, String BEST_RES, int BESTSCORE) {
         this.DISPLAYNAME = DISPLAYNAME;
         this.TYPELOGIN = TYPELOGIN;
         this.LAST_RES = LAST_RES;
+        this.BEST_RES = BEST_RES;
         this.BESTSCORE = BESTSCORE;
 
     }
@@ -297,6 +306,7 @@ class User {
                 "DISPLAYNAME='" + DISPLAYNAME + '\'' +
                 ", TYPELOGIN='" + TYPELOGIN + '\'' +
                 ", LAST_RES='" + LAST_RES + '\'' +
+                ", BEST_RES='" + BEST_RES + '\'' +
                 ", BESTSCORE=" + BESTSCORE +
                 '}';
     }

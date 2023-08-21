@@ -4,7 +4,6 @@
     android:id="@+id/layoutScore"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".ScoreMain">
@@ -14,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingHorizontal="16dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:text="@string/congratulation"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
 
@@ -23,20 +22,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingHorizontal="16dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:text="@string/your_score"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
 
-    <TableLayout
-        android:id="@+id/layoutScoreTable"
+    <Button
+        android:id="@+id/switchRes"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:text="@string/view_best_result"
+        android:layout_marginBottom="10dp"
+        android:textSize="15sp" />
+
+
+    <FrameLayout
+        android:id="@+id/fragLastRes"
+        android:name="com.test.capitals.LastResFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </TableLayout>
+    </FrameLayout>
+
 
     <Button
         android:id="@+id/back"
         android:layout_width="300dp"
-        android:layout_height="0dp"
+        android:layout_height="20dp"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:layout_gravity="center"

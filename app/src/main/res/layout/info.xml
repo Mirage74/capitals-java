@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/unsplash"
-    android:gravity="center"
     android:orientation="vertical"
-    tools:context=".LoggedUser">
+    android:gravity="center"
+    android:background="@drawable/unsplash"
+    tools:context=".Info">
 
     <TextView
         android:id="@+id/username"
@@ -18,44 +18,34 @@
         android:layout_weight="1"
         android:textSize="35sp" />
 
-
     <Button
-        android:id="@+id/start_test"
+        android:id="@+id/viewResult"
         android:layout_width="200dp"
         android:layout_height="0dp"
         android:layout_marginTop="30dp"
-        android:layout_gravity="center"
         android:layout_weight="1"
-        android:textSize="35sp"
-        android:text="@string/start_test" />
-
+        android:textSize="25sp"
+        android:text="@string/view_score" />
 
     <Button
-        android:id="@+id/info"
-        android:layout_width="200dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="70dp"
-        android:layout_weight="1"
-        android:textSize="30sp"
-        android:text="@string/info" />
-
-    <Button
-        android:id="@+id/about"
+        android:id="@+id/capsList"
         android:layout_width="200dp"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginTop="70dp"
-        android:textSize="30sp"
-        android:text="@string/about" />
+        android:textSize="25sp"
+        android:text="@string/capitals_list" />
 
     <Button
-        android:id="@+id/logout"
+        android:id="@+id/back"
         android:layout_width="200dp"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:layout_marginTop="70dp"
         android:layout_marginBottom="70dp"
+        android:layout_weight="1"
         android:textSize="25sp"
-        android:text="@string/logout" />
+        android:text="@string/back" />
+
+
 
 </LinearLayout>
