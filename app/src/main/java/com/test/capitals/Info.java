@@ -50,7 +50,7 @@ public class Info extends AppCompatActivity {
                 intentLR.putExtra(EXTRAS_COUNTY_LIST, countryList);
                 startActivity(intentLR);
             } else if (v.getId() == R.id.capsList) {
-                Intent intentCL = new Intent(this, CapitalsList.class);
+                Intent intentCL = new Intent(this, CapsUN.class);
                 intentCL.putExtra(EXTRAS_COUNTY_LIST, countryList);
                 startActivity(intentCL);
             } else if (v.getId() == R.id.back) {

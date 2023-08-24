@@ -1,21 +1,17 @@
 package com.test.capitals;
 
-import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
-
 import static com.test.capitals.MainActivity.EXTRAS_COUNTY_LIST;
 import static com.test.capitals.MainActivity.USER_ANSWER;
 import static com.test.capitals.ScoreMain.LAST_SCORE_MODE;
 import static com.test.capitals.ScoreMain.parseStringToUserAnswerList;
 
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.util.Log;
 import android.util.TypedValue;
@@ -54,52 +50,19 @@ public class LastResFragment extends Fragment {
         } else {
             createFragmentTablePortrait(parseStringToUserAnswerList(scoreMain.bestQuestResult, scoreMain.countryList));
         }
-
-
     }
 
-    public void onResume(Bundle savedInstanceState) {
-        super.onResume();
-        Log.i("alc",  "LastResFragment onResume");
-
-
-    }
-
-    public void onStart(Bundle savedInstanceState) {
-        super.onStart();
-        Log.i("alc",  "LastResFragment onStart");
-    }
-
-    public void onPause(Bundle savedInstanceState) {
-        super.onPause();
-        Log.i("alc",  "LastResFragment onPause");
-    }
-
-    public void onStop(Bundle savedInstanceState) {
-        super.onStop();
-        Log.i("alc",  "LastResFragment onStop");
-    }
-
-    public void onDestroy(Bundle savedInstanceState) {
-        Log.i("alc",  "LastResFragment onDestroy");
-    }
 
     void createFragmentTablePortrait(ArrayList<UserAnswer> testState) {
-//        Log.i("alc",  "frag currViewMode  : " + scoreMain.currViewMode);
-//        Log.i("alc",  "frag testState  : " + testState);
         if ( (testState == null) || (testState.size() == 0) ) {
             scoreMain.params.height = getResources().getInteger(R.integer.layoutNullScoreMaxHeight);
             scoreMain.linearLayout.setLayoutParams(scoreMain.params);
         }
 
-
         int leftRowMargin=0;
         int topRowMargin=0;
         int rightRowMargin=0;
         int bottomRowMargin = 0;
-
-//        scoreMain.buttonSwitch.setVisibility(View.INVISIBLE);
-//        scoreMain.buttonBack.setVisibility(View.INVISIBLE);
 
         TableLayout.LayoutParams trParams = new
                 TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,
@@ -194,13 +157,10 @@ public class LastResFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        //Log.i("alc",  "LastResFragment onCreateView");
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         container.addView(tableLayout);
         scoreMain.buttonSwitch.setVisibility(View.VISIBLE);
         scoreMain.buttonBack.setVisibility(View.VISIBLE);
-
         return inflater.inflate(R.layout.fragment_last_res, container, false);
     }
 

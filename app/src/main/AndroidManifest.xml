@@ -42,7 +42,7 @@
         </activity>
         <activity android:name=".Info">
         </activity>
-        <activity android:name=".CapitalsList">
+        <activity android:name=".CapsUN">
         </activity>
     </application>
 

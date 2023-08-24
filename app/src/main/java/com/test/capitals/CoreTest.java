@@ -299,7 +299,7 @@ public class CoreTest extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-    //    Log.i("alc",  "CoreTest onCreate, countryList  : " + countryList);
+        //Log.i("alc",  "CoreTest onCreate, countryList  : " + countryList);
 
         setContentView(R.layout.core_test);
         lastQuestionId = 0;
@@ -577,30 +577,43 @@ public class CoreTest extends AppCompatActivity {
 
 
 
-    public void onResume(Bundle savedInstanceState) {
-        super.onResume();
-        Log.i("alc",  "CoreTest onResume");
-    }
+//    protected void onSaveInstanceState(Bundle saveInstanceState) {
+//        saveInstanceState.putInt("myInt", 7);
+//        Log.i("alc", "CoreTest onSaveInstanceState");
+//        super.onSaveInstanceState(saveInstanceState);
+//
+//    }
+//
+//    protected void onRestoreInstanceState(Bundle saveInstanceState) {
+//        Log.i("alc", "CoreTest onRestoreInstanceState" + saveInstanceState.getInt("myInt"));
+//        super.onRestoreInstanceState(saveInstanceState);
+//
+//    }
 
-    public void onStart(Bundle savedInstanceState) {
-        super.onStart();
-        Log.i("alc",  "CoreTest onStart");
-    }
-
-    public void onPause(Bundle savedInstanceState) {
-        super.onPause();
-        Log.i("alc",  "CoreTest onPause");
-    }
-
-    public void onStop(Bundle savedInstanceState) {
-        super.onStop();
-        Log.i("alc",  "CoreTest onStop");
-    }
-
-    public void onDestroy(Bundle savedInstanceState) {
-        super.onDestroy();
-        Log.i("alc",  "CoreTest onDestroy");
-    }
+//    public void onResume(Bundle savedInstanceState) {
+//        super.onResume();
+//        Log.i("alc",  "CoreTest onResume");
+//    }
+//
+//    public void onStart(Bundle savedInstanceState) {
+//        super.onStart();
+//        Log.i("alc",  "CoreTest onStart");
+//    }
+//
+//    public void onPause(Bundle savedInstanceState) {
+//        super.onPause();
+//        Log.i("alc",  "CoreTest onPause");
+//    }
+//
+//    public void onStop(Bundle savedInstanceState) {
+//        super.onStop();
+//        Log.i("alc",  "CoreTest onStop");
+//    }
+//
+//    public void onDestroy(Bundle savedInstanceState) {
+//        super.onDestroy();
+//        Log.i("alc",  "CoreTest onDestroy");
+//    }
 }
 
 

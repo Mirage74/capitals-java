@@ -3,4 +3,21 @@
     <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="FirstLetterButtonLeft" parent="">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginTop">@dimen/firstLetterMarginTopFirstLine</item>
+        <item name="android:layout_marginStart">@dimen/firstLetterMarginHorizontal</item>
+        <item name="android:layout_marginEnd">@dimen/firstLetterMarginHorizontal</item>
+        <item name="android:textSize">@dimen/firstLetterTextSize</item>
+    </style>
+
+    <style name="FirstLetterButtonsOther" parent="">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginTop">@dimen/firstLetterMarginTopFirstLine</item>
+        <item name="android:layout_marginEnd">@dimen/firstLetterMarginHorizontal</item>
+        <item name="android:textSize">@dimen/firstLetterTextSize</item>
+    </style>
 </resources>

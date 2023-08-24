@@ -6,4 +6,7 @@
     <dimen name = "tvCountryTextSizeNormal">30sp</dimen>
     <dimen name = "btCoreWidth">150dp</dimen>
     <dimen name = "btCoreMargins">40dp</dimen>
+    <dimen name = "firstLetterTextSize">15sp</dimen>
+    <dimen name = "firstLetterMarginHorizontal">20dp</dimen>
+    <dimen name = "firstLetterMarginTopFirstLine">10dp</dimen>
 </resources>

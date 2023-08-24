@@ -1,25 +1,19 @@
 package com.test.capitals;
 
-import static com.test.capitals.MainActivity.EXTRAS_COUNTY_LIST;
-import static com.test.capitals.MainActivity.USER_ANSWER;
 
+import static com.test.capitals.MainActivity.EXTRAS_COUNTY_LIST;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
+import androidx.core.content.res.ResourcesCompat;
 import java.util.ArrayList;
 
 public class CapitalsList extends AppCompatActivity {
@@ -63,7 +57,7 @@ public class CapitalsList extends AppCompatActivity {
         tvID.setLayoutParams(new
                 TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                 TableRow.LayoutParams.WRAP_CONTENT));
-        tvID.setGravity(Gravity.RIGHT);
+        tvID.setGravity(Gravity.END);
         tvID.setPadding(1, 15, 0, 15);
         s = "No";
         tvID.setText(s);
@@ -73,7 +67,7 @@ public class CapitalsList extends AppCompatActivity {
         tvCountryName.setLayoutParams(new
                 TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                 TableRow.LayoutParams.WRAP_CONTENT));
-        tvCountryName.setGravity(Gravity.LEFT);
+        tvCountryName.setGravity(Gravity.START);
         tvCountryName.setPadding(25, 15, 0, 15);
         s = "Country";
         tvCountryName.setText(s);
@@ -83,7 +77,7 @@ public class CapitalsList extends AppCompatActivity {
         tvCapitalName.setLayoutParams(new
                 TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                 TableRow.LayoutParams.WRAP_CONTENT));
-        tvCapitalName.setGravity(Gravity.LEFT);
+        tvCapitalName.setGravity(Gravity.START);
         tvCapitalName.setPadding(5, 15, 0, 15);
         s = "Capital";
         tvCapitalName.setText(s);
@@ -101,44 +95,44 @@ public class CapitalsList extends AppCompatActivity {
 
 
         for (int k = 0; k < countryList.size(); k++) {
-            int i;
-            int finalK = k;
-
             tvID = new TextView(this);
             tvID.setLayoutParams(new
                     TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
-            tvID.setGravity(Gravity.RIGHT);
+            tvID.setGravity(Gravity.END);
             tvID.setPadding(1, 15, 0, 15);
-            i = k + 1;
-            s = "" + i;
+            s = "" + countryList.get(k).id;
             tvID.setText(s);
-            tvID.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
+            tvID.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize + 30);
 
             tvCountryName = new TextView(this);
             tvCountryName.setLayoutParams(new
                     TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
-            tvCountryName.setGravity(Gravity.LEFT);
+            tvCountryName.setGravity(Gravity.START);
             tvCountryName.setPadding(25, 15, 0, 15);
+            //tvCountryName.setMaxWidth(300);
             s = "" + countryList.get(k).countryName;
             tvCountryName.setText(s);
-            tvCountryName.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
+            tvCountryName.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize + 30);
 
             tvCapitalName = new TextView(this);
             tvCapitalName.setLayoutParams(new
                     TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
-            tvCapitalName.setGravity(Gravity.LEFT);
+            tvCapitalName.setGravity(Gravity.START);
             tvCapitalName.setPadding(5, 15, 0, 15);
             s = "" + countryList.get(k).capitalName;
             tvCapitalName.setText(s);
-            tvCapitalName.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
+            tvCapitalName.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize + 30);
 
             final TableRow tr = new TableRow(this);
+            Drawable drawable =  ResourcesCompat.getDrawable(getResources(), R.drawable.border, null);
+            tr.setBackground(drawable);
             tr.setId(k + 1);
 
             tr.setPadding(0,0,0,1);
+            //tr.setBackgroundColor(Color.rgb(200,200,200));
             tr.setLayoutParams(trParams);
             tr.addView(tvID);
             tr.addView(tvCountryName);

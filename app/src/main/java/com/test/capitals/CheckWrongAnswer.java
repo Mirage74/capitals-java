@@ -65,40 +65,40 @@ public class  CheckWrongAnswer extends AppCompatActivity {
     }
 
 
-    @Override
-    public void onStart(){
-        super.onStart();
-        Log.i("alc",  "Check WrongAnswer onStart, userAnswer  : " + userAnswer);
-    }
-
-    @Override
-    public void onRestart(){
-        super.onRestart();
-        Log.i("alc",  "Check WrongAnswer onRestart, userAnswer  : " + userAnswer);
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        Log.i("alc",  "Check WrongAnswer onResume, userAnswer  : " + userAnswer);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.i("alc",  "Check WrongAnswer onPause, userAnswer  : " + userAnswer);
-        CheckWrongAnswer.this.finish();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.i("alc", "Check WrongAnswer onStop, userAnswer  : " + userAnswer);
-    }
-
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        Log.i("alc",  "Check WrongAnswer onDestroy, userAnswer  : " + userAnswer);
-    }
+//    @Override
+//    public void onStart(){
+//        super.onStart();
+//        Log.i("alc",  "Check WrongAnswer onStart, userAnswer  : " + userAnswer);
+//    }
+//
+//    @Override
+//    public void onRestart(){
+//        super.onRestart();
+//        Log.i("alc",  "Check WrongAnswer onRestart, userAnswer  : " + userAnswer);
+//    }
+//
+//    @Override
+//    public void onResume(){
+//        super.onResume();
+//        Log.i("alc",  "Check WrongAnswer onResume, userAnswer  : " + userAnswer);
+//    }
+//
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        Log.i("alc",  "Check WrongAnswer onPause, userAnswer  : " + userAnswer);
+//        CheckWrongAnswer.this.finish();
+//    }
+//
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        Log.i("alc", "Check WrongAnswer onStop, userAnswer  : " + userAnswer);
+//    }
+//
+//    @Override
+//    public void onDestroy(){
+//        super.onDestroy();
+//        Log.i("alc",  "Check WrongAnswer onDestroy, userAnswer  : " + userAnswer);
+//    }
 }

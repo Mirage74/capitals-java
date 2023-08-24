@@ -29,4 +29,6 @@
     <integer name = "tvCountryTextSizeTiny">20</integer>
 
     <integer name = "layoutNullScoreMaxHeight">700</integer>
+
+    <integer name = "filterInfoMinLength">2</integer>
 </resources>

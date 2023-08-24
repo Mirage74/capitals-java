@@ -7,20 +7,13 @@ import static com.test.capitals.MainActivity.EXTRAS_COUNTY_LIST;
 import static com.test.capitals.MainActivity.LAST_RESULT;
 import static com.test.capitals.MainActivity.NOT_LOGGED_USER;
 import static com.test.capitals.MainActivity.SHARED_PREFS;
-import static com.test.capitals.MainActivity.USER_ANSWER;
 import static com.test.capitals.MainActivity.USER_NAME;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -28,14 +21,11 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 
 
 import java.util.ArrayList;
@@ -79,7 +69,6 @@ public class ScoreMain extends AppCompatActivity {
         userName = loadDataUser();
         buttonBack = findViewById(R.id.back);
         buttonSwitch = findViewById(R.id.switchRes);
-        frameLayout = findViewById(R.id.fragLastRes);
         frameLayout = findViewById(R.id.fragLastRes);
         View.OnClickListener onClickListener = v -> {
             //int id =v.getId();
@@ -132,11 +121,14 @@ public class ScoreMain extends AppCompatActivity {
         s = "Congratulation, " + userName + " !";
         tvCongratulation.setText(s);
 
-        fragment = new com.test.capitals.LastResFragment();
-        fm = getSupportFragmentManager();
-        ft = fm.beginTransaction().setReorderingAllowed(true);
-        ft.replace(R.id.fragLastRes, fragment, ScoreFragmentTag);
-        ft.commit();
+
+        newFragment();
+
+//        fragment = new com.test.capitals.LastResFragment();
+//        fm = getSupportFragmentManager();
+//        ft = fm.beginTransaction().setReorderingAllowed(true);
+//        ft.replace(R.id.fragLastRes, fragment, ScoreFragmentTag);
+//        ft.commit();
 
 
         smallTextSize = (int) getResources().getDimension(R.dimen.font_size_small);
