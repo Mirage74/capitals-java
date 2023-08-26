@@ -3,6 +3,7 @@ package com.test.capitals;
 import static com.test.capitals.MainActivity.EXTRAS_COUNTY_LIST;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,11 +13,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Dimension;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -30,26 +34,31 @@ public class CapsUN extends AppCompatActivity {
     FrameLayout frameLayout;
     FragmentTransaction ft;
     FragmentManager fm = getSupportFragmentManager();
-    ScrollView scrollView;
-    TableLayout tableLayout;
     ArrayList<CountryDescribe> countryList, countryListFiltered = new ArrayList<>();
-    TextView tvID, tvCountryName, tvCapitalName;
     Button modeByCountry, modeByCapital, btBack;
     Button flA, flB, flC, flD, flE, flF, flG, flH, flI, flJ, flK, flL, flM, flN, flO, flP, flQ, flR, flS, flT, flU, flV, flW, flY, flZ;
-    int smallTextSize, minFilterChar;
+    int defTextSize, minTextSize, maxTextSize,  minFilterChar, rawIdWidth;
+    ImageView ivMinus, ivPlus;
     boolean currModeByCountry = true;
     EditText etFilterByCountryName;
-    String firstLetterPressed;
+    String firstLetterPressed, Sfilter;
+    Drawable drawable;
+
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.caps_un);
-
+        Sfilter = "";
         etFilterByCountryName = findViewById(R.id.filter);
         findButtons();
         modeByCountry.setEnabled(false);
-        smallTextSize = (int) getResources().getDimension(R.dimen.font_size_small);
+        defTextSize = (int) getResources().getDimension(R.dimen.font_size_default_list);
+        minTextSize = (int) getResources().getDimension(R.dimen.font_size_min_list);
+        maxTextSize = (int) getResources().getDimension(R.dimen.font_size_max_list);
+        drawable =  ResourcesCompat.getDrawable(getResources(), R.drawable.border, null);
         minFilterChar = getResources().getInteger(R.integer.filterInfoMinLength);
+        rawIdWidth =  getResources().getInteger(R.integer.listIdWidth);
         Intent intent = getIntent();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             countryList = intent.getParcelableArrayListExtra(EXTRAS_COUNTY_LIST, CountryDescribe.class);
@@ -62,38 +71,64 @@ public class CapsUN extends AppCompatActivity {
                 Intent intentBack = new Intent(this, MainActivity.class);
                 startActivity(intentBack);
             } else if (v.getId() == R.id.modeByCountry) {
-                currModeByCountry = false;
+                Sfilter = "";
+                currModeByCountry = true;
                 etFilterByCountryName.setText("");
                 etFilterByCountryName.setHint(getResources().getString(R.string.enter_country_name));
                 modeByCountry.setEnabled(false);
                 modeByCapital.setEnabled(true);
+                refreshFilter(firstLetterPressed);
+                frameLayout.removeAllViews();
+                newCapsFragment();
             }  else if (v.getId() == R.id.modeByCapital) {
-                currModeByCountry = true;
+                Sfilter = "";
+                currModeByCountry = false;
                 etFilterByCountryName.setText("");
                 etFilterByCountryName.setHint(getResources().getString(R.string.enter_capital_name));
                 modeByCountry.setEnabled(true);
                 modeByCapital.setEnabled(false);
-            } else {
+                refreshFilter(firstLetterPressed);
+                frameLayout.removeAllViews();
+                newCapsFragment();
+            } else if (v.getId() == R.id.ivMinus) {
+                if (defTextSize > minTextSize) {
+                    defTextSize -= 2;
+                    frameLayout.removeAllViews();
+                    newCapsFragment();
+                }
+            } else
+            if (v.getId() == R.id.ivPlus) {
+                if (defTextSize < maxTextSize) {
+                    defTextSize += 2;
+                    frameLayout.removeAllViews();
+                    newCapsFragment();
+                }
+            }
+            else {
                 firstLetterPressed = getFirstLetterPressed(v);
-                fragment = new com.test.capitals.CapsListFragment();
-                fm = getSupportFragmentManager();
-                ft = fm.beginTransaction().setReorderingAllowed(true);
-                ft.replace(R.id.fragCapsList, fragment, CapsListFragmentTag);
-                ft.commit();
+                refreshFilter(firstLetterPressed);
+                frameLayout.removeAllViews();
+                newCapsFragment();
                 //Log.i("alc",  "CapsUN firstLetterPressed " + firstLetterPressed);
 
             }
         };
 
         setListener(onClickListener);
-
-        refreshFilter("A");
+        firstLetterPressed = "A";
+        refreshFilter(firstLetterPressed);
         newCapsFragment();
 
         etFilterByCountryName.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
                // Log.i("alc",  "CapsUN afterTextChanged " + s.length());
+                Sfilter = s.toString();
+                if (s.length() >= minFilterChar) {
+                    refreshFilter(Sfilter);
+                    frameLayout.removeAllViews();
+                    newCapsFragment();
+                }
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -145,8 +180,11 @@ public class CapsUN extends AppCompatActivity {
         return (ArrayList)countryList.stream().filter(e -> e.capitalName.toLowerCase().indexOf(searchStr.toLowerCase()) >= 0).collect(Collectors.toList());
     }
     private void findButtons() {
+        frameLayout = findViewById(R.id.fragCapsList);
         modeByCountry = findViewById(R.id.modeByCountry);
         modeByCapital = findViewById(R.id.modeByCapital);
+        ivMinus = findViewById(R.id.ivMinus);
+        ivPlus = findViewById(R.id.ivPlus);
         btBack = findViewById(R.id.back);
         flA  = findViewById(R.id.firstLetterA);
         flB  = findViewById(R.id.firstLetterB);
@@ -178,6 +216,8 @@ public class CapsUN extends AppCompatActivity {
         btBack.setOnClickListener(onClickListener);
         modeByCountry.setOnClickListener(onClickListener);
         modeByCapital.setOnClickListener(onClickListener);
+        ivMinus.setOnClickListener(onClickListener);
+        ivPlus.setOnClickListener(onClickListener);
         flA.setOnClickListener(onClickListener);
         flB.setOnClickListener(onClickListener);
         flC.setOnClickListener(onClickListener);

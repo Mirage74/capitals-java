@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CapsUN">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
 
     <TextView
         android:id="@+id/info"
@@ -28,40 +23,28 @@
 
     <Button
         android:id="@+id/modeByCountry"
-        android:layout_width="125dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="3dp"
+        android:layout_marginStart="30dp"
         android:layout_marginEnd="3dp"
         android:text="@string/by_country"
         android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@+id/modeByCapital"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/info" />
 
     <Button
         android:id="@+id/modeByCapital"
-        android:layout_width="120dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="3dp"
+        android:layout_marginEnd="30dp"
         android:text="@string/by_capital"
         android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/modeByCountry"
-        app:layout_constraintEnd_toStartOf="@+id/back"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/info" />
 
-    <Button
-        android:id="@+id/back"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="3dp"
-        android:text="@string/back_uppercase"
-        android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/modeByCapital"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/info"/>
+
 
 
 
@@ -72,19 +55,61 @@
         android:autofillHints="country name"
         android:hint="@string/enter_country_name"
         android:inputType="text"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:paddingHorizontal="10dp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/back" />
+        app:layout_constraintTop_toBottomOf="@+id/modeByCountry" />
+
+    <ImageView
+        android:id="@+id/ivMinus"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:adjustViewBounds="true"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/square_minus_regular"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filter">
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/ivPlus"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:adjustViewBounds="true"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/square_plus_regular"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filter">
+
+    </ImageView>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="210dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivMinus"
+            >
+            <FrameLayout
+                android:id="@+id/fragCapsList"
+                android:name="com.test.capitals.CapsListUN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/filter"
+                app:layout_constraintBottom_toTopOf="@+id/gridTop"
+                android:layout_marginTop="10dp">
+            </FrameLayout>
+        </androidx.core.widget.NestedScrollView>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gridTop"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintGuide_begin="160dp"
+        app:layout_constraintGuide_percent="0.57"
         android:orientation="horizontal"
         />
 
@@ -137,7 +162,7 @@
         android:id="@+id/gridTop2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintGuide_begin="230dp"
+        app:layout_constraintGuide_percent="0.64"
         android:orientation="horizontal"
         />
 
@@ -191,7 +216,7 @@
         android:id="@+id/gridTop3"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintGuide_begin="300dp"
+        app:layout_constraintGuide_percent="0.71"
         android:orientation="horizontal"
         />
 
@@ -245,7 +270,7 @@
         android:id="@+id/gridTop4"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintGuide_begin="370dp"
+        app:layout_constraintGuide_percent="0.78"
         android:orientation="horizontal"
         />
 
@@ -300,7 +325,7 @@
         android:id="@+id/gridTop5"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintGuide_begin="440dp"
+        app:layout_constraintGuide_percent="0.85"
         android:orientation="horizontal"
         />
 
@@ -351,18 +376,18 @@
         app:layout_constraintTop_toBottomOf="@id/gridTop5" />
 
 
-        <FrameLayout
-            android:id="@+id/fragCapsList"
-            android:name="com.test.capitals.CapsListUN"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/firstLetterZ"
-            android:layout_marginTop="10dp">
-
-        </FrameLayout>
-
+    <Button
+        android:id="@+id/back"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/back_uppercase"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>

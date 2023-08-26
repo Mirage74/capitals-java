@@ -5,12 +5,18 @@ import static com.test.capitals.MainActivity.USER_ANSWER;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -29,8 +35,8 @@ public class CapsListFragment extends Fragment {
     CapsUN capsUN;
     TableLayout tableLayout;
     String s;
-
     TextView tvID, tvCountryName, tvCapitalName;
+
 
 
     @Override
@@ -40,6 +46,7 @@ public class CapsListFragment extends Fragment {
         tableLayout = new TableLayout(capsUN);
         tableLayout.setStretchAllColumns(true);
         createFragmentTable(capsUN.countryListFiltered);
+
     }
 
     void createFragmentTable(ArrayList<CountryDescribe> countryListFiltered ) {
@@ -47,6 +54,7 @@ public class CapsListFragment extends Fragment {
         int topRowMargin=0;
         int rightRowMargin=0;
         int bottomRowMargin = 0;
+        int beginSubst;
         CountryDescribe currRecord;
 
         TableLayout.LayoutParams trParams = new
@@ -56,18 +64,21 @@ public class CapsListFragment extends Fragment {
                 bottomRowMargin);
 
         for (int k = 0; k < countryListFiltered.size(); k++) {
-            int finalK = k;
             currRecord = countryListFiltered.get(k);
 
             tvID = new TextView(capsUN);
             tvID.setLayoutParams(new
-                    TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+                    TableRow.LayoutParams(capsUN.rawIdWidth,
                     TableRow.LayoutParams.WRAP_CONTENT));
             tvID.setGravity(Gravity.RIGHT);
             tvID.setPadding(1, 15, 0, 15);
+
+//Z, T
+            tvID.setTextSize(TypedValue.COMPLEX_UNIT_PX, capsUN.defTextSize);
+            //tvID.setMaxWidth(capsUN.rawIdWidth);
             s = "" + currRecord.id + "   ";
             tvID.setText(s);
-            tvID.setTextSize(TypedValue.COMPLEX_UNIT_PX, capsUN.smallTextSize);
+            tvID.setBackground(capsUN.drawable);
 
             tvCountryName = new TextView(capsUN);
             tvCountryName.setLayoutParams(new
@@ -76,8 +87,18 @@ public class CapsListFragment extends Fragment {
             tvCountryName.setGravity(Gravity.LEFT);
             tvCountryName.setPadding(5, 15, 0, 15);
             s = "" + currRecord.countryName;
-            tvCountryName.setText(s);
-            tvCountryName.setTextSize(TypedValue.COMPLEX_UNIT_PX, capsUN.smallTextSize);
+            beginSubst = s.toLowerCase().indexOf(capsUN.Sfilter.toLowerCase());
+            if (capsUN.currModeByCountry && capsUN.Sfilter.length() > 1 && beginSubst >= 0) {
+                SpannableStringBuilder str = new SpannableStringBuilder(s);
+
+                str.setSpan(new ForegroundColorSpan(Color.GREEN), beginSubst, beginSubst + capsUN.Sfilter.length() , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                tvCountryName.setText(str);
+            } else {
+                tvCountryName.setText(s);
+            }
+
+            tvCountryName.setTextSize(TypedValue.COMPLEX_UNIT_PX, capsUN.defTextSize);
+            tvCountryName.setBackground(capsUN.drawable);
 
 
             tvCapitalName = new TextView(capsUN);
@@ -87,10 +108,22 @@ public class CapsListFragment extends Fragment {
             tvCapitalName.setGravity(Gravity.LEFT);
             tvCapitalName.setPadding(5, 15, 0, 15);
             s = "" + currRecord.capitalName;
-            tvCapitalName.setText(s);
-            tvCapitalName.setTextSize(TypedValue.COMPLEX_UNIT_PX, capsUN.smallTextSize);
+            beginSubst = s.toLowerCase().indexOf(capsUN.Sfilter.toLowerCase());
+            if (!capsUN.currModeByCountry && capsUN.Sfilter.length() > 1 && beginSubst >= 0) {
+                SpannableStringBuilder str = new SpannableStringBuilder(s);
+                str.setSpan(new ForegroundColorSpan(Color.GREEN), beginSubst, beginSubst + capsUN.Sfilter.length() , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                tvCapitalName.setText(str);
+            } else {
+                tvCapitalName.setText(s);
+            }
+
+            tvCapitalName.setTextSize(TypedValue.COMPLEX_UNIT_PX, capsUN.defTextSize);
+
 
             final TableRow tr = new TableRow(capsUN);
+            //drawable =  ResourcesCompat.getDrawable(getResources(), R.drawable.border, null);
+            tr.setBackground(capsUN.drawable);
+            //tr.setPadding(0,3,0,3);
             tr.setId(k + 1);
 
             tr.setPadding(0,0,0,1);

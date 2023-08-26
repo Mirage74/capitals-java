@@ -4,19 +4,40 @@
         <item name="cornerSize">50%</item>
     </style>
 
-    <style name="FirstLetterButtonLeft" parent="">
+    <style name="FirstLetterButtonLeft">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">50dp</item>
+        <item name="android:padding">0dp</item>
         <item name="android:layout_marginTop">@dimen/firstLetterMarginTopFirstLine</item>
         <item name="android:layout_marginStart">@dimen/firstLetterMarginHorizontal</item>
         <item name="android:layout_marginEnd">@dimen/firstLetterMarginHorizontal</item>
         <item name="android:textSize">@dimen/firstLetterTextSize</item>
     </style>
 
-    <style name="FirstLetterButtonsOther" parent="">
+    <style name="FirstLetterButtonsOther">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">50dp</item>
+        <item name="android:padding">0dp</item>
         <item name="android:layout_marginTop">@dimen/firstLetterMarginTopFirstLine</item>
+        <item name="android:layout_marginEnd">@dimen/firstLetterMarginHorizontal</item>
+        <item name="android:textSize">@dimen/firstLetterTextSize</item>
+    </style>
+
+    <style name="FirstLetterButtonLeftLand">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_marginTop">@dimen/firstLetterMarginTopLand</item>
+        <item name="android:layout_marginStart">@dimen/firstLetterMarginHorizontal</item>
+        <item name="android:layout_marginEnd">@dimen/firstLetterMarginHorizontal</item>
+        <item name="android:textSize">@dimen/firstLetterTextSize</item>
+    </style>
+
+    <style name="FirstLetterButtonsOtherLand">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_marginTop">@dimen/firstLetterMarginTopLand</item>
         <item name="android:layout_marginEnd">@dimen/firstLetterMarginHorizontal</item>
         <item name="android:textSize">@dimen/firstLetterTextSize</item>
     </style>

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name = "font_size_small">15sp</dimen>
+    <dimen name = "font_size_default_list">21sp</dimen>
+    <dimen name = "font_size_min_list">15sp</dimen>
+    <dimen name = "font_size_max_list">25sp</dimen>
     <dimen name = "wrong_answer_text_size">30sp</dimen>
     <dimen name = "buttonCoreTextSizeNormal">25sp</dimen>
     <dimen name = "tvCountryTextSizeNormal">30sp</dimen>
@@ -8,5 +11,7 @@
     <dimen name = "btCoreMargins">40dp</dimen>
     <dimen name = "firstLetterTextSize">15sp</dimen>
     <dimen name = "firstLetterMarginHorizontal">20dp</dimen>
-    <dimen name = "firstLetterMarginTopFirstLine">10dp</dimen>
+    <dimen name = "firstLetterMarginTopFirstLine">0dp</dimen>
+
+    <dimen name = "firstLetterMarginTopLand">1dp</dimen>
 </resources>

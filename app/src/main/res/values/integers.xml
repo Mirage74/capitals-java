@@ -31,4 +31,7 @@
     <integer name = "layoutNullScoreMaxHeight">700</integer>
 
     <integer name = "filterInfoMinLength">2</integer>
+    <integer name = "listIdWidth">100</integer>
+
+
 </resources>

@@ -135,7 +135,7 @@ public class LastResFragment extends Fragment {
             s = "" + scoreMain.userAnswer.score;
             tvScorePoints.setText(s);
             if (scoreMain.userAnswer.score > 0) {
-                tvScorePoints.setTextColor(Color.parseColor(scoreMain.colorRight));
+                tvScorePoints.setTextColor(Color.GREEN);
             } else {
                 tvScorePoints.setTextColor(Color.parseColor("" + scoreMain.colorWrong));
             }

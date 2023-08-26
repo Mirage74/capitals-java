@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CapsUN">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gridHalf"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toEndOf="@+id/gridHalf">
+
+
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:adjustViewBounds="true"
+            android:text="@string/choose_first_letter_or_enter_name"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            app:layout_constraintBottom_toTopOf="@+id/modeByCapital"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <Button
+            android:id="@+id/modeByCountry"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="3dp"
+            android:text="@string/by_country"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/modeByCapital"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info" />
+
+        <Button
+            android:id="@+id/modeByCapital"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="3dp"
+            android:text="@string/by_capital"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/back"
+            app:layout_constraintStart_toEndOf="@+id/modeByCountry"
+            app:layout_constraintTop_toBottomOf="@+id/info" />
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="3dp"
+            android:text="@string/back_uppercase"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/modeByCapital"
+            app:layout_constraintTop_toBottomOf="@+id/info" />
+
+
+        <EditText
+            android:id="@+id/filter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:autofillHints="country name"
+            android:hint="@string/enter_country_name"
+            android:inputType="text"
+            android:paddingHorizontal="10dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/back" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gridTop"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.37" />
+
+        <Button
+            android:id="@+id/firstLetterA"
+            style="@style/FirstLetterButtonLeftLand"
+            android:text="A"
+            app:layout_constraintEnd_toStartOf="@+id/firstLetterB"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/gridTop" />
+
+        <Button
+            android:id="@+id/firstLetterB"
+            style="@style/FirstLetterButtonsOtherLand"
+            android:text="B"
+            app:layout_constraintEnd_toStartOf="@+id/firstLetterC"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/firstLetterA"
+            app:layout_constraintTop_toBottomOf="@id/gridTop" />
+
+        <Button
+            android:id="@+id/firstLetterC"
+            style="@style/FirstLetterButtonsOtherLand"
+            android:text="C"
+            app:layout_constraintEnd_toStartOf="@+id/firstLetterD"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/firstLetterB"
+            app:layout_constraintTop_toBottomOf="@id/gridTop" />
+
+        <Button
+            android:id="@+id/firstLetterD"
+            style="@style/FirstLetterButtonsOtherLand"
+            android:text="D"
+            app:layout_constraintEnd_toStartOf="@+id/firstLetterE"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/firstLetterC"
+            app:layout_constraintTop_toBottomOf="@id/gridTop" />
+
+        <Button
+            android:id="@+id/firstLetterE"
+            style="@style/FirstLetterButtonsOtherLand"
+            android:text="E"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/firstLetterD"
+            app:layout_constraintTop_toBottomOf="@id/gridTop" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gridTop2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.49" />
+
+
+        <Button
+            android:id="@+id/firstLetterF"
+            style="@style/FirstLetterButtonLeftLand"
+            android:text="F"
+            app:layout_constraintEnd_toStartOf="@+id/firstLetterG"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/gridTop2" />
+
+        <Button
+            android:id="@+id/firstLetterG"
+            style="@style/FirstLetterButtonsOtherLand"
+            android:text="G"
+            app:layout_constraintEnd_toStartOf="@+id/firstLetterH"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/firstLetterF"
+            app:layout_constraintTop_toBottomOf="@id/gridTop2" />
+
+        <Button
+            android:id="@+id/firstLetterH"
+            style="@style/FirstLetterButtonsOtherLand"
+            android:text="H"
+            app:layout_constraintEnd_toStartOf="@+id/firstLetterI"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/firstLetterG"
+            app:layout_constraintTop_toBottomOf="@id/gridTop2" />
+
+        <Button
+            android:id="@+id/firstLetterI"
+            style="@style/FirstLetterButtonsOtherLand"
+            android:text="I"
+            app:layout_constraintEnd_toStartOf="@+id/firstLetterJ"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/firstLetterH"
+            app:layout_constraintTop_toBottomOf="@id/gridTop2" />
+
+        <Button
+            android:id="@+id/firstLetterJ"
+            style="@style/FirstLetterButtonsOtherLand"
+            android:text="J"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/firstLetterI"
+            app:layout_constraintTop_toBottomOf="@id/gridTop2" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gridTop3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.61" />
+
+
+        <Button
+            android:id="@+id/firstLetterK"
+            style="@style/FirstLetterButtonLeftLand"
+            android:text="K"
+            app:layout_constraintEnd_toStartOf="@+id/firstLetterL"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/gridTop3" />
+
+        <Button
+            android:id="@+id/firstLetterL"
+            style="@style/FirstLetterButtonsOtherLand"
+            android:text="L"
+            app:layout_constraintEnd_toStartOf="@+id/firstLetterM"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/firstLetterK"
+            app:layout_constraintTop_toBottomOf="@id/gridTop3" />
+
+        <Button
+            android:id="@+id/firstLetterM"
+            style="@style/FirstLetterButtonsOtherLand"
+            android:text="M"
+            app:layout_constraintEnd_toStartOf="@+id/firstLetterN"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/firstLetterL"
+            app:layout_constraintTop_toBottomOf="@id/gridTop3" />
+
+        <Button
+            android:id="@+id/firstLetterN"
+            style="@style/FirstLetterButtonsOtherLand"
+            android:text="N"
+            app:layout_constraintEnd_toStartOf="@+id/firstLetterO"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/firstLetterM"
+            app:layout_constraintTop_toBottomOf="@id/gridTop3" />
+
+        <Button
+            android:id="@+id/firstLetterO"
+            style="@style/FirstLetterButtonsOtherLand"
+            android:text="O"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/firstLetterN"
+            app:layout_constraintTop_toBottomOf="@id/gridTop3" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gridTop4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.73" />
+
+
+        <Button
+            android:id="@+id/firstLetterP"
+            style="@style/FirstLetterButtonLeftLand"
+            android:text="P"
+            app:layout_constraintEnd_toStartOf="@+id/firstLetterQ"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/gridTop4" />
+
+        <Button
+            android:id="@+id/firstLetterQ"
+            style="@style/FirstLetterButtonsOtherLand"
+            android:text="Q"
+            app:layout_constraintEnd_toStartOf="@+id/firstLetterR"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/firstLetterP"
+            app:layout_constraintTop_toBottomOf="@id/gridTop4" />
+
+        <Button
+            android:id="@+id/firstLetterR"
+            style="@style/FirstLetterButtonsOtherLand"
+            android:text="R"
+            app:layout_constraintEnd_toStartOf="@+id/firstLetterS"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/firstLetterQ"
+            app:layout_constraintTop_toBottomOf="@id/gridTop4" />
+
+        <Button
+            android:id="@+id/firstLetterS"
+            style="@style/FirstLetterButtonsOtherLand"
+            android:text="S"
+            app:layout_constraintEnd_toStartOf="@+id/firstLetterT"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/firstLetterR"
+            app:layout_constraintTop_toBottomOf="@id/gridTop4" />
+
+        <Button
+            android:id="@+id/firstLetterT"
+            style="@style/FirstLetterButtonsOtherLand"
+            android:text="T"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/firstLetterS"
+            app:layout_constraintTop_toBottomOf="@id/gridTop4" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gridTop5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.85" />
+
+
+        <Button
+            android:id="@+id/firstLetterU"
+            style="@style/FirstLetterButtonLeftLand"
+            android:text="U"
+            app:layout_constraintEnd_toStartOf="@+id/firstLetterV"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/gridTop5" />
+
+        <Button
+            android:id="@+id/firstLetterV"
+            style="@style/FirstLetterButtonsOtherLand"
+            android:text="V"
+            app:layout_constraintEnd_toStartOf="@+id/firstLetterW"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/firstLetterU"
+            app:layout_constraintTop_toBottomOf="@id/gridTop5" />
+
+        <Button
+            android:id="@+id/firstLetterW"
+            style="@style/FirstLetterButtonsOtherLand"
+            android:text="W"
+            app:layout_constraintEnd_toStartOf="@+id/firstLetterY"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/firstLetterV"
+            app:layout_constraintTop_toBottomOf="@id/gridTop5" />
+
+        <Button
+            android:id="@+id/firstLetterY"
+            style="@style/FirstLetterButtonsOtherLand"
+            android:text="Y"
+            app:layout_constraintEnd_toStartOf="@+id/firstLetterZ"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/firstLetterW"
+            app:layout_constraintTop_toBottomOf="@id/gridTop5" />
+
+        <Button
+            android:id="@+id/firstLetterZ"
+            style="@style/FirstLetterButtonsOtherLand"
+            android:text="Z"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/firstLetterY"
+            app:layout_constraintTop_toBottomOf="@id/gridTop5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <ImageView
+            android:id="@+id/ivMinus"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/square_minus_regular"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </ImageView>
+
+
+        <ImageView
+            android:id="@+id/ivPlus"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginEnd="10dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/square_plus_regular"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </ImageView>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="380dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/ivMinus"
+            app:layout_constraintTop_toBottomOf="@+id/ivMinus">
+
+            <FrameLayout
+                android:id="@+id/fragCapsList"
+                android:name="com.test.capitals.CapsListUN"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/ivMinus"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.core.widget.NestedScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

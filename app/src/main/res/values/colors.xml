@@ -5,6 +5,6 @@
     <color name="coreBG">#1F1C1B1F</color>
     <color name="stroke">#996750A4</color>
     <color name="buttonCheckBgColor">#8B5C32A6</color>
-    <color name="rightAnswer">#8BC34A</color>
+    <color name="rightAnswer">#4CAF50</color>
     <color name="yourAnswer">#F44336</color>
 </resources>
