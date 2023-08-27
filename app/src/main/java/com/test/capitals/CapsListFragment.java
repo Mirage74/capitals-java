@@ -1,22 +1,14 @@
 package com.test.capitals;
 
-import static com.test.capitals.MainActivity.EXTRAS_COUNTY_LIST;
-import static com.test.capitals.MainActivity.USER_ANSWER;
-
-import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -45,6 +37,7 @@ public class CapsListFragment extends Fragment {
         capsUN = (CapsUN)getActivity();
         tableLayout = new TableLayout(capsUN);
         tableLayout.setStretchAllColumns(true);
+        //tableLayout.setWeightSum(11);
         createFragmentTable(capsUN.countryListFiltered);
 
     }
@@ -68,22 +61,26 @@ public class CapsListFragment extends Fragment {
 
             tvID = new TextView(capsUN);
             tvID.setLayoutParams(new
-                    TableRow.LayoutParams(capsUN.rawIdWidth,
-                    TableRow.LayoutParams.WRAP_CONTENT));
+                    TableRow.LayoutParams(0,
+                    TableRow.LayoutParams.WRAP_CONTENT, 1));
+//            Log.i("alc",  "CapListFrag k " + k);
+//            Log.i("alc",  "CapListFrag width 1 " + tvID.getWidth());
             tvID.setGravity(Gravity.RIGHT);
-            tvID.setPadding(1, 15, 0, 15);
+            tvID.setPadding(3, 15, 0, 15);
+
 
 //Z, T
-            tvID.setTextSize(TypedValue.COMPLEX_UNIT_PX, capsUN.defTextSize);
+            tvID.setTextSize(TypedValue.COMPLEX_UNIT_PX, capsUN.defTextSize - 8);
             //tvID.setMaxWidth(capsUN.rawIdWidth);
             s = "" + currRecord.id + "   ";
             tvID.setText(s);
-            tvID.setBackground(capsUN.drawable);
+            //tvID.setBackground(capsUN.drawable);
+            //Log.i("alc",  "CapListFrag width 2 " + tvID.getWidth());
 
             tvCountryName = new TextView(capsUN);
             tvCountryName.setLayoutParams(new
-                    TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
-                    TableRow.LayoutParams.WRAP_CONTENT));
+                    TableRow.LayoutParams(0,
+                    TableRow.LayoutParams.WRAP_CONTENT, 4));
             tvCountryName.setGravity(Gravity.LEFT);
             tvCountryName.setPadding(5, 15, 0, 15);
             s = "" + currRecord.countryName;
@@ -98,13 +95,13 @@ public class CapsListFragment extends Fragment {
             }
 
             tvCountryName.setTextSize(TypedValue.COMPLEX_UNIT_PX, capsUN.defTextSize);
-            tvCountryName.setBackground(capsUN.drawable);
+            //tvCountryName.setBackground(capsUN.drawable);
 
 
             tvCapitalName = new TextView(capsUN);
             tvCapitalName.setLayoutParams(new
-                    TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
-                    TableRow.LayoutParams.WRAP_CONTENT));
+                    TableRow.LayoutParams(0,
+                    TableRow.LayoutParams.WRAP_CONTENT, 4));
             tvCapitalName.setGravity(Gravity.LEFT);
             tvCapitalName.setPadding(5, 15, 0, 15);
             s = "" + currRecord.capitalName;
@@ -118,19 +115,22 @@ public class CapsListFragment extends Fragment {
             }
 
             tvCapitalName.setTextSize(TypedValue.COMPLEX_UNIT_PX, capsUN.defTextSize);
+            //tvCapitalName.setBackground(capsUN.drawable);
 
 
             final TableRow tr = new TableRow(capsUN);
-            //drawable =  ResourcesCompat.getDrawable(getResources(), R.drawable.border, null);
-            tr.setBackground(capsUN.drawable);
+
             //tr.setPadding(0,3,0,3);
             tr.setId(k + 1);
 
-            tr.setPadding(0,0,0,1);
+            //tr.setPadding(0,0,0,1);
             tr.setLayoutParams(trParams);
+            tr.setGravity(Gravity.CENTER);
+            tr.setWeightSum(9);
             tr.addView(tvID);
             tr.addView(tvCountryName);
             tr.addView(tvCapitalName);
+            tr.setBackground(capsUN.drawable);
             tableLayout.addView(tr);
         }
     }
