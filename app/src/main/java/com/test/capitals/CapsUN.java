@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
@@ -45,24 +46,25 @@ public class CapsUN extends AppCompatActivity {
     ImageView ivMinus, ivPlus;
     boolean currModeByCountry = true;
     EditText etFilterByCountryName;
-    String firstLetterPressed, Sfilter;
+    String firstLetterPressed, sFilter;
     Drawable drawable;
     boolean isOrientationLandscape = false;
     Group groupFirstLetter;
     NestedScrollView nestedScrollView;
     ConstraintLayout constraintLayout;
-    //private ResultProfileBinding binding;
+    TextView tvEnterName;
 
 
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("alc",  "CapsUN onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.caps_un);
 
 //        binding = ResultProfileBinding.inflate(getLayoutInflater());
 //        View view = binding.getRoot();
 
-
-        Sfilter = "";
+        Log.i("alc",  "CapsUN 222 onCreate");
+        sFilter = "";
         constraintLayout = findViewById(R.id.constraintlayoutCapsUN);
         etFilterByCountryName = findViewById(R.id.filter);
         frameLayout = findViewById(R.id.fragCapsList);
@@ -71,11 +73,14 @@ public class CapsUN extends AppCompatActivity {
         ivMinus = findViewById(R.id.ivMinus);
         ivPlus = findViewById(R.id.ivPlus);
         btBack = findViewById(R.id.back);
+        tvEnterName = findViewById(R.id.info);
         nestedScrollView = findViewById(R.id.nestedScroll);
         groupFirstLetter = findViewById(R.id.groupFirstLetters);
         if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) {
             isOrientationLandscape = true;
+            tvEnterName.setText(R.string.enter_part_name);
         } else {
+            isOrientationLandscape = false;
             findButtonsFirstLetters();
         }
 
@@ -98,7 +103,7 @@ public class CapsUN extends AppCompatActivity {
                 Intent intentBack = new Intent(this, MainActivity.class);
                 startActivity(intentBack);
             } else if (v.getId() == R.id.modeByCountry) {
-                Sfilter = "";
+                sFilter = "";
                 currModeByCountry = true;
                 etFilterByCountryName.setText("");
                 etFilterByCountryName.setHint(getResources().getString(R.string.enter_country_name));
@@ -107,14 +112,14 @@ public class CapsUN extends AppCompatActivity {
                 if (!isOrientationLandscape) {
                     refreshFilter(firstLetterPressed);
                     frameLayout.removeAllViews();
-                    newCapsFragment();
+                    //newCapsFragment();
                 } else {
                     frameLayout.removeAllViews();
                 }
 
 
             } else if (v.getId() == R.id.modeByCapital) {
-                Sfilter = "";
+                sFilter = "";
                 currModeByCountry = false;
                 etFilterByCountryName.setText("");
                 etFilterByCountryName.setHint(getResources().getString(R.string.enter_capital_name));
@@ -180,6 +185,8 @@ public class CapsUN extends AppCompatActivity {
                     constraintSet.clear(R.id.nestedScroll, ConstraintSet.BOTTOM);
                     constraintSet.connect(R.id.back, ConstraintSet.BOTTOM, constraintLayout.getId(), ConstraintSet.BOTTOM);
                     constraintSet.connect(R.id.nestedScroll, ConstraintSet.BOTTOM, R.id.back, ConstraintSet.TOP);
+                    tvEnterName.setText(R.string.enter_part_name);
+
 
 
                     constraintSet.applyTo(constraintLayout);
@@ -195,10 +202,10 @@ public class CapsUN extends AppCompatActivity {
 
             public void afterTextChanged(Editable s) {
                 //Log.i("alc",  "CapsUN afterTextChanged " + s);
-                Sfilter = s.toString();
+                sFilter = s.toString();
                 frameLayout.removeAllViews();
                 if (s.length() >= minFilterChar) {
-                    refreshFilter(Sfilter);
+                    refreshFilter(sFilter);
                     newCapsFragment();
                 }
             }
@@ -210,9 +217,9 @@ public class CapsUN extends AppCompatActivity {
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //Log.i("alc",  "CapsUN onTextChanged "+s + " " + start + " " + before + " " + count);
-                Sfilter = s.toString();
+                sFilter = s.toString();
                 if (s.length() >= minFilterChar) {
-                    refreshFilter(Sfilter);
+                    refreshFilter(sFilter);
                     frameLayout.removeAllViews();
                     newCapsFragment();
                 }

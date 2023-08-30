@@ -1,5 +1,6 @@
 package com.test.capitals;
 
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import static com.test.capitals.MainActivity.BEST_RESULT;
 import static com.test.capitals.MainActivity.BEST_SCORE;
@@ -11,6 +12,7 @@ import static com.test.capitals.MainActivity.USER_NAME;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,10 +24,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 
 
 import java.util.ArrayList;
@@ -50,7 +53,9 @@ public class ScoreMain extends AppCompatActivity {
     TextView tvScore;
     String userName, colorRight, colorWrong;
     ViewGroup.LayoutParams params;
-    View fragView;
+    Drawable drawable;
+    static boolean isOrientationLandscape = false;
+    ConstraintLayout constraintLayout;
 
     private void newFragment() {
         fragment = new com.test.capitals.LastResFragment();
@@ -60,16 +65,34 @@ public class ScoreMain extends AppCompatActivity {
     }
 
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("alc", "ScoreMain onCreate");
         super.onCreate(savedInstanceState);
+        Log.i("alc", "ScoreMain 222 onCreate");
         setContentView(R.layout.score_main);
-        linearLayout = findViewById(R.id.layoutScore);
-        params = linearLayout.getLayoutParams();
+        if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) {
+            isOrientationLandscape = true;
+        } else {
+            isOrientationLandscape = false;
+        }
+
+        if (!isOrientationLandscape) {
+            linearLayout = findViewById(R.id.layoutScore);
+            params = linearLayout.getLayoutParams();
+        } else {
+            constraintLayout = findViewById(R.id.layoutScore);
+            params = constraintLayout.getLayoutParams();
+        }
         //Log.i("alc",  "ScoreMain orientation  : " + getResources().getConfiguration().orientation);
+
 
         userName = loadDataUser();
         buttonBack = findViewById(R.id.back);
         buttonSwitch = findViewById(R.id.switchRes);
         frameLayout = findViewById(R.id.fragLastRes);
+
+
+
+        drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.border, null);
         View.OnClickListener onClickListener = v -> {
             //int id =v.getId();
             if (v.getId() == R.id.back) {
@@ -122,7 +145,7 @@ public class ScoreMain extends AppCompatActivity {
         tvCongratulation.setText(s);
 
 
-        newFragment();
+         newFragment();
 
 //        fragment = new com.test.capitals.LastResFragment();
 //        fm = getSupportFragmentManager();
@@ -138,26 +161,37 @@ public class ScoreMain extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+//        frameLayout.removeAllViews();
+//        Log.i("alc", "ScoreMain onDestroy");
+    }
+
     private String loadDataUser() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         return sharedPreferences.getString(USER_NAME, NOT_LOGGED_USER);
     }
 
-    public static ArrayList<UserAnswer> parseStringToUserAnswerList(String jsonAnswer, ArrayList<CountryDescribe> countryList) {
-        String s = jsonAnswer;
+    private ArrayList<UserAnswer> parseStringToUserAnswerList(String jsonAnswer, ArrayList<CountryDescribe> countryList) {
         ArrayList<UserAnswer> tS = new ArrayList<>();
-        while (s.length() > 5) {
-            int i = s.indexOf("}");
-            String temp = s.substring(0, i + 1);
-            tS.add(new UserAnswer(temp, countryList));
-            s = s.substring(i + 1);
+        if (jsonAnswer != null && countryList != null) {
+            String s = jsonAnswer;
+            while (s.length() > 5) {
+                int i = s.indexOf("}");
+                String temp = s.substring(0, i + 1);
+                tS.add(new UserAnswer(temp, countryList));
+                s = s.substring(i + 1);
+            }
         }
         return tS;
     }
+
     private int loadBestScore() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         return sharedPreferences.getInt(BEST_SCORE, 0);
     }
+
     private String loadLastResult() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         //String s = sharedPreferences.getString(LAST_RESULT, "0");
@@ -171,28 +205,26 @@ public class ScoreMain extends AppCompatActivity {
     }
 
 
-
-
     public void onResume(Bundle savedInstanceState) {
         super.onResume();
-        Log.i("alc",  "ScoreMain onResume");
+        Log.i("alc", "ScoreMain onResume");
 
 
     }
 
     public void onStart(Bundle savedInstanceState) {
         super.onStart();
-        Log.i("alc",  "ScoreMain onStart");
+        Log.i("alc", "ScoreMain onStart");
     }
 
     public void onPause(Bundle savedInstanceState) {
         super.onPause();
-        Log.i("alc",  "ScoreMain onPause");
+        Log.i("alc", "ScoreMain onPause");
     }
 
     public void onStop(Bundle savedInstanceState) {
         super.onStop();
-        Log.i("alc",  "ScoreMain onStop");
+        Log.i("alc", "ScoreMain onStop");
     }
 
 }

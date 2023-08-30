@@ -47,6 +47,7 @@
     <string name="enter_country_name">Enter country name</string>
     <string name="enter_capital_name">Enter capital name</string>
     <string name="choose_first_letter_or_enter_name">Choose first letter or enter name</string>
+    <string name="enter_part_name">Enter part of the name</string>
     <string name="by_country">By country</string>
     <string name="by_capital">By capital</string>
     <string name="change_font_size">--- change font size ---</string>

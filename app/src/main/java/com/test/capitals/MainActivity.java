@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String LASTRES_FIELD_NAME_DB = "LAST_RES";
     public static final String USER_ANSWER = "user-answer";
     public static final String CORE_STATE = "coreState";
+    public static final String CORE_CURR_SCORE = "coreCurrScore";
     public static final String CORE_NEW = "coreNew";
     public static final String CORE_LAST_QUESTION_ID = "questionID";
     public static final String CORE_SEC_REST = "secRest";

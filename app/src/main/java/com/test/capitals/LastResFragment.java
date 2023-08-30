@@ -1,9 +1,10 @@
 package com.test.capitals;
 
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 import static com.test.capitals.MainActivity.EXTRAS_COUNTY_LIST;
 import static com.test.capitals.MainActivity.USER_ANSWER;
 import static com.test.capitals.ScoreMain.LAST_SCORE_MODE;
-import static com.test.capitals.ScoreMain.parseStringToUserAnswerList;
+//import static com.test.capitals.ScoreMain.parseStringToUserAnswerList;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -42,7 +43,7 @@ public class LastResFragment extends Fragment {
         scoreMain = (ScoreMain)getActivity();
         tableLayout = new TableLayout(scoreMain);
         tableLayout.setStretchAllColumns(true);
-        //Log.i("alc",  "LastResFragment onCreate");
+        Log.i("alc",  "LastResFragment onCreate");
 
         //Log.i("alc",  "LastResFragment currScore " + scoreMain.currScore);
         if (scoreMain.currViewMode == LAST_SCORE_MODE) {
@@ -52,9 +53,27 @@ public class LastResFragment extends Fragment {
         }
     }
 
+    private ArrayList<UserAnswer> parseStringToUserAnswerList(String jsonAnswer, ArrayList<CountryDescribe> countryList) {
+        ArrayList<UserAnswer> tS = new ArrayList<>();
+        if (jsonAnswer != null && countryList != null) {
+            String s = jsonAnswer;
+            while (s.length() > 5) {
+                int i = s.indexOf("}");
+                String temp = s.substring(0, i + 1);
+                tS.add(new UserAnswer(temp, countryList));
+                s = s.substring(i + 1);
+            }
+        }
+        return tS;
+    }
+
 
     void createFragmentTablePortrait(ArrayList<UserAnswer> testState) {
-        if ( (testState == null) || (testState.size() == 0) ) {
+        if ( scoreMain!= null && scoreMain.params != null && ( (testState == null) || (testState.size() == 0) )
+            && getResources().getConfiguration().orientation != ORIENTATION_LANDSCAPE) {
+        //boolean b = getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE;
+        //boolean b1 = ScoreMain.isOrientationLandscape;
+        //if (!(getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) && ( (testState == null) || (testState.size() == 0) )) {
             scoreMain.params.height = getResources().getInteger(R.integer.layoutNullScoreMaxHeight);
             scoreMain.linearLayout.setLayoutParams(scoreMain.params);
         }
@@ -151,6 +170,7 @@ public class LastResFragment extends Fragment {
             tr.addView(tvCountryName);
             tr.addView(tvCheck);
             tr.addView(tvScorePoints);
+            tr.setBackground(scoreMain.drawable);
             tableLayout.addView(tr);
         }
 

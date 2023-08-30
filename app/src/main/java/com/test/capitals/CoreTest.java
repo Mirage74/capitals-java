@@ -23,6 +23,7 @@ import static com.test.capitals.MainActivity.CORE_AV2;
 import static com.test.capitals.MainActivity.CORE_AV3;
 import static com.test.capitals.MainActivity.CORE_AV4;
 import static com.test.capitals.MainActivity.CORE_RA;
+import static com.test.capitals.MainActivity.CORE_CURR_SCORE;
 
 
 
@@ -222,6 +223,8 @@ public class CoreTest extends AppCompatActivity {
             answerVariants[2] = sharedPreferences.getString(CORE_AV3, "3");
             answerVariants[3] = sharedPreferences.getString(CORE_AV4, "4");
             rightAnswerNum = sharedPreferences.getInt(CORE_RA, 0);
+            sumScore = sharedPreferences.getInt(CORE_CURR_SCORE, 0);
+
         } else {
             rightAnswerNum = rand.nextInt(3);
             for (int i = 0; i < 4; i++) {
@@ -422,10 +425,24 @@ public class CoreTest extends AppCompatActivity {
 
     }
 
+    private ArrayList<UserAnswer> parseStringToUserAnswerList(String jsonAnswer, ArrayList<CountryDescribe> countryList) {
+        ArrayList<UserAnswer> tS = new ArrayList<>();
+        if (jsonAnswer != null && countryList != null) {
+            String s = jsonAnswer;
+            while (s.length() > 5) {
+                int i = s.indexOf("}");
+                String temp = s.substring(0, i + 1);
+                tS.add(new UserAnswer(temp, countryList));
+                s = s.substring(i + 1);
+            }
+        }
+        return tS;
+    }
+
     public ArrayList<UserAnswer> loadTestState(ArrayList<CountryDescribe> countryList) {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         String cS = sharedPreferences.getString(CORE_STATE, "");
-        return ScoreMain.parseStringToUserAnswerList(cS, countryList);
+        return parseStringToUserAnswerList(cS, countryList);
     }
 
     public int loadIsNewTest() {
@@ -572,6 +589,7 @@ public class CoreTest extends AppCompatActivity {
         editor.putString(CORE_AV3, answerVariants[2]);
         editor.putString(CORE_AV4, answerVariants[3]);
         editor.putInt(CORE_RA, rightAnswerNum);
+        editor.putInt(CORE_CURR_SCORE, sumScore );
         editor.apply();
     }
 

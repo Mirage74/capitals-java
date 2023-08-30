@@ -84,11 +84,11 @@ public class CapsListFragment extends Fragment {
             tvCountryName.setGravity(Gravity.LEFT);
             tvCountryName.setPadding(5, 15, 0, 15);
             s = "" + currRecord.countryName;
-            beginSubst = s.toLowerCase().indexOf(capsUN.Sfilter.toLowerCase());
-            if (capsUN.currModeByCountry && capsUN.Sfilter.length() > 1 && beginSubst >= 0) {
+            beginSubst = s.toLowerCase().indexOf(capsUN.sFilter.toLowerCase());
+            if (capsUN.currModeByCountry && capsUN.sFilter.length() > 1 && beginSubst >= 0) {
                 SpannableStringBuilder str = new SpannableStringBuilder(s);
 
-                str.setSpan(new ForegroundColorSpan(Color.GREEN), beginSubst, beginSubst + capsUN.Sfilter.length() , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                str.setSpan(new ForegroundColorSpan(Color.GREEN), beginSubst, beginSubst + capsUN.sFilter.length() , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 tvCountryName.setText(str);
             } else {
                 tvCountryName.setText(s);
@@ -105,10 +105,10 @@ public class CapsListFragment extends Fragment {
             tvCapitalName.setGravity(Gravity.LEFT);
             tvCapitalName.setPadding(5, 15, 0, 15);
             s = "" + currRecord.capitalName;
-            beginSubst = s.toLowerCase().indexOf(capsUN.Sfilter.toLowerCase());
-            if (!capsUN.currModeByCountry && capsUN.Sfilter.length() > 1 && beginSubst >= 0) {
+            beginSubst = s.toLowerCase().indexOf(capsUN.sFilter.toLowerCase());
+            if (!capsUN.currModeByCountry && capsUN.sFilter.length() > 1 && beginSubst >= 0) {
                 SpannableStringBuilder str = new SpannableStringBuilder(s);
-                str.setSpan(new ForegroundColorSpan(Color.GREEN), beginSubst, beginSubst + capsUN.Sfilter.length() , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                str.setSpan(new ForegroundColorSpan(Color.GREEN), beginSubst, beginSubst + capsUN.sFilter.length() , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 tvCapitalName.setText(str);
             } else {
                 tvCapitalName.setText(s);
