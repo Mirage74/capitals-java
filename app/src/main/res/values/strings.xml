@@ -40,7 +40,6 @@
     <string name="best_score">Best score</string>
     <string name="back">Back</string>
     <string name="capitals_list">Capitals list</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="view_best_result">View best result</string>
     <string name="view_last_result">View last result</string>
@@ -50,4 +49,5 @@
     <string name="choose_first_letter_or_enter_name">Choose first letter or enter name</string>
     <string name="by_country">By country</string>
     <string name="by_capital">By capital</string>
+    <string name="change_font_size">--- change font size ---</string>
 </resources>

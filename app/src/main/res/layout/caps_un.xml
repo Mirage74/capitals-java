@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/constraintlayoutCapsUN"
     tools:context=".CapsUN">
 
     <TextView
@@ -32,6 +33,7 @@
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/info" />
+
 
     <Button
         android:id="@+id/modeByCapital"
@@ -66,7 +68,7 @@
     <ImageView
         android:id="@+id/ivMinus"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:adjustViewBounds="true"
         android:layout_marginStart="10dp"
         android:src="@drawable/square_minus_regular"
@@ -74,10 +76,23 @@
         app:layout_constraintTop_toBottomOf="@+id/filter">
     </ImageView>
 
+
+    <TextView
+        android:id="@+id/fontSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/change_font_size"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filter" />
+
+
     <ImageView
         android:id="@+id/ivPlus"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:adjustViewBounds="true"
         android:layout_marginEnd="10dp"
         android:src="@drawable/square_plus_regular"
@@ -88,22 +103,39 @@
 
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScroll"
             android:layout_width="wrap_content"
-            android:layout_height="210dp"
+            android:layout_height="0dp"
+            android:scrollbars="vertical"
+            android:fadeScrollbars="false"
+            android:scrollbarSize="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivMinus"
+            app:layout_constraintBottom_toTopOf="@+id/firstLetterA"
+            android:layout_marginVertical="10dp"
+
             >
             <FrameLayout
                 android:id="@+id/fragCapsList"
                 android:name="com.test.capitals.CapsListUN"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/filter"
-                app:layout_constraintBottom_toTopOf="@+id/gridTop"
                 android:layout_marginTop="10dp">
             </FrameLayout>
         </androidx.core.widget.NestedScrollView>
+
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupFirstLetters"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:constraint_referenced_ids="firstLetterA, firstLetterB, firstLetterC, firstLetterD, firstLetterE,
+            firstLetterF, firstLetterG, firstLetterH, firstLetterI, firstLetterJ,
+            firstLetterK, firstLetterL, firstLetterM, firstLetterN, firstLetterO,
+            firstLetterP, firstLetterQ, firstLetterR, firstLetterS, firstLetterT,
+            firstLetterU, firstLetterV, firstLetterW, firstLetterY, firstLetterZ" />
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gridTop"
