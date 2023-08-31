@@ -82,7 +82,7 @@ public class LoggedUser extends AppCompatActivity {
                 startActivity(intentInfo);
             } else if (v.getId() == R.id.about) {
                 Intent intentAbout = new Intent(this, About.class);
-                intentAbout.putExtra(EXTRAS_COUNTY_LIST, countryList);
+                //intentAbout.putExtra(EXTRAS_COUNTY_LIST, countryList);
                 startActivity(intentAbout);
             } else if (v.getId() == R.id.logout) {
                 saveUser(NOT_LOGGED_USER);

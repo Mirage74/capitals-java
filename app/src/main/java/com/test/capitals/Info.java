@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class Info extends AppCompatActivity {
 
-    Button buttonScore, buttonCapsList, buttonBack;
+    Button buttonScore, buttonCapsList, buttonBack, testRules;
     String userName;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,7 @@ public class Info extends AppCompatActivity {
         buttonScore = findViewById(R.id.viewResult);
         buttonCapsList = findViewById(R.id.capsList);
         buttonBack = findViewById(R.id.back);
+        testRules = findViewById(R.id.testRules);
         userName = loadDataUser();
         TextView textView = findViewById(R.id.username);
         String text = "Hello, " + userName + "!";
@@ -53,6 +54,10 @@ public class Info extends AppCompatActivity {
                 Intent intentCL = new Intent(this, CapsUN.class);
                 intentCL.putExtra(EXTRAS_COUNTY_LIST, countryList);
                 startActivity(intentCL);
+            } else if (v.getId() == R.id.testRules) {
+                Intent intentRules = new Intent(this, Rules.class);
+                intentRules.putExtra(EXTRAS_COUNTY_LIST, countryList);
+                startActivity(intentRules);
             } else if (v.getId() == R.id.back) {
                 Intent intentBack = new Intent(this, MainActivity.class);
                 startActivity(intentBack);
@@ -61,6 +66,7 @@ public class Info extends AppCompatActivity {
         buttonScore.setOnClickListener(onClickListener);
         buttonCapsList.setOnClickListener(onClickListener);
         buttonBack.setOnClickListener(onClickListener);
+        testRules.setOnClickListener(onClickListener);
     }
     public String loadDataUser() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rulesLayout"
+    tools:context=".Rules">
+
+
+    <TextView
+        android:id="@+id/tvTakePart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="5dp"
+        android:layout_marginTop="10dp"
+        android:adjustViewBounds="true"
+        android:text="@string/tvRulesTakePart"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvGroupDiff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="5dp"
+        android:layout_marginTop="10dp"
+        android:adjustViewBounds="true"
+        android:text="@string/rulesGroup"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTakePart" />
+
+    <TextView
+        android:id="@+id/tvLvlClarify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="5dp"
+        android:layout_marginTop="10dp"
+        android:adjustViewBounds="true"
+        android:text="@string/rulesLvlClarify"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGroupDiff" />
+
+    <TableLayout
+        android:id="@+id/rulesTableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLvlClarify">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:weightSum="6"
+            android:id="@+id/rowDesc"
+            >
+            <TextView
+                android:id="@+id/answerText"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:text="@string/answer_within_sec"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:background="@drawable/border"
+                />
+
+            <TextView
+                android:id="@+id/easyBest"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/border"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+            <TextView
+                android:id="@+id/easyMedium"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:text=""
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:background="@drawable/border"
+                />
+            <TextView
+                android:id="@+id/easyHard"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:text=""
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:background="@drawable/border"
+                />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:weightSum="6"
+            android:id="@+id/rowEasy"
+            >
+            <TextView
+                android:id="@+id/easyLvl"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:text="@string/points_easy"
+                android:layout_weight="3"
+                android:gravity="end"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:background="@drawable/border"
+                />
+
+            <TextView
+                android:id="@+id/easyFastScore"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/border"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+            <TextView
+                android:id="@+id/easyMediumScore"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:text=""
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:background="@drawable/border"
+                />
+            <TextView
+                android:id="@+id/easySlowScore"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:text=""
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:background="@drawable/border"
+                />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:weightSum="6"
+            android:id="@+id/rowMedium"
+            >
+            <TextView
+                android:id="@+id/mediumLvl"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:text="@string/points_medium"
+                android:layout_weight="3"
+                android:gravity="end"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:background="@drawable/border"
+                />
+
+            <TextView
+                android:id="@+id/mediumFastScore"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/border"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+            <TextView
+                android:id="@+id/mediumMediumScore"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:text=""
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:background="@drawable/border"
+                />
+            <TextView
+                android:id="@+id/mediumSlowScore"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:text=""
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:background="@drawable/border"
+                />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:weightSum="6"
+            android:id="@+id/rowHard"
+            >
+            <TextView
+                android:id="@+id/hardLvl"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:text="@string/points_medium"
+                android:layout_weight="3"
+                android:gravity="end"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:background="@drawable/border"
+                />
+
+            <TextView
+                android:id="@+id/hardFastScore"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/border"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+            <TextView
+                android:id="@+id/hardMediumScore"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:text=""
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:background="@drawable/border"
+                />
+            <TextView
+                android:id="@+id/hardSlowScore"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:text=""
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:background="@drawable/border"
+                />
+        </TableRow>
+
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/tvGoodLuck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="5dp"
+        android:layout_marginTop="10dp"
+        android:adjustViewBounds="true"
+        android:text="Good luck !"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rulesTableLayout" />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:padding="0dp"
+        android:text="@string/back_uppercase"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@+id/tvGoodLuck"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

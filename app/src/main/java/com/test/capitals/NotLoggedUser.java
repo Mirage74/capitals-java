@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class NotLoggedUser extends AppCompatActivity {
 
     String userName;
-    Button buttonLogin, buttonRegister, buttonInfo, buttonAbout;
+    Button buttonLogin, buttonRegister, buttonRules, buttonAbout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class NotLoggedUser extends AppCompatActivity {
         setContentView(R.layout.not_logged_user);
         buttonLogin = findViewById(R.id.login);
         buttonRegister = findViewById(R.id.register);
-        buttonInfo = findViewById(R.id.info);
+        buttonRules = findViewById(R.id.testRules);
         buttonAbout = findViewById(R.id.about);
 
         Intent intent = getIntent();
@@ -53,8 +53,10 @@ public class NotLoggedUser extends AppCompatActivity {
                 Intent intentReg = new Intent(this, RegisterUser.class);
                 intentReg.putExtra(EXTRAS_COUNTY_LIST, countryList);
                 startActivity(intentReg);
-            } else if (v.getId() == R.id.info) {
-
+            } else if (v.getId() == R.id.testRules) {
+                Intent intentRules = new Intent(this, Rules.class);
+                intentRules.putExtra(EXTRAS_COUNTY_LIST, countryList);
+                startActivity(intentRules);
             } else if (v.getId() == R.id.about) {
                 Intent intentAbout = new Intent(this, About.class);
                 startActivity(intentAbout);
@@ -63,7 +65,7 @@ public class NotLoggedUser extends AppCompatActivity {
         };
         buttonLogin.setOnClickListener(onClickListener);
         buttonRegister.setOnClickListener(onClickListener);
-        buttonInfo.setOnClickListener(onClickListener);
+        buttonRules.setOnClickListener(onClickListener);
         buttonAbout.setOnClickListener(onClickListener);
 
         userName = loadDataUser();

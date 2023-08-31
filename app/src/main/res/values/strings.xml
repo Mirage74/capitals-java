@@ -51,4 +51,11 @@
     <string name="by_country">By country</string>
     <string name="by_capital">By capital</string>
     <string name="change_font_size">--- change font size ---</string>
+    <string name="test_rules">Test rules</string>
+    <string name="tvRulesTakePart">question quiz on the capitals of the world! The quiz contains a total of 193 UN (United Nation) member countries. You can see the whole list: Info/Capital list.</string>
+    <string name="rulesGroup">\u0020\u0020\u0020Countries are divided into 3 difficulty groups (at the discretion of the author of the application): 1 (Easy), 2 (Medium), 3 (Hard).</string>
+    <string name="rulesLvlClarify">\u0020\u0020\u0020Selecting the \'Easy\' level will have only questions from the countries in group 1. When choosing the \'Medium\' level, there will be at least 50% of countries from group 2. When choosing the \'Hard\' level, there will be at least 50% of countries from group 3. You will get points depending on your level and speed of answer, according to the table below:</string>
+    <string name="answer_within_sec">Answer within sec:</string>
+    <string name="points_easy">points, \'Easy\' :</string>
+    <string name="points_medium">points, \'Medium\' :</string>
 </resources>

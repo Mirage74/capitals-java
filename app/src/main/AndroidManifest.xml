@@ -44,6 +44,8 @@
         </activity>
         <activity android:name=".CapsUN">
         </activity>
+        <activity android:name=".Rules">
+        </activity>
     </application>
 
 </manifest>

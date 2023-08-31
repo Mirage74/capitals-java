@@ -147,10 +147,6 @@ public class CoreTest extends AppCompatActivity {
     private void runFrameQuest(int questNum, int lastQuestionId) {
         int int_random = 0;
         timeExpire = false;
-//        Log.i("alc",  "CoreTest lastQuestionId  : " + lastQuestionId);
-//        Log.i("alc",  "CoreTest lastSecRest  : " + lastSecRest);
-//        Log.i("alc",  "CoreTest countryListExactDiffLevel.size  : " + countryListExactDiffLevel.size());
-//        Log.i("alc",  "CoreTest countryListCut.size  : " + countryListCut.size());
         if (questNum % 2 == 1) {
 
             if (lastQuestionId > 0) {
@@ -364,11 +360,6 @@ public class CoreTest extends AppCompatActivity {
         ArrayList<CountryDescribe> cL = new ArrayList<>();
         cL = (ArrayList) countryListCut.stream().filter(e -> e.diffLvl == diffLvl).collect(Collectors.toList());
         countryListExactDiffLevel = (ArrayList) cL.clone();
-
-//        Log.i("caps",  "countryList len start " + countryList.size());
-//        Log.i("caps",  "countryListExactDiffLevel len start " + countryListExactDiffLevel.size());
-//        Log.i("caps",  "countryListCut len start " + countryListCut.size());
-
 
 
         if (diffLvl == 0) {
@@ -593,45 +584,6 @@ public class CoreTest extends AppCompatActivity {
         editor.apply();
     }
 
-
-
-//    protected void onSaveInstanceState(Bundle saveInstanceState) {
-//        saveInstanceState.putInt("myInt", 7);
-//        Log.i("alc", "CoreTest onSaveInstanceState");
-//        super.onSaveInstanceState(saveInstanceState);
-//
-//    }
-//
-//    protected void onRestoreInstanceState(Bundle saveInstanceState) {
-//        Log.i("alc", "CoreTest onRestoreInstanceState" + saveInstanceState.getInt("myInt"));
-//        super.onRestoreInstanceState(saveInstanceState);
-//
-//    }
-
-//    public void onResume(Bundle savedInstanceState) {
-//        super.onResume();
-//        Log.i("alc",  "CoreTest onResume");
-//    }
-//
-//    public void onStart(Bundle savedInstanceState) {
-//        super.onStart();
-//        Log.i("alc",  "CoreTest onStart");
-//    }
-//
-//    public void onPause(Bundle savedInstanceState) {
-//        super.onPause();
-//        Log.i("alc",  "CoreTest onPause");
-//    }
-//
-//    public void onStop(Bundle savedInstanceState) {
-//        super.onStop();
-//        Log.i("alc",  "CoreTest onStop");
-//    }
-//
-//    public void onDestroy(Bundle savedInstanceState) {
-//        super.onDestroy();
-//        Log.i("alc",  "CoreTest onDestroy");
-//    }
 }
 
 
