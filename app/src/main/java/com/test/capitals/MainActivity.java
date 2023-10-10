@@ -63,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRAS_COUNTRY_CURRENT = "country-current";
     public static final String EXTRAS_DIFFICULT_LVL = "diff-lvl";
     //public static final String BACKEND_URL = "http://10.0.2.2:4000";
-    public static final String BACKEND_URL = "http://192.168.1.14:4000";
+    //public static final String BACKEND_URL = "http://192.168.1.14:4000";
+    public static final String BACKEND_URL = "https://???.com";
     public static final String BACKEND_API = BACKEND_URL + "/api";
     public static final String POST_USER_SCORE = BACKEND_API + "/userScore";
     public static final String BEST_SCORE_FIELD_NAME_DB = "BESTSCORE";
@@ -135,7 +136,8 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //printHashKey();
+//        printHashKey();
+        Log.i("SDK_VER:", getFacebookSDKVersion());
 
 
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
@@ -169,13 +171,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    public void printHashKey()
-//    {
-//        // Add code to print out the key hash
+//    public void printHashKey()  {
 //        try {
 //            PackageInfo info
 //                    = getPackageManager().getPackageInfo(
-//                    "com.test.capitals",
+//                    "com.capitals.quiz",
 //                    PackageManager.GET_SIGNATURES);
 //
 //            for (Signature signature : info.signatures) {
@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
 //                MessageDigest md
 //                        = MessageDigest.getInstance("SHA");
 //                md.update(signature.toByteArray());
-//                Log.d("KeyHash:",
+//                Log.i("KeyHash:",
 //                        Base64.encodeToString(
 //                                md.digest(),
 //                                Base64.DEFAULT));
@@ -191,14 +191,42 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //
 //        catch (PackageManager.NameNotFoundException e) {
+//
 //        }
 //
 //        catch (NoSuchAlgorithmException e) {
 //        }
 //    }
 
-
-
+    private String getFacebookSDKVersion()
+    {
+        String sdkVersion = null;
+        ClassLoader classLoader = getClass().getClassLoader();
+        Class<?> cls;
+        try
+        {
+            cls = classLoader.loadClass("com.facebook.FacebookSdkVersion");
+            Field field = cls.getField("BUILD");
+            sdkVersion = String.valueOf(field.get(null));
+        }
+        catch (ClassNotFoundException e)
+        {
+            // error
+        }
+        catch (NoSuchFieldException e)
+        {
+            // error
+        }
+        catch (IllegalArgumentException e)
+        {
+            // error
+        }
+        catch (IllegalAccessException e)
+        {
+            // error
+        }
+        return sdkVersion;
+    }
 
 
 }
@@ -212,27 +240,6 @@ class CountryDescribe implements Serializable {
     String capitalName;
     int diffLvl;
     String imageName;
-
-
-//    public void setId(int id) {
-//        this.id = id;
-//    }
-//
-//    public void setCountryName(String countryName) {
-//        this.countryName = countryName;
-//    }
-//
-//    public void setCapitalName(String capitalName) {
-//        this.capitalName = capitalName;
-//    }
-//
-//    public void setDiffLvl(int diffLvl) {
-//        this.diffLvl = diffLvl;
-//    }
-//
-//    public void setImageName(String imageName) {
-//        this.imageName = imageName;
-//    }
 
     public CountryDescribe(int id, String countryName, String capitalName, int diffLvl, String imageName) {
         this.id = id;

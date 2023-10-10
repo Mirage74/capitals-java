@@ -38,11 +38,10 @@
 
         <Button
             android:id="@+id/modeByCountry"
-            android:layout_width="120dp"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="3dp"
             android:text="@string/by_country"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +50,7 @@
 
         <Button
             android:id="@+id/modeByCapital"
-            android:layout_width="120dp"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"

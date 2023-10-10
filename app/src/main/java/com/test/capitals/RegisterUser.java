@@ -39,6 +39,7 @@ public class RegisterUser extends AppCompatActivity {
     Button buttonRegister, buttonBack;
     String name1, pass1;
     ImageView eye;
+    int minUserNameLen, maxUserNameLen;
     boolean state = false;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +58,8 @@ public class RegisterUser extends AppCompatActivity {
         buttonRegister = findViewById(R.id.register);
         buttonBack = findViewById(R.id.back);
 
+        minUserNameLen = getResources().getInteger(R.integer.minUsernameLength);
+        maxUserNameLen = getResources().getInteger(R.integer.maxUsernameLength);
 
         eye = findViewById(R.id.toggle_view2);
         name1 = "";
@@ -91,12 +94,9 @@ public class RegisterUser extends AppCompatActivity {
     }
 
     private boolean checkUsername(String s) {
-        boolean flag = true;
-        if (s.contains("\"")) {
-            flag = false;
-        }
-        return flag;
+        return s.matches("[A-Za-z]\\w+") && s.length() >= minUserNameLen && s.length() <= maxUserNameLen;
     }
+
     public void register(ArrayList<CountryDescribe> countryList) {
         name1 = name.getText().toString();
         pass1 = pass.getText().toString();
@@ -106,7 +106,7 @@ public class RegisterUser extends AppCompatActivity {
             Toast.makeText(this, "Fields cannot be blank", Toast.LENGTH_SHORT).show();  // Check whether the fields are not blank
         } else {
             if (!checkUsername(name1)) {
-                Toast.makeText(this, "Fields USERNAME contain illegal symbol(s)", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Name length must contain 3-20 char and begin from letter", Toast.LENGTH_SHORT).show();
             } else {
                 // Create various messages to display in the app.
                 Toast failed_registration = Toast.makeText(this, "Register failed", Toast.LENGTH_SHORT);

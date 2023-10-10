@@ -45,6 +45,7 @@ public class LoginUser extends AppCompatActivity {
     ImageView eye;
     boolean state = false;
     User userInstance;
+    int minUserNameLen, maxUserNameLen;
 
 
     @Override
@@ -67,6 +68,9 @@ public class LoginUser extends AppCompatActivity {
         pass = findViewById(R.id.pass1);
         buttonLogin = findViewById(R.id.login);
         buttonBack = findViewById(R.id.back);
+
+        minUserNameLen = getResources().getInteger(R.integer.minUsernameLength);
+        maxUserNameLen = getResources().getInteger(R.integer.maxUsernameLength);
 
 
         eye = findViewById(R.id.toggle_view1);
@@ -143,10 +147,11 @@ public class LoginUser extends AppCompatActivity {
         name1 = name.getText().toString();
         pass1 = pass.getText().toString();
         //email1 = email.getText().toString();
-
-        if (name1.isEmpty() || pass1.isEmpty()) {
-            Toast.makeText(this, "Fields cannot be blank", Toast.LENGTH_SHORT).show();  // Check whether the fields are not blank
+        boolean checkUsername = name1.matches("[A-Za-z]\\w+") && name1.length() >= minUserNameLen && name1.length() <= maxUserNameLen;
+        if (name1.isEmpty() || pass1.isEmpty() || !checkUsername ) {
+            Toast.makeText(this, "Name length must contain 3-20 char and begin from letter; pass must be not empty", Toast.LENGTH_SHORT).show();  // Check whether the fields are not blank
         } else {
+
             // Create various messages to display in the app.
             Toast failed_login = Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT);
             Toast success_login = Toast.makeText(this, "Login success", Toast.LENGTH_SHORT);

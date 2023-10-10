@@ -32,6 +32,9 @@
 
     <integer name = "filterInfoMinLength">2</integer>
     <integer name = "listIdWidth">100</integer>
+    <integer name = "minUsernameLength">3</integer>
+    <integer name = "maxUsernameLength">20</integer>
+
 
 
 </resources>
