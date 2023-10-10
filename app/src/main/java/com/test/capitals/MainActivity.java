@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRAS_DIFFICULT_LVL = "diff-lvl";
     //public static final String BACKEND_URL = "http://10.0.2.2:4000";
     //public static final String BACKEND_URL = "http://192.168.1.14:4000";
-    public static final String BACKEND_URL = "https://???.com";
+    public static final String BACKEND_URL = "https://balexvic.com";
     public static final String BACKEND_API = BACKEND_URL + "/api";
     public static final String POST_USER_SCORE = BACKEND_API + "/userScore";
     public static final String BEST_SCORE_FIELD_NAME_DB = "BESTSCORE";

@@ -1,7 +1,7 @@
 <resources>
-    <string name="facebook_app_id">[327202266538909]</string>
-    <string name="fb_login_protocol_scheme">fb327202266538909</string>
-    <string name="facebook_client_token">1748c79790130be5969e3f075312f4f4</string>
+    <string name="facebook_app_id">[???]</string>
+    <string name="fb_login_protocol_scheme">???</string>
+    <string name="facebook_client_token">???</string>
     <string name="app_name">CapitalsQuiz</string>
     <string name="username">Username</string>
     <string name="login">Login</string>
